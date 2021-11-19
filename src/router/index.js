@@ -63,6 +63,11 @@ const routes = [
     name: 'RequestFormPage',
     component : () => import("../views/RequestFormPage.vue")
   },
+  {
+    path: '/faturali-ol',
+    name: 'FaturaliOl',
+    component : () => import("../views/FaturaliOl.vue")
+  },
 ]
 
 const router = createRouter({
