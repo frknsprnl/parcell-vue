@@ -14,6 +14,7 @@
         <div class="container col-lg-7 mt-3">
           <label for="password" class="form-label"> <span>Yeni Şifre(Tekrar)</span></label>
           <input type="text" class="form-control form-control" id="password" />
+          <button class="btn btn-primary btn-md mt-4">Değiştir</button>
         </div>
       </div>
     </div>
