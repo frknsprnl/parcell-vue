@@ -1,4 +1,8 @@
 <template>
+<div class="d-flex justify-content-center">
+<h4>Sık Sorulan Sorular</h4>
+</div>
+<br>
 	<vue-collapsible-panel :expanded="false" bg-color-body="#4c3a6e">
 		<template #title>
 			Mobil haberleşme hizmetlerinde abonelik tesis ederken dikkat etmem
