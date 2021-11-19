@@ -1,0 +1,31 @@
+<template>
+  <div class="d-flex justify-content-between-sm gradient-border">
+    <div class="row-2 mt-4 ms-4">
+      <h2 class="col-8 ms-4 mb-5">
+        Online başvuruya özel avantajları kaçırmamak için Parcell'li ol!
+      </h2>
+      <button class="btn btn-danger btn-lg col-2 mt-5 ms-4">Parcell'e Geç</button>
+    </div>
+    <logo />
+  </div>
+</template>
+
+<script>
+import Logo from "../Shared/Logo.vue";
+
+export default {
+  components: {
+    Logo,
+  },
+};
+</script>
+
+<style>
+.font-google {
+  font-family: "Itim", cursive;
+}
+
+.gradient-border {
+  background: linear-gradient(135deg, #ce9ffc, #7367f0);
+}
+</style>
