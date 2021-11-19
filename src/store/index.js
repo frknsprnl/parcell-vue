@@ -2,8 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    profileUserDetailTab: null,
-    profileDepositTab: null
+    profileActiveTab: null,
   },
   mutations: {
     setProfileActiveTab(profileActiveTab, input) {
@@ -14,4 +13,4 @@ export default createStore({
   },
   modules: {
   }
-})
+});

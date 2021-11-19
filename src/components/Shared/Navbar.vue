@@ -70,7 +70,7 @@
             </router-link>
             <router-link class="text-decoration-none" :to="{ name: 'ProfilePage' }">
               <li class="nav-item pl-1 me-2 text-decoration-none">
-                <a class="nav-link" href="#"><i class="fa fa-user-plus fa-fw me-1"></i>Profile </a>
+                <a class="nav-link" href="#"><i class="fa fa-user-plus fa-fw me-1"></i>Profil </a>
               </li>
             </router-link>
           </ul>

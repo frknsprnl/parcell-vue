@@ -61,3 +61,15 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {};
+</script>
+
+<style scoped></style>
+
+<style lang="sass" scoped>
+@import '@/../public/style.scss'
+.btn-primary
+  @include button-variant($colors-purple-tawk,white)
+</style>

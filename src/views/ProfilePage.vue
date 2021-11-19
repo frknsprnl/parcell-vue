@@ -5,8 +5,8 @@
       <div class="row">
         <sidebar />
       </div>
-      <user-details v-if="!isActive" />
-      <deposit v-else-if="isActive" />
+      <user-details v-if="activeTab === 'UserDetails'" />
+      <deposit v-else-if="activeTab === 'Deposit'" />
     </div>
     <footer-bar />
   </div>
@@ -24,8 +24,7 @@ export default {
 
   data() {
     return {
-      isActive: true,
-      // activeTab: this.$store.profileActiveTab,
+      activeTab: this.getProfileActiveTab,
     };
   },
 
@@ -35,11 +34,8 @@ export default {
     },
   },
   computed: {
-    getUserDetailTabValue() {
-      return this.$store.profileUserDetailsTab;
-    },
-    getDepositTabValue() {
-      return this.$store.profileDepositTab;
+    getProfileActiveTab() {
+      return this.$store.profileActiveTab;
     },
   },
 };

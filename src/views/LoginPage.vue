@@ -13,13 +13,17 @@
                     <div class="row">
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
-                          <label class="form-label" for="mail"><i class="bi bi-envelope-fill"> Email</i></label>
+                          <label class="form-label" for="mail"
+                            ><i class="bi bi-envelope-fill"> Email</i></label
+                          >
                           <input type="mail" id="mail" class="form-control form-control-md" />
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
-                          <label class="form-label" for="password"><i class="bi bi-shield-lock-fill"> Şifre</i></label>
+                          <label class="form-label" for="password"
+                            ><i class="bi bi-shield-lock-fill"> Şifre</i></label
+                          >
                           <input type="text" id="password" class="form-control form-control-md" />
                         </div>
                       </div>
@@ -30,7 +34,7 @@
                       </div>
 
                       <div class="mt-4 pt-2">
-                        <input class="btn btn-primary btn-md" type="submit" value="Giriş Yap" />
+                        <input class="btn btn-primary btn-md" type="button" value="Giriş Yap" />
                       </div>
                     </div>
                   </form>
@@ -52,3 +56,9 @@ export default {
   components: { Navbar, FooterBar },
 };
 </script>
+
+<style scoped>
+.btn-primary {
+  background-color: #7c27c5;
+}
+</style>

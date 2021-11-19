@@ -26,15 +26,14 @@
 export default {};
 </script>
 
-<style>
+<style scoped>
 .btn-primary {
   background-color: purple;
 }
 .btn-primary:hover {
   background-color: rgb(92, 20, 92);
 }
-
-button:hover > i {
+.button:hover > i {
   color: #fbc531;
 }
 </style>

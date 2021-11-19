@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container rounded bg-secondary row justify-content-center border border-danger"
+    class="container rounded bg-secondary row justify-content-center"
     style="width: 300px; height: 600px"
   >
     <div class="d-flex justify-content-center align-items-center">
@@ -27,13 +27,8 @@
 export default {
   methods: {
     setProfileActiveTab(input) {
-      if (input === "UserDetails") {
-        this.$store.profileUserDetailsTab = true;
-        this.$store.profileDepositTab = false;
-      } else if (input === "Deposit") {
-        this.$store.profileDepositTab = true;
-        this.$store.profileUserDetailsTab = false;
-      }
+      this.$store.commit("setProfileActiveTab", input);
+      console.log(this.$store.profileActiveTab);
     },
   },
 };
