@@ -21,7 +21,9 @@
             <button @click="setActiveTab('Deposit')" class="btn btn-lg">Tl Yükle</button>
           </div>
           <div class="d-flex justify-content-center align-items-center">
-            <button class="btn btn-lg bg-secondary">Paketlerim</button>
+            <button @click="setActiveTab('UserPlan')" class="btn btn-lg bg-secondary">
+              Paketlerim
+            </button>
           </div>
           <div class="d-flex justify-content-center align-items-center">
             <button class="btn btn-lg bg-secondary">Faturalarım</button>
@@ -31,6 +33,13 @@
       <user-details v-if="activeTab === 'UserDetails'" />
       <deposit v-else-if="activeTab === 'Deposit'" />
       <password-reset v-else-if="activeTab === 'PasswordReset'" />
+      <div
+        class="border border-danger container d-flex justify-content-md-center"
+        v-else-if="activeTab === 'UserPlan'"
+      >
+        <user-plan class="" />
+        <remaining-usage-item class="" />
+      </div>
     </div>
     <footer-bar />
   </div>
@@ -43,9 +52,20 @@ import UserDetails from "../components/User/UserDetails.vue";
 //import Sidebar from "../components/User/Sidebar.vue";
 import Deposit from "@/components/User/Deposit.vue";
 import PasswordReset from "@/components/User/PasswordReset.vue";
+import UserPlan from "@/components/User/UserPlan.vue";
+import RemainingUsageItem from "@/components/User/RemainingUsageItem.vue";
 
 export default {
-  components: { Navbar, FooterBar, UserDetails, /*Sidebar*/ Deposit, PasswordReset },
+  components: {
+    Navbar,
+    FooterBar,
+    UserDetails,
+    /*Sidebar*/
+    Deposit,
+    PasswordReset,
+    UserPlan,
+    RemainingUsageItem,
+  },
 
   data() {
     return {
