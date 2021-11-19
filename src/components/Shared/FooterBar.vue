@@ -42,13 +42,13 @@
                   Sosyal Medya
                 </h5>
 
-                <a class="text-light" href="#"><i class="fa fa-facebook-square fa-fw fa-2x"></i></a>
+                <a class="text-light" href="https://www.facebook.com/"><i class="fa fa-facebook-square fa-fw fa-2x"></i></a>
 
-                <a class="text-light" href="#"><i class="fa fa-twitter-square fa-fw fa-2x"></i></a>
+                <a class="text-light" href="https://twitter.com/home"><i class="fa fa-twitter-square fa-fw fa-2x"></i></a>
 
-                <a class="text-light" href="#"><i class="fa fa-instagram fa-fw fa-2x"></i></a>
+                <a class="text-light" href="https://www.instagram.com/"><i class="fa fa-instagram fa-fw fa-2x"></i></a>
 
-                <a class="text-light" href="#"><i class="fa fa-linkedin fa-fw fa-2x"></i></a>
+                <a class="text-light" href="https://www.linkedin.com/"><i class="fa fa-linkedin fa-fw fa-2x"></i></a>
               </div>
             </div>
           </div>
