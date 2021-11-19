@@ -27,13 +27,19 @@ export default {};
 </script>
 
 <style scoped>
-.btn-primary {
-  background-color: purple;
-}
+
 .btn-primary:hover {
   background-color: rgb(92, 20, 92);
 }
 .button:hover > i {
   color: #fbc531;
 }
+
+</style>
+
+
+<style lang="sass" scoped>
+@import '@/../public/style.scss'
+.btn-primary
+  @include button-variant($colors-purple-tawk,white)
 </style>
