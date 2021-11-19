@@ -13,13 +13,13 @@
                     <div class="row">
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
-                          <label class="form-label" for="mail">Email</label>
+                          <label class="form-label" for="mail"><i class="bi bi-envelope-fill"> Email</i></label>
                           <input type="mail" id="mail" class="form-control form-control-md" />
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
-                          <label class="form-label" for="password">Şifre</label>
+                          <label class="form-label" for="password"><i class="bi bi-shield-lock-fill"> Şifre</i></label>
                           <input type="text" id="password" class="form-control form-control-md" />
                         </div>
                       </div>
