@@ -58,7 +58,11 @@ const routes = [
     name: 'PlansPage',
     component : () => import("../views/PlansPage.vue")
   },
-
+  {
+    path: '/request-form',
+    name: 'RequestFormPage',
+    component : () => import("../views/RequestFormPage.vue")
+  },
 ]
 
 const router = createRouter({

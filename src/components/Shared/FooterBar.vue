@@ -30,6 +30,14 @@
                     ><i class="bi bi-people me-2"></i>Müşteri Hizmetleri</a
                   >
                   <span class="ms-1"></span>
+                </router-link><br>
+                <router-link class="text-decoration-none" :to="{ name: 'RequestFormPage' }">
+                  <a
+                    class="text-light text-decoration-none"
+                    style="font-size: 1.2rem; font-weight: 400"
+                    ><i class="bi bi-file-earmark-text"></i>Talep Formu</a
+                  >
+                  <span class="ms-1"></span>
                 </router-link>
               </div>
             </div>
