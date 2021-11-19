@@ -93,7 +93,7 @@
       <tr>
         <td>
           <strong>
-            <i class="bi-telephone" style="color: #666690"></i>
+            <i class="bi-telephone-fill" style="color: #666690"></i>
             İletişim No.
           </strong>
         </td>
