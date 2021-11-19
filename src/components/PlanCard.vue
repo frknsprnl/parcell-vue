@@ -13,6 +13,11 @@
               ile iletişimin keyfini sürün.
             </p>
           </div>
+          <div class="d-flex justify-content-md-center">
+            <button class="btn btn-primary btn-lg mt-2">
+              <i class="bi bi-cart-plus-fill"></i>
+            </button>
+          </div>
         </div>
       </div>
       <div class="col-4">
@@ -27,6 +32,11 @@
               ile iletişimin keyfini sürün.
             </p>
           </div>
+          <div class="d-flex justify-content-md-center">
+            <button class="btn btn-primary btn-lg mt-2">
+              <i class="bi bi-cart-plus-fill"></i>
+            </button>
+          </div>
         </div>
       </div>
       <div class="col-4">
@@ -40,6 +50,11 @@
               yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 300SMS, 20GB internet
               ile iletişimin keyfini sürün.
             </p>
+          </div>
+          <div class="d-flex justify-content-md-center">
+            <button class="btn btn-primary btn-lg mt-2">
+              <i class="bi bi-cart-plus-fill"></i>
+            </button>
           </div>
         </div>
       </div>
