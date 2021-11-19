@@ -7,6 +7,7 @@
       </div>
       <user-details v-if="activeTab === 'UserDetails'" />
       <deposit v-else-if="activeTab === 'Deposit'" />
+      <button @click="deneme()">Tıkla</button>
     </div>
     <footer-bar />
   </div>
@@ -31,6 +32,10 @@ export default {
   methods: {
     setActiveTab(input) {
       this.activeTab = input;
+    },
+    deneme() {
+      console.log(this.activeTab);
+      console.log(this.$store.profileActiveTab);
     },
   },
   computed: {

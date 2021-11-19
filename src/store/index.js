@@ -1,12 +1,12 @@
 import { createStore } from 'vuex'
 
-export default createStore({
+const store =  createStore({
   state: {
-    profileActiveTab: null,
+    profileActiveTab: "null",
   },
   mutations: {
-    setProfileActiveTab(profileActiveTab, input) {
-      profileActiveTab = input
+    setProfileActiveTab(state, payload) {
+      state.profileActiveTab = payload
     }
   },
   actions: {
@@ -14,3 +14,5 @@ export default createStore({
   modules: {
   }
 });
+
+export default store;

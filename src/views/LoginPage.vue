@@ -34,7 +34,7 @@
                       </div>
 
                       <div class="mt-4 pt-2">
-                        <input class="btn btn-primary btn-md" type="button" value="Giriş Yap" />
+                        <button class="btn btn-primary btn-md" type="button">Giriş Yap</button>
                       </div>
                     </div>
                   </form>
