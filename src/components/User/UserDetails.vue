@@ -1,12 +1,14 @@
 <template>
   <div class="container">
     <div class="container rounded bg-white">
-      <div class="row justify-content-center">
-        <div class="col-md-3 border-right">
-          <div class="d-flex flex-column align-items-center mt-5 p-4">
-            <img class="img-thumbnail rounded-circle mt-5" src="../../assets/userimage.jpg" />
-            <span class="mt-2" style="font-size: 1.2rem">Furkan Süpürenel</span>
-            <span class="mt-2" style="font-size: 1.2rem">999.99₺</span>
+      <div
+            class="card shadow-2-strong"
+            style="border-radius: 15px"
+          >
+      <div class="row d-flex justify-content-sm-center">
+        <div class="col-sm-3 ">
+          <div class="d-flex flex-column align-items-center p-4">
+            <img class="img-thumbnail rounded-circle mt-1" src="../../assets/userimage.jpg" />
           </div>
         </div>
         <div class="col-md-5 border-right">
@@ -107,6 +109,7 @@
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
