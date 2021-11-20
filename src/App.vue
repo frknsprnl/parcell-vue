@@ -1,25 +1,12 @@
 <template>
-	<router-view> </router-view>
+  <router-view> </router-view>
 </template>
 
 <style lang="scss">
-// #app {
-// 	font-family: Avenir, Helvetica, Arial, sans-serif;
-// 	-webkit-font-smoothing: antialiased;
-// 	text-align: center;
-// 	color: #2c3e50;
-// }
+/* Works on Firefox */
 
-// #nav {
-// 	padding: 30px;
-
-// 	a {
-// 		font-weight: bold;
-// 		color: #2c3e50;
-
-// 		&.router-link-exact-active {
-// 			color: #42b983;
-// 		}
-// 	}
-// }
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 0px;
+}
 </style>

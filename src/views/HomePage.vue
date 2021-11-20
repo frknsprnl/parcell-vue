@@ -22,3 +22,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.section::-webkit-scrollbar-track {
+  background-color: red;
+}
+.section::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+</style>

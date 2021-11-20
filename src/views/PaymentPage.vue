@@ -1,18 +1,18 @@
 <template>
   <div class="container py-5">
     <div class="py-5">
-      <div class="container border border-danger">
+      <div class="container">
         <form class="row g-3 justify-content-center mb-2">
-          <div class="col-sm-6 border border-danger">
-            <button @click="goBack()" class="btn btn-primary btn-md mb-3">Geri Dön</button>
+          <div class="col-sm-6">
+            <button @click="goBack()" class="btn btn-secondary btn-md mb-3">Geri Dön</button>
             <div class="row">
               <h2 class="mb-3">Kart Bilgileri</h2>
             </div>
             <label for="firstName" class="form-label">Kart Numarası</label>
-            <input type="text" class="form-control" id="firstName" required />
+            <input type="text" class="form-control" id="firstName" maxlength="16" required />
           </div>
         </form>
-        <form class="row g-3 justify-content-center border border-danger">
+        <form class="row g-3 justify-content-center">
           <div class="col-sm-2">
             <label for="stateinf" class="form-label">Ay</label>
             <select class="form-select form-select" aria-label=".form-select-sm example" required>
@@ -44,7 +44,7 @@
 
           <div class="col-sm-2">
             <label for="CVV" class="form-label">CVV</label>
-            <input type="text" class="form-control" id="CVV" required />
+            <input type="text" class="form-control" id="CVV" maxlength="3" required />
           </div>
         </form>
         <div class="row justify-content-center mt-3">
