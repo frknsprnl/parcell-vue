@@ -64,6 +64,11 @@ const routes = [
     component : () => import("../views/RequestFormPage.vue")
   },
   {
+    path: '/number-transfer',
+    name: 'NumberTransfer',
+    component : () => import("../views/NumberTransfer.vue")
+  },
+  {
     path: '/faturali-ol',
     name: 'FaturaliOl',
     component : () => import("../views/FaturaliOl.vue")

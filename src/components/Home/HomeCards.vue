@@ -1,0 +1,44 @@
+<template>
+  <div class="container d-flex justify-content-center">
+    <card-item>
+      <template #image>
+        <img src="../../assets/logo.png" alt="plan" width="" />
+      </template>
+      <template #title>
+        <router-link :to="{ name: 'PlansPage' }">
+          <a href=""> Paketler </a>
+        </router-link>
+      </template>
+      <template #text-center>Parcell Tüm Müşterilerine İhtiyaçlarına Uygun Paketler Sunar </template>
+    </card-item>
+    <card-item>
+      <template #image>
+        <img src="../../assets/logo.png" alt="plan" width="" />
+      </template>
+      <template #title>
+        <router-link :to="{ name: 'ShopPage' }">
+          <a href=""> Mağaza </a>
+        </router-link>
+      </template>
+      <template #text-center>Parcell Tüm Müşterilerine İhtiyaçlarına Uygun Paketler Sunar </template>
+    </card-item>
+    <card-item>
+      <template #image>
+        <img src="../../assets/logo.png" alt="plan" width="" />
+      </template>
+      <template #title>
+        <router-link :to="{ name: 'PromotionsPage' }">
+          <a href=""> Promosyonlar </a>
+        </router-link>
+      </template>
+      <template #text-center>Parcell Tüm Müşterilerine İhtiyaçlarına Uygun Paketler Sunar </template>
+    </card-item>
+  </div>
+</template>
+
+<script>
+import CardItem from "../Shared/CardItem.vue";
+export default {
+  components: { CardItem },
+};
+</script>

@@ -4,8 +4,8 @@
       <h2 class="col-8 ms-4 mb-5">
         Online başvuruya özel avantajları kaçırmamak için Parcell'li ol!
       </h2>
-      <router-link class="text-decoration-none" :to="{ name: 'FaturaliOl' }">
-      <a class="btn btn-danger btn-lg col-2 mt-5 ms-4"> Parcell'e Geç</a>
+      <router-link class="text-decoration-none" :to="{ name: 'NumberTransfer' }">
+        <a class="btn btn-danger btn-lg col-2 mt-5 ms-4"> Parcell'e Geç</a>
       </router-link>
     </div>
     <logo />
