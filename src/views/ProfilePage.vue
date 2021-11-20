@@ -18,7 +18,7 @@
             </button>
           </div>
           <div class="d-flex justify-content-center align-items-center">
-            <button @click="setActiveTab('Deposit')" class="btn btn-lg">Tl Yükle</button>
+            <button @click="setActiveTab('Deposit')" class="btn btn-lg">TL Yükle</button>
           </div>
           <div class="d-flex justify-content-center align-items-center">
             <button @click="setActiveTab('UserPlan')" class="btn btn-lg bg-secondary">
@@ -26,13 +26,15 @@
             </button>
           </div>
           <div class="d-flex justify-content-center align-items-center">
-            <button class="btn btn-lg bg-secondary">Faturalarım</button>
+            <button @click="setActiveTab('FaturaDetay')" class="btn btn-lg bg-secondary">Faturalarım</button>
           </div>
         </div>
       </div>
       <user-details v-if="activeTab === 'UserDetails'" />
       <deposit v-else-if="activeTab === 'Deposit'" />
       <password-reset v-else-if="activeTab === 'PasswordReset'" />
+      <fatura-detay v-else-if="activeTab === 'FaturaDetay'" />
+
       <div
         class="border border-danger container d-flex justify-content-md-center"
         v-else-if="activeTab === 'UserPlan'"
@@ -54,6 +56,7 @@ import Deposit from "@/components/User/Deposit.vue";
 import PasswordReset from "@/components/User/PasswordReset.vue";
 import UserPlan from "@/components/User/UserPlan.vue";
 import RemainingUsageItem from "@/components/User/RemainingUsageItem.vue";
+import FaturaDetay from "@/components/User/FaturaDetay.vue";
 
 export default {
   components: {
@@ -65,6 +68,7 @@ export default {
     PasswordReset,
     UserPlan,
     RemainingUsageItem,
+    FaturaDetay,
   },
 
   data() {
