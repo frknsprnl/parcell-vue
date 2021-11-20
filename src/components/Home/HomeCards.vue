@@ -5,8 +5,8 @@
         <img src="../../assets/logo.png" alt="plan" width="" />
       </template>
       <template #title>
-        <router-link :to="{ name: 'PlansPage' }">
-          <a href=""> Paketler </a>
+        <router-link class="text-decoration-none" :to="{ name: 'PlansPage' }">
+          <a class="text-decoration-none" href=""> Paketler </a>
         </router-link>
       </template>
       <template #text-center>Parcell Tüm Müşterilerine İhtiyaçlarına Uygun Paketler Sunar </template>
@@ -16,8 +16,8 @@
         <img src="../../assets/logo.png" alt="plan" width="" />
       </template>
       <template #title>
-        <router-link :to="{ name: 'ShopPage' }">
-          <a href=""> Mağaza </a>
+        <router-link class="text-decoration-none" :to="{ name: 'ShopPage' }">
+          <a class="text-decoration-none" href=""> Mağaza </a>
         </router-link>
       </template>
       <template #text-center>Parcell Tüm Müşterilerine İhtiyaçlarına Uygun Paketler Sunar </template>
@@ -27,8 +27,8 @@
         <img src="../../assets/logo.png" alt="plan" width="" />
       </template>
       <template #title>
-        <router-link :to="{ name: 'PromotionsPage' }">
-          <a href=""> Promosyonlar </a>
+        <router-link class="text-decoration-none" :to="{ name: 'PromotionsPage' }">
+          <a class="text-decoration-none" href=""> Promosyonlar </a>
         </router-link>
       </template>
       <template #text-center>Parcell Tüm Müşterilerine İhtiyaçlarına Uygun Paketler Sunar </template>

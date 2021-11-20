@@ -73,6 +73,16 @@ const routes = [
     name: 'FaturaliOl',
     component : () => import("../views/FaturaliOl.vue")
   },
+  {
+    path: '/basket',
+    name: 'BasketPage',
+    component : () => import("../views/BasketPage.vue")
+  },
+  {
+    path: '/payment',
+    name: 'PaymentPage',
+    component : () => import("../views/PaymentPage.vue")
+  },
 ]
 
 const router = createRouter({

@@ -1,10 +1,10 @@
 <template>
   <div class="container py-5">
-    <section class="hover-div">
+    <section class="hover-div bg-mighty">
       <slot name="image" />
       <div class="hover-div_inner">
         <h3>
-          <slot name="title" />
+          <slot class="" name="title" />
         </h3>
         <slot name="text-center" />
       </div>

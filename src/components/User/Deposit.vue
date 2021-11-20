@@ -1,14 +1,12 @@
 <template>
   <div class="container">
-  
     <div class="p-4">
       <div class="row justify-content-center">
         <div>
           <div>
             <h2 class="text-center">TL Yükle</h2>
             <h6 class="text-center mt-4">
-              TL Yüklemesi Yapmak İçin Aşağıda Bulunan Paketlerden Birini Seçip Yükle Butonuna
-              Basınız.
+              TL Yüklemesi Yapmak İçin Aşağıda Bulunan Paketlerden Birini Seçip Yükle Butonuna Basınız.
             </h6>
           </div>
         </div>
@@ -55,8 +53,9 @@
           </div>
         </div>
         <div class="mt-4">
+          <h5 class="text-danger text-center mb-3">{{ warningMessage }}</h5>
           <div class="d-flex justify-content-center">
-            <button class="btn btn-primary btn-lg">Yükle</button>
+            <button @click="goToPayment()" class="btn btn-primary btn-lg">Yükle</button>
           </div>
         </div>
       </div>
@@ -69,12 +68,20 @@ export default {
   data() {
     return {
       depositAmount: null,
+      warningMessage: null,
     };
   },
 
   methods: {
     setDepositAmount(e) {
       this.depositAmount = e;
+    },
+    goToPayment() {
+      if (this.depositAmount != null) {
+        this.$router.push({ name: "PaymentPage" });
+      } else {
+        this.warningMessage = "TL Paketi Seçmediniz!";
+      }
     },
   },
 

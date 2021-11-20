@@ -9,8 +9,8 @@
             <hr />
             <p class="text-center" id="promotion-text">
               Süper Fırsat 10GB paketiyle yüksek hızda interneti ve zengin içerikleri doya doya
-              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 1000SMS, 10GB internet
-              ile iletişimin keyfini sürün.
+              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 1000SMS, 10GB internet ile
+              iletişimin keyfini sürün.
             </p>
           </div>
           <div class="d-flex justify-content-md-center">
@@ -28,8 +28,8 @@
             <hr />
             <p class="text-center" id="promotion-text">
               Süper Fırsat 13GB+ paketiyle yüksek hızda interneti ve zengin içerikleri doya doya
-              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 300SMS, 13GB internet
-              ile iletişimin keyfini sürün.
+              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 300SMS, 13GB internet ile
+              iletişimin keyfini sürün.
             </p>
           </div>
           <div class="d-flex justify-content-md-center">
@@ -47,8 +47,8 @@
             <hr />
             <p class="text-center" id="promotion-text">
               Süper Fırsat 20GB+ paketiyle yüksek hızda interneti ve zengin içerikleri doya doya
-              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 300SMS, 20GB internet
-              ile iletişimin keyfini sürün.
+              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 300SMS, 20GB internet ile
+              iletişimin keyfini sürün.
             </p>
           </div>
           <div class="d-flex justify-content-md-center">
@@ -65,8 +65,6 @@
 <script>
 export default {};
 </script>
-
-<style scoped></style>
 
 <style lang="sass" scoped>
 @import '@/../public/style.scss'
