@@ -1,10 +1,6 @@
 <template>
   <div class="container">
     <div class="container rounded bg-white">
-      <div
-            class="card shadow-2-strong"
-            style="border-radius: 15px"
-          >
       <div class="row d-flex justify-content-sm-center">
         <div class="col-sm-3 ">
           <div class="d-flex flex-column align-items-center p-4">
@@ -109,7 +105,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 

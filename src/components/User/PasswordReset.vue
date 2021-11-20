@@ -1,9 +1,5 @@
 <template>
   <div class="container d-flex justify-content-md-center align-items-center mb-5">
-     <div
-            class="card shadow-2-strong"
-            style="border-radius: 15px"
-          >
     <div class="mb-5">
       <div class="row justify-content-center mb-5">
         <div class="container col-lg-7 mt-3">
@@ -23,5 +19,4 @@
       </div>
     </div>
   </div>
-</div>
 </template>

@@ -1,9 +1,6 @@
 <template>
   <div class="container">
-     <div
-            class="card shadow-2-strong"
-            style="border-radius: 15px"
-          >
+  
     <div class="p-4">
       <div class="row justify-content-center">
         <div>
@@ -64,7 +61,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
