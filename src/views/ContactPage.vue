@@ -14,18 +14,20 @@
     </div>
 
     <br />
-    <div class="panel-body contact-content mb-3">
+    <div class="panel-body contact-content mb-3 " id="contact-panel">
+      <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
+        <div class="card-body p-md-4">
       <div class="row d-flex justify-content-center">
         <div class="col-4" id="contact-address">
           <strong>Kurumsal adresimiz</strong>
           <p>Süleyman Demirel Üniversitesi, Süleyman Demirel Cd., 32260 Çünür, Isparta/Türkiye</p>
         </div>
-        <div class="col-4">
+        <div class="col-5">
           <div class="mapouter">
             <div class="gmap_canvas">
               <iframe
                 class="rounded-3"
-                width="450"
+                width="460"
                 height="250"
                 id="gmap_canvas"
                 src="https://maps.google.com/maps?q=Isparta%20S%C3%BCleyman%20Demirel%20M%C3%BChendislik&t=&z=13&ie=UTF8&iwloc=&output=embed"
@@ -39,6 +41,8 @@
           </div>
         </div>
         <!--The div element for the map -->
+      </div>
+      </div>
       </div>
     </div>
     <br />
@@ -110,5 +114,9 @@ export default {
   font-size: 16px;
   margin-right: 140px;
   margin-left: 20px;
+}
+#contact-panel{
+  width: 65em;
+  margin-left: 120px;
 }
 </style>
