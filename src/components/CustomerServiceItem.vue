@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-4">
+
     <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
         <h2 class="heading1">Müşteri Hizmetleri</h2>
@@ -7,8 +8,7 @@
         <h6>
           Parcell ailesi olarak müşteri odaklı hizmet anlayışımız ile müşterilerimizin sorularına en
           hızlı ve açık şekilde cevap vermek, servis kalitemizi ve müşteri memnuniyetini en üst
-          düzeyde tutabilmek adına alanında uzman kadromuzla hizmetinizdeyiz. Bizlere mail yoluyla
-          ulaşmak isterseniz bu formu kullanabilirsiniz.
+          düzeyde tutabilmek adına alanında uzman kadromuzla hizmetinizdeyiz.
         </h6>
       </div>
     </div>
@@ -73,7 +73,7 @@
         </div>
       </div>
     </form> -->
-
+    <h6><li> Siz müşterilerimize sunduğumuz hizmetlerimizden bir tanesi de canlı destek! Peki;</li></h6>
     <div class="mt-4">
       <vue-collapsible-panel-group accordion :baseColor="'#482c77'">
         <vue-collapsible-panel :expanded="false">
@@ -83,12 +83,25 @@
             kurmamızı sağlayan bir sistemdir. Bu sistem ana sayfamızda, iletişim sayfamızda, müşteri
             hizmetleri sayfamızda ..ufak bir pencere olarak bulunmaktadır. Müşterilerimiz bu alana
             tıklayıp ihtiyaç duyulan bilgileri doldurduğunda müşteri temsilcimize bağlanır.
-            Müşterilerimiz ve temsilcilerimiz arasında anlık bir iletişim sağlanır.
+            Müşterilerimiz ve temsilcilerimiz arasında anlık bir iletişim sağlanır. Sayfanın sağ alt köşesindeki konuşma baloncuğuna tıklayarak hemen sohbeti başlatabilirsiniz!
           </template>
         </vue-collapsible-panel>
       </vue-collapsible-panel-group>
     </div>
-
+    <h6 class="pt-3"><li> Canlı destek sizin için doğru tercih değilse;</li></h6>
+    <div class="mt-4">
+      <vue-collapsible-panel-group accordion :baseColor="'#482c77'">
+        <vue-collapsible-panel :expanded="false">
+          <template #title> Bizimle nasıl iletişime geçebilirsiniz? </template>
+          <template #content>
+            <li> Bir sorunuz varsa öncelikle internet sayfamızın altında yer alan ve her sayfadan erişebileceğiniz sık sorulan sorular sekmesine gidebilir,</li> 
+            <li> Herhangi bir şikayetinizi iletmek için talep formunu doldurabilir,</li>
+            <li> İletişim sayfamızdan işletme konumumuz hakkında bilgi alabilirsiniz.</li>
+          </template>
+        </vue-collapsible-panel>
+      </vue-collapsible-panel-group>
+    </div>
+    </div>
     <div class="d-flex justify-content-center mt-5">
       <tr>
         <td>
@@ -106,7 +119,6 @@
         0 (532) 532 00 00'ı arayarak ulaşabilirsiniz.
       </p>
     </div>
-  </div>
 </template>
 
 <script>
