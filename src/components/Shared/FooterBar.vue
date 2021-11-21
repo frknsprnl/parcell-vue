@@ -71,19 +71,3 @@
 <style>
 @import url("../../../public/style.css");
 </style>
-
-<style lang="scss" scoped>
-.fa-facebook-square {
-  background-color: blue;
-  -webkit-background-clip: text;
-}
-.fa-twitter-square::hover {
-  color: blue;
-}
-.fa-instagram::hover {
-  color: blue;
-}
-.fa-linkedin::hover {
-  color: blue;
-}
-</style>
