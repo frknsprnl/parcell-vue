@@ -55,7 +55,7 @@
               <a href="#">&leftarrow;</a><span class="text-muted">Alışverişe Geri Dön</span>
             </div>
           </div>
-          <div class="col-md-4 summary p-1 mt-4">
+          <div class="col-md-4 summary pt-1 mt-4">
             <h5 class="mb-2"><b>Sipariş Özeti</b></h5>
             <div class=""></div>
             <hr />
@@ -64,21 +64,27 @@
             </div>
             <form>
               <p>Kargo</p>
-              <select>
-                <option class="text-muted">Parcell Kargo- 15 TL</option>
-              </select>
+              <div class="pe-2">
+                <select>
+                  <option class="text-muted">Parcell Kargo- 15 TL</option>
+                </select>
+              </div>
             </form>
             <div class="row" style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0">
               <div class="col">Toplam Tutar</div>
               <div class="col text-right">6215.00 TL</div>
             </div>
-            <button class="btn">Ödeme Kısmına İlerle</button>
+            <div class="pt-4 ms-5">
+              <router-link :to="{ name: 'PaymentPage' }">
+                <button class="btn btn-primary">Ödeme Kısmına İlerle</button>
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <footer-bar />
   </div>
+  <footer-bar />
 </template>
 
 <script>
@@ -201,7 +207,7 @@ input:focus::-webkit-input-placeholder {
   color: transparent;
 }
 
-.btn {
+/* .btn {
   background-color: #000;
   border-color: #000;
   color: white;
@@ -210,7 +216,7 @@ input:focus::-webkit-input-placeholder {
   margin-top: 4vh;
   padding: 1vh;
   border-radius: 0;
-}
+} */
 
 .btn:focus {
   box-shadow: none;
