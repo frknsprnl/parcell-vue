@@ -4,13 +4,12 @@
     <div class="d-flex justify-content-lg-between mt-5">
       <div class="row">
         <div
-          class="container rounded bg-secondary row justify-content-center"
+          class="container rounded row justify-content-center"
           style="width: 300px; height: 600px"
+          id="sidebar"
         >
           <div class="d-flex justify-content-center align-items-center">
-            <button @click="setActiveTab('UserDetails')" class="btn btn-lg bg-secondary">
-              Kullanıcı Bilgileri
-            </button>
+            <button @click="setActiveTab('UserDetails')" class="btn btn-lg">Kullanıcı Bilgileri</button>
           </div>
           <div class="d-flex justify-content-center align-items-center">
             <button @click="setActiveTab('PasswordReset')" class="btn btn-lg">Şifre Değiştir</button>
@@ -19,10 +18,10 @@
             <button @click="setActiveTab('Deposit')" class="btn btn-lg">TL Yükle</button>
           </div>
           <div class="d-flex justify-content-center align-items-center">
-            <button @click="setActiveTab('UserPlan')" class="btn btn-lg bg-secondary">Paketlerim</button>
+            <button @click="setActiveTab('UserPlan')" class="btn btn-lg">Paketlerim</button>
           </div>
           <div class="d-flex justify-content-center align-items-center">
-            <button @click="setActiveTab('FaturaDetay')" class="btn btn-lg bg-secondary">Faturalarım</button>
+            <button @click="setActiveTab('FaturaDetay')" class="btn btn-lg">Faturalarım</button>
           </div>
         </div>
       </div>
@@ -142,7 +141,6 @@ export default {
     transform: rotate(126deg);
   }
 }
-
 .circle-wrap .inside-circle {
   width: 130px;
   height: 130px;
@@ -156,5 +154,13 @@ export default {
   z-index: 100;
   font-weight: 700;
   font-size: 2em;
+}
+.btn-lg {
+  background-color: #503c6c;
+  color: white;
+}
+
+#sidebar {
+  background-color: #503c6c;
 }
 </style>
