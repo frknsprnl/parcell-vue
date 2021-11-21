@@ -1,7 +1,9 @@
 <template>
   <div class="container py-5">
     <section class="hover-div bg-mighty">
-      <slot name="image" />
+      <div class="border border-danger" style="width: 20rem; height: 15rem">
+        <slot class="" name="image" />
+      </div>
       <div class="hover-div_inner">
         <h3>
           <slot class="" name="title" />

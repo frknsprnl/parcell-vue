@@ -9,8 +9,8 @@
             <hr />
             <p class="text-center" id="promotion-text">
               Süper Fırsat 10GB paketiyle yüksek hızda interneti ve zengin içerikleri doya doya
-              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 1000SMS, 10GB internet
-              ile iletişimin keyfini sürün.
+              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 1000SMS, 10GB internet ile
+              iletişimin keyfini sürün.
             </p>
           </div>
         </div>

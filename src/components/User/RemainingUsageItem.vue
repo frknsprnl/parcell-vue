@@ -1,10 +1,10 @@
 <template>
-  <section class="container border border-danger" id="max-container">
-    <div class="container">
+  <section class="container d-flex me-5" id="">
+    <div class="">
       <div class="d-flex justify-content-center align-items-center">
-        <div class="pt-5">
+        <div class="card mt-5">
           <div class="row">
-            <div class="card col-md-4">
+            <div class="col-md-4">
               <div class="card-title">
                 <h3 class="text-center pt-1">Dakika</h3>
                 <hr />
@@ -22,7 +22,7 @@
               </div>
             </div>
 
-            <div class="card col-md-4">
+            <div class="col-md-4">
               <div class="card-title">
                 <h3 class="text-center pt-1 pe-2">İnternet</h3>
                 <hr />
@@ -40,7 +40,7 @@
               </div>
             </div>
 
-            <div class="card col-md-4">
+            <div class="col-md-4">
               <div class="card-title">
                 <h3 class="text-center pt-1">SMS</h3>
                 <hr />
@@ -63,6 +63,7 @@
     </div>
   </section>
 </template>
+
 <style scoped>
 .circle-wrap {
   margin: 20px;
@@ -103,6 +104,7 @@
     transform: rotate(126deg);
   }
 }
+
 .circle-wrap .inside-circle {
   width: 130px;
   height: 130px;

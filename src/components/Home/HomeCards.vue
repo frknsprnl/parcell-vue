@@ -13,7 +13,11 @@
     </card-item>
     <card-item>
       <template #image>
-        <img src="../../assets/logo.png" alt="plan" width="" />
+        <img
+          class="img-fluid border border-success border-3"
+          src="../../assets/parcelLogo3D.png"
+          alt="plan"
+        />
       </template>
       <template #title>
         <router-link class="text-decoration-none" :to="{ name: 'ShopPage' }">

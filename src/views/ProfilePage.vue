@@ -29,9 +29,9 @@
       <deposit v-else-if="activeTab === 'Deposit'" />
       <password-reset v-else-if="activeTab === 'PasswordReset'" />
       <fatura-detay v-else-if="activeTab === 'FaturaDetay'" />
-      <div class="container d-flex justify-content-start" v-else-if="activeTab === 'UserPlan'">
+      <div class="container d-flex p-4" v-else-if="activeTab === 'UserPlan'">
         <user-plan class="" />
-        <remaining-usage-item class="" />
+        <remaining-usage-item class="" v-if="true" />
       </div>
     </div>
     <footer-bar />
