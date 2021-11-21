@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-between-sm gradient-border">
     <div class="row-2 mt-4 ms-4">
-      <h2 class="col-8 ms-4 mb-5">
+      <h2 class="col-8 ms-4 mb-5 text-white">
         Online başvuruya özel avantajları kaçırmamak için Parcell'li ol!
       </h2>
       <router-link class="text-decoration-none" :to="{ name: 'NumberTransfer' }">
@@ -28,6 +28,6 @@ export default {
 }
 
 .gradient-border {
-  background: linear-gradient(135deg, #ce9ffc, #7367f0);
+  background: linear-gradient(0deg, #7367f0, #4c3a6e);
 }
 </style>
