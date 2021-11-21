@@ -2,12 +2,10 @@
   <div class="p-4">
     <div class="card p-4" style="width: 15rem">
       <slot name="image" />
-
       <div class="card-body">
         <div class="row align-items-center">
-          <h3 class="card-title text-primary text-center"><slot name="title" /></h3>
-          <hr />
-          <div>
+          <slot name="title" />
+          <div class="mt-2">
             <p><slot name="body-text" /></p>
           </div>
           <hr />
@@ -40,4 +38,6 @@ export default {};
 @import '@/../public/style.scss'
 .btn-primary
   @include button-variant($colors-purple-tawk,white)
+.btn-outline-primary
+  @include button-outline-variant($colors-purple-tawk,white)
 </style>
