@@ -9,6 +9,7 @@
   --colors-purple-navy: #4f517d;
   --colors-purple-navy: #4f517d;
   --colors-purple-tawk: #7c27c5;
+  --colors-orange-dark: #ffa012;
 }
 
 .navbar {
@@ -18,14 +19,15 @@
   color: #fff;
 }
 .navbar .navbar-nav .nav-link:hover {
-  color: #fbc531;
+  color: var(--colors-orange-dark);
 }
 .navbar .navbar-nav .navbar-make-active > .nav-link {
-  color: #fbc531;
+  color: var(--colors-orange-dark);
 }
 
 footer a.text-light:hover {
-  color: #fed136 !important;
+  /* color: #fed136 !important; */
+  color: var(--colors-orange-dark) !important;
   text-decoration: none;
 }
 footer .cizgi {

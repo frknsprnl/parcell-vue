@@ -1,0 +1,8 @@
+@import "./style.scss";
+
+.btn-primary {
+  @include button-variant($colors-purple-tawk, white);
+}
+.btn-outline-primary {
+  @include button-outline-variant($colors-purple-tawk, white);
+}
