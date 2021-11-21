@@ -60,7 +60,7 @@
             <div class=""></div>
             <hr />
             <div class="row">
-              <div class="col text-right">6200.00 TL</div>
+              <h6 class="col container">6200 TL</h6>
             </div>
             <form>
               <p>Kargo</p>
@@ -74,7 +74,7 @@
               <div class="col">Toplam Tutar</div>
               <div class="col text-right">6215.00 TL</div>
             </div>
-            <div class="pt-4 ms-5">
+            <div class="pt-4">
               <router-link :to="{ name: 'PaymentPage' }">
                 <button class="btn btn-primary">Ödeme Kısmına İlerle</button>
               </router-link>

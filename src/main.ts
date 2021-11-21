@@ -5,7 +5,7 @@ import store from './store'
 
 //import VueGoogleMaps from '@fawmi/vue-google-maps';
 import "bootstrap/dist/css/bootstrap.min.css"; 
-// import "bootstrap";
+import "@/../public/global.scss";
 
 
 const app = createApp(App);
