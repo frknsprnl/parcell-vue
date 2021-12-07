@@ -135,5 +135,10 @@ export default {
     Navbar,
     FooterBar,
   },
+  mounted() {
+    this.$appAxios.get("/User").then(responseData => {
+      console.log(responseData);
+    })
+  }
 };
 </script>

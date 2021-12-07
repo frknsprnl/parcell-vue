@@ -11,6 +11,7 @@
     "@popperjs/core": "^2.10.2",
     "@swoga/vue-collapsible-panel": "^0.3.0",
     "@vue/composition-api": "^1.4.0",
+    "axios": "^0.24.0",
     "bootstrap": "^5.1.3",
     "core-js": "^3.6.5",
     "vue": "^3.0.0",
