@@ -9,7 +9,7 @@
                 <div class="row g-0">
                   <div class="col-md-4">
                     <img
-                      src="@/assets/xioami-powerbank.png"
+                      src="@/assets/xiaomi-powerbank.png"
                       class="img-fluid rounded-start"
                       alt="Samsung tablet"
                     />

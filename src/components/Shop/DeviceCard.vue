@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4">
-    <div class="card p-4" style="width: 15rem">
+  <div class="p-4" >
+    <div class="card p-4 " style="width: 15rem">
       <slot name="image" />
       <div class="card-body">
         <div class="row align-items-center">

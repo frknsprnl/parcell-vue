@@ -1,34 +1,16 @@
 <template>
   <div class="d-flex justify-content-lg-center">
-    <device-card>
+    <device-card v-for="data in deviceData" :key="data.id">
       <template #image>
-        <img src="@\assets\apple-airpods-2.png" alt="logo" style="height: 12rem" />
+        <div class=""  >
+          <div class="img-cont" :style="` background-image : url('${ data.imageDirectory }')`"></div>
+        </div>
       </template>
       <template #title>
-        <button class="btn btn-outline-primary" @click="openModal('headphone')">Apple Airpod 2</button>
+        <button class="btn btn-outline-primary" @click="openModal('headphone')">{{ data.name}}</button>
       </template>
-      <template #body-text> Lorem ipsum dolor sit amet. </template>
-      <template #price> 1000 TL </template>
-    </device-card>
-    <device-card>
-      <template #image>
-        <img src="@\assets\samsung-telefon.png" alt="logo" style="height: 12rem" />
-      </template>
-      <template #title
-        ><button class="btn btn-outline-primary" @click="openModal('phone')">Samsung</button>
-      </template>
-      <template #body-text> Lorem ipsum dolor sit amet. </template>
-      <template #price> 5000 TL </template>
-    </device-card>
-    <device-card>
-      <template #image>
-        <img src="@\assets\xioami-powerbank.png" alt="logo" style="height: 12rem" />
-      </template>
-      <template #title
-        ><button class="btn btn-outline-primary" @click="openModal('powerbank')">Xiaomi Powerbank</button>
-      </template>
-      <template #body-text> Lorem ipsum dolor sit amet. </template>
-      <template #price> 200 TL </template>
+      <template #body-text> {{ data.detailText}} </template>
+      <template #price> {{ data.price}} </template>
     </device-card>
   </div>
   <modal
@@ -48,42 +30,6 @@
       <headphone-item />
     </template>
   </modal>
-  <modal
-    :visible="phone"
-    @hide="phone = false"
-    :bgOverlay="'transparent'"
-    :bgPanel="'white'"
-    :defaultWidth="'50%'"
-    :closeScroll="true"
-  >
-    <template #header>
-      <!--    add your custom header     -->
-      <div class="d-grid">
-        <button @click="closeModal('phone')" class="btn btn-outline-primary">X</button>
-      </div>
-    </template>
-    <template #body>
-      <phone-item />
-    </template>
-  </modal>
-  <modal
-    :visible="powerbank"
-    @hide="powerbank = false"
-    :bgOverlay="'transparent'"
-    :bgPanel="'white'"
-    :defaultWidth="'50%'"
-    :closeScroll="true"
-  >
-    <template #header>
-      <!--    add your custom header     -->
-      <div class="d-grid">
-        <button @click="closeModal('powerbank')" class="btn btn-outline-primary">X</button>
-      </div>
-    </template>
-    <template #body>
-      <powerbank-item />
-    </template>
-  </modal>
 </template>
 
 <script>
@@ -93,12 +39,17 @@ import Modal from "@/components/Shared/Modal.vue";
 import HeadphoneItem from "./HeadphoneItem.vue";
 import PowerbankItem from "./PowerbankItem.vue";
 export default {
-  data() {
+  
+  components: { DeviceCard, Modal,  },
+  
+  data() {  
     return {
       modal: null,
       phone: false,
       powerbank: false,
       headphone: false,
+      deviceData : [],
+      imageUrl : null
     };
   },
 
@@ -127,9 +78,23 @@ export default {
         this.powerbank = false;
       }
     },
+    getImageUrl(data) {
+      return "src//public//" + data.imageDirectory;
+    }
   },
 
-  components: { DeviceCard, PhoneItem, Modal, HeadphoneItem, PowerbankItem },
+  mounted() {
+    this.$appAxios.get("/Device/GetDevices")
+    .then(
+      response => { 
+        this.deviceData = response.data;
+        console.log(response.data);
+        } 
+    )
+    .catch(error => console.error(error))
+  }
+
+  
 };
 </script>
 
@@ -138,5 +103,15 @@ export default {
 
 .btn-outline-primary {
   @include button-outline-variant($colors-purple-tawk, white);
+}
+</style>
+
+<style scoped>
+.img-cont {
+  background-size: 12rem 12rem;
+  width : 12rem;
+  height : 12rem;
+  resize: none;
+  background-repeat: no-repeat;
 }
 </style>

@@ -54,7 +54,7 @@
         <div class="row border-top border-bottom">
           <div class="row main align-items-center">
             <div class="col-2">
-              <img class="img-fluid" src="@/assets/xioami-powerbank.png" />
+              <img class="img-fluid" src="@/assets/xiaomi-powerbank.png" />
             </div>
             <div class="col">
               <div class="row text-muted">Powerbank</div>
