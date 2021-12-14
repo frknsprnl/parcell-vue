@@ -31,3 +31,5 @@ export default {
   background: linear-gradient(0deg, #7367f0, #4c3a6e);
 }
 </style>
+
+import axios from 'axios';
