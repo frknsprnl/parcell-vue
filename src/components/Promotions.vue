@@ -75,7 +75,7 @@ export default {
   },
   created() {
     this.$appAxios
-      .get("https://parcell-backend.azure-api.net/v1/api/Promotions/GetPromoList")
+      .get("/Promotion/GetPromotions")
       .then((response) => {
         console.log(response.data);
         this.promotion = response.data;

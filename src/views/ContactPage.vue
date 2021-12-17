@@ -1,48 +1,46 @@
 <template>
   <navbar />
-  <div class="container mt-4">
+  <div class="container mt-4" :key="contact.id">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
-        <h2 class="heading1">İletişim</h2>
+        <h2 class="heading1">{{ contact.header }}</h2>
         <br />
         <h6>
-          Parcell ailesi olarak müşteri odaklı hizmet anlayışımız ile müşterilerimizin sorularına en
-          hızlı ve açık şekilde cevap vermek, servis kalitemizi ve müşteri memnuniyetini en üst
-          düzeyde tutabilmek adına alanında uzman kadromuzla hizmetinizdeyiz.
+          {{ contact.headerText }}
         </h6>
       </div>
     </div>
 
     <br />
-    <div class="panel-body contact-content mb-3 " id="contact-panel">
+    <div class="panel-body contact-content mb-3" id="contact-panel">
       <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
         <div class="card-body p-md-4">
-      <div class="row d-flex justify-content-center">
-        <div class="col-4" id="contact-address">
-          <strong>Kurumsal adresimiz</strong>
-          <p>Süleyman Demirel Üniversitesi, Süleyman Demirel Cd., 32260 Çünür, Isparta/Türkiye</p>
-        </div>
-        <div class="col-5">
-          <div class="mapouter">
-            <div class="gmap_canvas">
-              <iframe
-                class="rounded-3"
-                width="460"
-                height="250"
-                id="gmap_canvas"
-                src="https://maps.google.com/maps?q=Isparta%20S%C3%BCleyman%20Demirel%20M%C3%BChendislik&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                frameborder="0"
-                scrolling="no"
-                marginheight="0"
-                marginwidth="0"
-              ></iframe
-              ><br />
+          <div class="row d-flex justify-content-center">
+            <div class="col-4" id="contact-address">
+              <strong>Kurumsal adresimiz</strong>
+              <p>{{ contact.address }}</p>
             </div>
+            <div class="col-5">
+              <div class="mapouter">
+                <div class="gmap_canvas">
+                  <iframe
+                    class="rounded-3"
+                    width="460"
+                    height="250"
+                    id="gmap_canvas"
+                    src="https://maps.google.com/maps?q=Isparta%20S%C3%BCleyman%20Demirel%20M%C3%BChendislik&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                    frameborder="0"
+                    scrolling="no"
+                    marginheight="0"
+                    marginwidth="0"
+                  ></iframe
+                  ><br />
+                </div>
+              </div>
+            </div>
+            <!--The div element for the map -->
           </div>
         </div>
-        <!--The div element for the map -->
-      </div>
-      </div>
       </div>
     </div>
     <br />
@@ -58,8 +56,8 @@
     </div>
     <div class="d-flex justify-content-center">
       <p>
-        Müşteri hizmetlerimize Parcell hatlarınızdan 532'yi; diğer operatörlerden ve sabit hatlardan
-        0 (532) 532 00 00'ı arayarak ulaşabilirsiniz.
+        Müşteri hizmetlerimize Parcell hatlarınızdan 532'yi; diğer operatörlerden ve sabit hatlardan 0 (532)
+        532 00 00'ı arayarak ulaşabilirsiniz.
       </p>
     </div>
   </div>
@@ -73,6 +71,8 @@ export default {
   data() {
     return {
       center: { lat: 37.83013, lng: 30.5262 },
+      contact: {},
+      id: "61bcb122da08106680ea3a08",
     };
   },
 
@@ -82,6 +82,19 @@ export default {
   },
 
   mounted() {},
+
+  created() {
+    this.$appAxios
+      .get("/Contact/GetContact/" + this.id)
+      .then((response) => {
+        console.log(response.data);
+        this.contact = response.data;
+        console.log(this.contact);
+      })
+      .catch((error) => {
+        console.log("There was an error" + error.response);
+      });
+  },
 };
 </script>
 
@@ -115,7 +128,7 @@ export default {
   margin-right: 140px;
   margin-left: 20px;
 }
-#contact-panel{
+#contact-panel {
   width: 65em;
   margin-left: 120px;
 }
