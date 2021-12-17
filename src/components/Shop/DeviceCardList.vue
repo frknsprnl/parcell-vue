@@ -1,18 +1,25 @@
 <template>
   <div class="d-flex justify-content-lg-center">
-    <div v-for="data in deviceData" :key="data.id">
-      <device-card class="">
-        <template #image>
-          <div class="">
-            <div class="img-cont" :style="` background-image : url('${data.imageDirectory}')`"></div>
-          </div>
-        </template>
-        <template #title>
-          <button class="btn btn-outline-primary" @click="openModal('headphone')">{{ data.name }}</button>
-        </template>
-        <template #body-text> {{ data.detailText }} </template>
-        <template #price> {{ data.price }} </template>
-      </device-card>
+    <div class="row justify-content-center">
+      <div
+        class="d-flex align-items-center justify-content-center col-3"
+        v-for="data in deviceData"
+        :key="data.id"
+      >
+        <device-card class="m-3">
+          <template #image>
+            <div class="">
+              <!-- <div class="img-cont" :style="` background-image : url('${data.imageDirectory}')`"></div> -->
+              <img class="img-cont" :src="require(`@/assets/${data.imageDirectory}`)" alt="" />
+            </div>
+          </template>
+          <template #title>
+            <button class="btn btn-outline-primary" @click="openModal('headphone')">{{ data.name }}</button>
+          </template>
+          <template #body-text> {{ data.detailText }} </template>
+          <template #price> {{ data.price }} </template>
+        </device-card>
+      </div>
     </div>
   </div>
 
@@ -55,55 +62,20 @@ export default {
     };
   },
 
-  methods: {
-    openModal(input) {
-      if (input === "phone") {
-        this.phone = true;
-        this.headphone = false;
-        this.powerbank = false;
-      } else if (input === "headphone") {
-        this.phone = false;
-        this.headphone = true;
-        this.powerbank = false;
-      } else if (input === "powerbank") {
-        this.phone = false;
-        this.headphone = false;
-        this.powerbank = true;
-      }
-    },
-    closeModal(input) {
-      if (input === "headphone") {
-        this.headphone = false;
-      } else if (input === "phone") {
-        this.phone = false;
-      } else if (input === "powerbank") {
-        this.powerbank = false;
-      }
-    },
-    getImageUrl(data) {
-      return "src//public//" + data.imageDirectory;
-    },
-  },
+  methods: {},
 
   mounted() {
     this.$appAxios
       .get("/Device/GetDevices")
       .then((response) => {
         this.deviceData = response.data;
+        //this.deviceData.length = 1;
         console.log(response.data);
       })
       .catch((error) => console.error(error));
   },
 };
 </script>
-
-<style lang="scss" scoped>
-@import "@/../public/style.scss";
-
-.btn-outline-primary {
-  @include button-outline-variant($colors-purple-tawk, white);
-}
-</style>
 
 <style scoped>
 .img-cont {

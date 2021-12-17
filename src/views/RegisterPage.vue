@@ -14,9 +14,14 @@
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="firstName"
-                            ><i class="bi bi-person-fill"> Ad</i> </label
-                          >
-                          <input type="text" id="firstName" v-model="userName" class="form-control form-control" />
+                            ><i class="bi bi-person-fill"> Ad</i>
+                          </label>
+                          <input
+                            type="text"
+                            id="firstName"
+                            v-model="userData.name"
+                            class="form-control form-control"
+                          />
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
@@ -24,7 +29,12 @@
                           <label class="form-label" for="lastName"
                             ><i class="bi bi-person-fill"> Soyad</i></label
                           >
-                          <input type="text" id="lastName" v-model="userSurname" class="form-control form-control" />
+                          <input
+                            type="text"
+                            id="lastName"
+                            v-model="userData.surname"
+                            class="form-control form-control"
+                          />
                         </div>
                       </div>
                     </div>
@@ -38,7 +48,7 @@
                           <input
                             type="email"
                             id="emailAddress"
-                            v-model="userMail"
+                            v-model="userData.mail"
                             class="form-control form-control"
                             placeholder="parcell@gmail.com"
                           />
@@ -49,7 +59,12 @@
                           <label for="password" class="form-label"
                             ><i class="bi bi-shield-lock-fill"> Şifre</i></label
                           >
-                          <input type="text" v-model="userPassword" class="form-control form-control" id="password" />
+                          <input
+                            type="text"
+                            v-model="userData.password"
+                            class="form-control form-control"
+                            id="password"
+                          />
                         </div>
                       </div>
                       <div class="row">
@@ -65,7 +80,7 @@
                               type="radio"
                               name="inlineRadioOptions"
                               id="maleGender"
-                              v-model="userGender"
+                              v-model="userData.gender"
                               value="Erkek"
                             />
                           </div>
@@ -78,7 +93,7 @@
                               type="radio"
                               name="inlineRadioOptions"
                               id="femaleGender"
-                              v-model="userGender"
+                              v-model="userData.gender"
                               value="Kadın"
                             />
                           </div>
@@ -93,7 +108,7 @@
                             <input
                               type="birthplace"
                               id="birthPlace"
-                              v-model="userBirthPlace"
+                              v-model="userData.birthPlace"
                               class="form-control form-control"
                               placeholder="Örn. Isparta"
                             />
@@ -104,22 +119,21 @@
                             <label class="form-label" for="birthDate"
                               ><i class="bi bi-calendar-fill"> Doğum Tarihi</i></label
                             >
-                            <!-- <input
-                              type="birthdate"
+                            <!-- <Datepicker class="form-control form-control bg-white" v-model="userData.userBirthDate"/> -->
+                            <input
+                              type="date"
                               id="birthDate"
-                              v-model="userBirthDate"
+                              v-model="userData.birthDate"
                               class="form-control form-control"
-                              placeholder="Gün/Ay/Yıl"
-                            /> -->
-                            <Datepicker class="form-control form-control bg-white" v-model="userBirthDate"/>
+                            />
                           </div>
                         </div>
 
                         <div class="mt-4 pt-2">
-                          <button class="btn btn-primary btn" type="button" @click="createUser()"> 
+                          <button class="btn btn-primary btn" type="button" @click="createUser()">
                             Kayıt Ol
                           </button>
-                          <button class="btn btn-primary btn" type="button" @click="printUser()"> 
+                          <button class="btn btn-primary btn" type="button" @click="printUser()">
                             Print
                           </button>
                         </div>
@@ -142,60 +156,40 @@ import FooterBar from "@/components/Shared/FooterBar.vue";
 import Navbar from "../components/Shared/Navbar.vue";
 import Datepicker from "vue3-datepicker";
 import { convertGMT, convertTime } from "@/utils/helperMethods";
+import CryptoJS from "crypto-js";
 export default {
   components: {
     Navbar,
-    Datepicker
-  },
-  mounted() {
-    // this.$appAxios.get("/User").then(responseData => {
-    //   console.log(responseData.data);
-    // })
   },
   data() {
     return {
-      
-      userName : null,
-      userSurname: null,
-      userMail : null,
-      userPassword : null,
-      userGender : null,
-      userBirthPlace : null,
-      userBirthDate : null,
-    }
+      userData: {
+        name: null,
+        surname: null,
+        mail: null,
+        password: null,
+        phone: "yeni",
+        gender: null,
+        birthPlace: null,
+        birthDate: null,
+      },
+    };
   },
-  methods : {
+  methods: {
     createUser() {
-      // let obj = this.userBirthDate;
-      // console.log('obj :>> ', obj);
-      // let modified = convertTime(obj);
-      // console.log(modified);
+      const password = CryptoJS.SHA256(this.userData.password).toString();
 
-      this.$appAxios.post('/User', 
-      {
-        name : this.userName,
-        surname : this.userSurname,
-        mail : this.userMail,
-        password : this.userPassword,
-        phone : "kayıt Yok",
-        gender : this.userGender,
-        birthPlace : this.userBirthPlace,
-        birthDate : this.userBirthDate,
-      })
-      
+      this.$appAxios
+        .post("/User/CreateUser", { ...this.userData, password })
+        .then((response) => console.log(response));
     },
     printUser() {
-      console.log(this.userName);
-      console.log(this.userSurname);
-      console.log(this.userMail);
-      console.log(this.userPassword);
-      console.log(this.userGender);
-      console.log(this.userBirthPlace);
-      let obj = this.userBirthDate;
-      console.log('obj :>> ', obj);
-      let modified = convertTime(obj);
-      console.log(modified);
-    }
-  }
+      const password = CryptoJS.SHA256(this.userData.password).toString();
+      console.log({ ...this.userData, password });
+
+      console.log(password);
+    },
+  },
+  mounted() {},
 };
 </script>

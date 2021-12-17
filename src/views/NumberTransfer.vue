@@ -14,14 +14,18 @@
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label" for="firstName"><i class="bi bi-person-fill me-1"></i>Ad</label>
+                        <label class="form-label" for="firstName"
+                          ><i class="bi bi-person-fill me-1"></i>Ad</label
+                        >
 
                         <input type="text" id="firstName" class="form-control form-control" />
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
-                        <label class="form-label" for="lastName"><i class="bi bi-person-fill me-1"></i>Soyad</label>
+                        <label class="form-label" for="lastName"
+                          ><i class="bi bi-person-fill me-1"></i>Soyad</label
+                        >
                         <input type="text" id="lastName" class="form-control form-control" />
                       </div>
                     </div>
@@ -55,12 +59,19 @@
                       <label for="exampleInputNumber" class="form-label"
                         ><i class="bi bi-telephone-fill me-1"></i>Telefon Numarası</label
                       >
-                      <input type="number" class="form-control" id="exampleInputNumber" />
+                      <input
+                        type="tel"
+                        class="form-control"
+                        id="exampleInputNumber"
+                        pattern="[0-9]{3}-[0-9]{2}-[0-9]{4}"
+                      />
                     </div>
                     <div class="col-md-6 mb-4 pb-2">
                       <h6 class="mb-2 pb-1"><i class="bi bi-gender-ambiguous"></i> Cinsiyet</h6>
                       <div class="form-check form-check-inline">
-                        <label class="form-check-label" for="maleGender"><i class="bi bi-gender-male"> Erkek</i></label>
+                        <label class="form-check-label" for="maleGender"
+                          ><i class="bi bi-gender-male"> Erkek</i></label
+                        >
                         <input
                           class="form-check-input"
                           type="radio"
@@ -87,7 +98,9 @@
                   <div class="row">
                     <div class="col-md-6 mb-4 pb-2">
                       <div class="form-outline">
-                        <label class="form-label" for="birthPlace"><i class="bi bi-globe me-1"></i>Doğum Yeri</label>
+                        <label class="form-label" for="birthPlace"
+                          ><i class="bi bi-globe me-1"></i>Doğum Yeri</label
+                        >
                         <input
                           type="birthplace"
                           id="birthPlace"
@@ -112,8 +125,8 @@
                     <div class="form-check ms-3">
                       <input type="checkbox" class="form-check-input" name="docs" id="trasferDoc1" />
                       <label class="form-check-label" for="transferDoc1 ">
-                        <span class="link-primary text-decoration-underline">Numara Taşıma</span> sözleşmesini kabul
-                        etmek için işaretleyin.
+                        <span class="link-primary text-decoration-underline">Numara Taşıma</span> sözleşmesini
+                        kabul etmek için işaretleyin.
                       </label>
                     </div>
                     <div class="mt-4 pt-2">
