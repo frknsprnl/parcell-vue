@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 container">
+  <div class="container">
     <div class="card p-4" style="width: 15rem">
       <slot name="image" />
       <div class="card-body">

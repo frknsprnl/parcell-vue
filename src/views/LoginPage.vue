@@ -16,7 +16,12 @@
                           <label class="form-label" for="mail"
                             ><i class="bi bi-envelope-fill"> Email</i></label
                           >
-                          <input type="mail" id="mail" class="form-control form-control-md" />
+                          <input
+                            v-model="userData.mail"
+                            type="mail"
+                            id="mail"
+                            class="form-control form-control-md"
+                          />
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
@@ -24,9 +29,15 @@
                           <label class="form-label" for="password"
                             ><i class="bi bi-shield-lock-fill"> Şifre</i></label
                           >
-                          <input type="text" id="password" class="form-control form-control-md" />
+                          <input
+                            v-model="userData.password"
+                            type="password"
+                            id="password"
+                            class="form-control form-control-md"
+                          />
                         </div>
                       </div>
+                      <h6 v-if="loginError" class="text-danger text-center">Mail veya Şifreniz Hatalı !!!</h6>
                       <div class="mt-4 pt-6">
                         <router-link class="text-decoration-none" :to="{ name: 'PasswordForgot' }">
                           <a href="#" style="text-decoration: none">Şifreni mi unuttun?</a>
@@ -34,7 +45,9 @@
                       </div>
 
                       <div class="mt-4 pt-2">
-                        <button class="btn btn-primary btn-md" type="button">Giriş Yap</button>
+                        <button @click="onLogin()" class="btn btn-primary btn-md" type="button">
+                          Giriş Yap
+                        </button>
                       </div>
                     </div>
                   </form>
@@ -52,8 +65,44 @@
 <script>
 import Navbar from "../components/Shared/Navbar.vue";
 import FooterBar from "../components/Shared/FooterBar.vue";
+import CryptoJS from "crypto-js";
 export default {
   components: { Navbar, FooterBar },
+
+  data() {
+    return {
+      userData: {
+        mail: null,
+        password: null,
+      },
+      loginError: false,
+      DbUser: {},
+    };
+  },
+
+  methods: {
+    onLogin() {
+      const password = CryptoJS.SHA256(this.userData.password).toString();
+
+      if (this.userData.mail !== null && this.userData.password !== null) {
+        this.$appAxios
+          .get(`/User/GetUserWithMail?mail=${this.userData.mail}&password=${password}`)
+          .then((response) => {
+            this.$store.commit("setUser", response?.data);
+            console.log(response.data.id);
+            localStorage.setItem("userId", response.data.id);
+            this.loginError = false;
+          })
+          .catch((error) => {
+            if (error.response.status === 404) {
+              this.loginError = true;
+            }
+          });
+      } else {
+        console.log("mail şifre null");
+      }
+    },
+  },
 };
 </script>
 
