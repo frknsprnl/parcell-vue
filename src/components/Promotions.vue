@@ -2,7 +2,7 @@
   <div class="container rounded bg-white mt-5 mb-5 d-flex justify-content-center">
     <div class="row d-flex justify-content-center">
       <div
-        class="card hover-div me-3"
+        class="card hover-div me-4 mt-4"
         style="width: 10rem"
         v-for="promotions in promotion"
         :key="promotions.id"
