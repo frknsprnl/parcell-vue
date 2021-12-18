@@ -6,7 +6,7 @@
           <div class="d-flex flex-column align-items-center mt-5 p-4">
             <img class="img-thumbnail rounded-circle mt-5" src="../../assets/userimage.jpg" />
             <span class="mt-2" style="font-size: 1.2rem">{{ user.name }} {{ user.surname }}</span>
-            <span class="mt-2" style="font-size: 1.2rem">999.99₺</span>
+            <span class="mt-2" style="font-size: 1.2rem">{{ user.balance }}₺</span>
           </div>
         </div>
         <div class="col-md-5 border-right">
@@ -52,7 +52,7 @@
                     type="text"
                     class="form-control"
                     placeholder="user@gmail.com"
-                    v-model="mail"
+                    v-model="user.mail"
                     :disabled="disabled == 0"
                   />
                 </div>
@@ -62,7 +62,7 @@
                     type="text"
                     class="form-control"
                     placeholder="adres"
-                    value="Halikent,4, 32040, Merkez/Eskisehir, Turkey"
+                    v-model="user.address"
                     :disabled="disabled == 0"
                   />
                 </div>
@@ -100,8 +100,6 @@
   </div>
 </template>
 <script>
-import axios from "axios";
-
 export default {
   components: {
     //
@@ -109,13 +107,12 @@ export default {
   data() {
     return {
       // users: [],
-      mail: "frknsprnl@hotmail.com",
       user: {},
       disabled: 0,
       id: null,
     };
   },
-
+  /*
   created() {
     this.$appAxios
       .get("/User/GetUserWithMail?mail=" + this.mail)
@@ -130,6 +127,13 @@ export default {
       .catch((error) => {
         console.log("There was an error" + error.response);
       });
+  },
+*/
+  mounted() {
+    this.user = this.$store.getters._getCurrentUser;
+    let date = this.user.birthDate.slice(0, 10);
+    this.user.birthDate = date;
+    console.log(this.user);
   },
 };
 </script>

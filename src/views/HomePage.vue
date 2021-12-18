@@ -17,9 +17,6 @@ import HomeCards from "@/components/Home/HomeCards.vue";
 
 export default {
   components: { Navbar, FooterBar, WelcomeScreen, HomeCards },
-  data() {
-    null;
-  },
 };
 </script>
 

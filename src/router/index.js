@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-
+import store from '@/store';
 
 const routes = [
   {
@@ -51,43 +51,70 @@ const routes = [
   {
     path: '/password-forgot',
     name: 'PasswordForgot',
-    component : () => import("../views/PasswordForgot.vue")
+    component: () => import("../views/PasswordForgot.vue")
   },
   {
     path: '/plans',
     name: 'PlansPage',
-    component : () => import("../views/PlansPage.vue")
+    component: () => import("../views/PlansPage.vue")
   },
   {
     path: '/request-form',
     name: 'RequestFormPage',
-    component : () => import("../views/RequestFormPage.vue")
+    component: () => import("../views/RequestFormPage.vue")
   },
   {
     path: '/number-transfer',
     name: 'NumberTransfer',
-    component : () => import("../views/NumberTransfer.vue")
+    component: () => import("../views/NumberTransfer.vue")
   },
   {
     path: '/faturali-ol',
     name: 'FaturaliOl',
-    component : () => import("../views/FaturaliOl.vue")
+    component: () => import("../views/FaturaliOl.vue")
   },
   {
     path: '/basket',
     name: 'BasketPage',
-    component : () => import("../views/BasketPage.vue")
+    component: () => import("../views/BasketPage.vue")
   },
   {
     path: '/payment',
     name: 'PaymentPage',
-    component : () => import("../views/PaymentPage.vue")
+    component: () => import("../views/PaymentPage.vue")
   },
 ]
+
+const routeNames = routes.map(item => item.name)
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
 })
+
+
+
+router.beforeEach((to, _, next) => {
+
+  const authRequiredRoutes = ["ProfilePage", "BasketPage", "PaymentPage", "PromotionsPage"];
+  const authNotRequiredRoutes = ["LoginPage", "RegisterPage"];
+  const _isAuthenticated = store.getters._isAuthenticated;
+
+  if (authNotRequiredRoutes.indexOf(to.name) > -1 && _isAuthenticated) {
+    next(false);
+  }
+
+  if (authRequiredRoutes.indexOf(to.name) > -1) {
+    if (_isAuthenticated) next();
+    else next({ name: "LoginPage" });
+  } else {
+    next();
+    // console.log("routeName :" ,routeNames );
+    // console.log("authNotRequiredRoutes :" ,authNotRequiredRoutes );
+  }
+
+
+});
+
 
 export default router

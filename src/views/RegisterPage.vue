@@ -154,8 +154,6 @@
 <script>
 import FooterBar from "@/components/Shared/FooterBar.vue";
 import Navbar from "../components/Shared/Navbar.vue";
-import Datepicker from "vue3-datepicker";
-import { convertGMT, convertTime } from "@/utils/helperMethods";
 import CryptoJS from "crypto-js";
 export default {
   components: {
@@ -172,6 +170,8 @@ export default {
         gender: null,
         birthPlace: null,
         birthDate: null,
+        address: "null",
+        balance: 0,
       },
     };
   },
@@ -179,9 +179,12 @@ export default {
     createUser() {
       const password = CryptoJS.SHA256(this.userData.password).toString();
 
-      this.$appAxios
-        .post("/User/CreateUser", { ...this.userData, password })
-        .then((response) => console.log(response));
+      this.$appAxios.post("/User/CreateUser", { ...this.userData, password }).then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          this.$router.push({ name: "LoginPage" });
+        }
+      });
     },
     printUser() {
       const password = CryptoJS.SHA256(this.userData.password).toString();

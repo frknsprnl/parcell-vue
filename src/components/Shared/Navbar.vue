@@ -44,26 +44,33 @@
             </router-link>
           </ul>
           <ul class="navbar-nav ml-auto">
-            <router-link class="text-decoration-none" :to="{ name: 'BasketPage' }">
+            <router-link class="text-decoration-none" v-if="_isAuthenticated" :to="{ name: 'BasketPage' }">
               <li class="nav-item pl-1 me-2 text-decoration-none">
                 <a class="nav-link" href="#"><i class="bi bi-basket-fill me-1"></i>Sepet</a>
               </li>
             </router-link>
-            <router-link class="text-decoration-none" :to="{ name: 'ProfilePage' }">
+            <router-link class="text-decoration-none" v-if="_isAuthenticated" :to="{ name: 'ProfilePage' }">
               <li class="nav-item pl-1 me-2 text-decoration-none">
                 <a class="nav-link" href="#"><i class="fa fa-user fa-fw me-1"></i>Profil </a>
               </li>
             </router-link>
-            <router-link class="text-decoration-none" :to="{ name: 'LoginPage' }">
+            <router-link class="text-decoration-none" v-if="!_isAuthenticated" :to="{ name: 'LoginPage' }">
               <li class="nav-item pl-1 me-2 text-decoration-none">
                 <a class="nav-link" href="#"><i class="fa fa-sign-in fa-fw me-1"></i>Giriş Yap</a>
               </li>
             </router-link>
-            <router-link class="text-decoration-none" :to="{ name: 'RegisterPage' }">
+            <router-link class="text-decoration-none" v-if="!_isAuthenticated" :to="{ name: 'RegisterPage' }">
               <li class="nav-item pl-1 me-2 text-decoration-none">
                 <a class="nav-link" href="#"><i class="fa fa-user-plus fa-fw me-1"></i>Kayıt Ol</a>
               </li>
             </router-link>
+            <div v-if="_isAuthenticated">
+              <li class="nav-item pl-1 me-2 text-decoration-none">
+                <a class="nav-link pointer-event" role="button" @click="onLogout()"
+                  ><i class="fas fa-sign-out-alt fa-fw me-1"></i>Çıkış Yap</a
+                >
+              </li>
+            </div>
           </ul>
         </div>
       </div>
@@ -73,7 +80,10 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+//import DropDownMenu from "./DropDownMenu.vue";
 export default {
+  //components: {},
   data() {
     return {
       navItem1: "Ana Sayfa",
@@ -85,7 +95,17 @@ export default {
       button1Text: "Giriş Yap",
       button2Text: "Kayıt Ol",
       brandName: "PARCELL",
+      drop: true,
     };
+  },
+  computed: {
+    ...mapGetters(["_isAuthenticated"]),
+  },
+  methods: {
+    onLogout() {
+      this.$store.commit("logoutUser");
+      this.$router.push({ name: "LoginPage" });
+    },
   },
 };
 </script>

@@ -28,12 +28,12 @@
           </div>
         </div>
       </div>
-      <user-details v-if="activeTab === 'UserDetails'" />
-      <deposit v-else-if="activeTab === 'Deposit'" />
-      <password-reset v-else-if="activeTab === 'PasswordReset'" />
-      <fatura-detay v-else-if="activeTab === 'FaturaDetay'" />
-      <order-details v-else-if="activeTab === 'OrderDetails'" />
-      <div class="container d-flex p-4" v-else-if="activeTab === 'UserPlan'">
+      <user-details v-if="'UserDetails' === profileActiveTab" />
+      <deposit v-if="'Deposit' === profileActiveTab" />
+      <password-reset v-if="'PasswordReset' === profileActiveTab" />
+      <fatura-detay v-if="'FaturaDetay' === profileActiveTab" />
+      <order-details v-if="'OrderDetails' === profileActiveTab" />
+      <div class="container d-flex p-4" v-if="'UserPlan' === profileActiveTab">
         <user-plan class="" />
         <remaining-usage-item class="" v-if="true" />
       </div>
@@ -69,19 +69,20 @@ export default {
   },
 
   data() {
-    return {
-      activeTab: null,
-    };
+    return {};
   },
 
   methods: {
     setActiveTab(input) {
-      this.activeTab = input;
+      this.$store.commit("setProfileActiveTab", input);
+      //console.log("setActiveTab : ", this.$store.getters._getProfileActiveTab);
+      console.log("computed profileActiveTab :>> ", this.profileActiveTab);
+      console.log("data activeTab :>> ", this.activeTab);
     },
   },
   computed: {
-    getProfileActiveTab() {
-      return this.$store.profileActiveTab;
+    profileActiveTab: function () {
+      return this.$store.getters._getProfileActiveTab;
     },
   },
 };

@@ -33,6 +33,7 @@
                             v-model="userData.password"
                             type="password"
                             id="password"
+                            @keydown.enter="onLogin()"
                             class="form-control form-control-md"
                           />
                         </div>
@@ -86,11 +87,11 @@ export default {
 
       if (this.userData.mail !== null && this.userData.password !== null) {
         this.$appAxios
-          .get(`/User/GetUserWithMail?mail=${this.userData.mail}&password=${password}`)
+          .get(`/User/LoginWithMail?mail=${this.userData.mail}&password=${password}`)
           .then((response) => {
             this.$store.commit("setUser", response?.data);
             console.log(response.data.id);
-            localStorage.setItem("userId", response.data.id);
+            this.$router.push({ name: "ProfilePage" });
             this.loginError = false;
           })
           .catch((error) => {
