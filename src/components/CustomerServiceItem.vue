@@ -9,67 +9,6 @@
         </h6>
       </div>
     </div>
-    <!-- <form method="POST" id="contactForm" name="contactForm" class="contactForm">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="label" for="name">Ad & Soyad</label>
-            <input
-              type="text"
-              class="form-control"
-              name="name"
-              id="name"
-              placeholder="Adınız ve Soyadınız"
-            />
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label class="label" for="email">Email Adresi</label>
-            <input
-              type="email"
-              class="form-control"
-              name="email"
-              id="email"
-              placeholder="Email Adresiniz"
-            />
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="form-group">
-            <label class="label" for="subject">Konu</label>
-            <input
-              type="text"
-              class="form-control"
-              name="subject"
-              id="subject"
-              placeholder="Konu"
-            />
-          </div>
-        </div>
-        <div class="col-md-12">
-          <div class="form-group">
-            <label class="label" for="#">Mesaj</label>
-            <textarea
-              name="message"
-              class="form-control"
-              id="message"
-              cols="30"
-              rows="4"
-              placeholder="Mesajınız"
-            ></textarea>
-            <br />
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="form-group">
-            <input type="submit" value="Gönder" class="btn btn-primary" />
-            <div class="submitting"></div>
-          </div>
-        </div>
-      </div>
-    </form> -->
     <h6>
       <li>Siz müşterilerimize sunduğumuz hizmetlerimizden bir tanesi de canlı destek! Peki;}</li>
     </h6>
