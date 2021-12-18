@@ -1,11 +1,16 @@
 <template>
   <div class="container rounded bg-white mt-5 mb-5 d-flex justify-content-center">
     <div class="row d-flex justify-content-center">
+      <h6 class="d-flex justify-content-center">
+        Faydalanmak istediğiniz kampanyanın üzerine tıklayınız. Şifreniz otomatik olarak panonuza
+        kopyalanacaktır.
+      </h6>
       <div
         class="card hover-div me-4 mt-4"
         style="width: 10rem"
         v-for="promotions in promotion"
         :key="promotions.id"
+        @click="copyText(promotions.promoCode)"
       >
         <img :src="require('@/assets/' + promotions.image)" class="card-img" alt="..." />
         <div class="card-body">
@@ -16,9 +21,9 @@
           <p class="card-text" id="promotion-text">{{ promotions.promoDesc }}</p>
         </div>
 
-        <button class="btn btn-primary mb-2">
+        <!-- <button class="btn btn-primary mb-2" @click="copyURL(promotions.promoCode)">
           {{ promotions.promoCode }}
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
@@ -66,6 +71,16 @@ import axios from "axios";
 export default {
   components: {
     //
+  },
+  methods: {
+    async copyText(text) {
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Şifre panoya kopyalandı.");
+      } catch ($e) {
+        alert("Kopyalanamadı.");
+      }
+    },
   },
   data() {
     return {
