@@ -84,11 +84,11 @@
                 </div>
               </div>
               <div class="mt-5 d-flex justify-content-center">
-                <button class="btn btn-danger me-2" type="button" @click="disabled = (disabled + 1) % 2">
+                <button class="btn btn-danger me-2" type="button" @click="disabled = 1">
                   <i class="bi bi-pen me-1"> </i>
                   <span>Profili Düzenle</span>
                 </button>
-                <button class="btn btn-primary profile-button" type="submit" @click="addToAPI">
+                <button class="btn btn-primary profile-button" type="button" @click="disabled = 0">
                   <i class="bi bi-save me-1"> </i> <span>Profili Kaydet</span>
                 </button>
               </div>
@@ -112,6 +112,7 @@ export default {
       mail: "frknsprnl@hotmail.com",
       user: {},
       disabled: 0,
+      id: null,
     };
   },
 
