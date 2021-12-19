@@ -83,6 +83,11 @@ const routes = [
     name: 'PaymentPage',
     component: () => import("../views/PaymentPage.vue")
   },
+  {
+    path: '/deneme',
+    name: 'DenemePage',
+    component: () => import("../views/deneme.vue")
+  },
 ]
 
 const routeNames = routes.map(item => item.name)

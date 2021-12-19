@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column min-vh-100 justify-content-sm-between">
+  <div class="d-flex flex-column min-vh-100 justify-content-sm-between vld-parent">
     <div>
       <navbar />
       <plan-card />
@@ -14,5 +14,8 @@ import FooterBar from "@/components/Shared/FooterBar.vue";
 import PlanCard from "@/components/PlanCard.vue";
 export default {
   components: { Navbar, FooterBar, PlanCard },
+  data() {
+    return {};
+  },
 };
 </script>

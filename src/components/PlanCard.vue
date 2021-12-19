@@ -1,6 +1,8 @@
 <template>
-  <div class="container mt-5 mb-5 d-flex justify-content-center">
-    <div class="row">
+  <div class="d-flex justify-content-center align-items-center"></div>
+  <div class="container mt-5 mb-5 d-flex justify-content-center align-items-center">
+    <load-animation v-if="getLoadingStatus" />
+    <div v-if="!getLoadingStatus" class="row">
       <h6 class="d-flex justify-content-center">
         Parcell paketleriyle yüksek hızda interneti ve zengin içerikleri doya doya yaşayabileceksiniz.
       </h6>
@@ -26,29 +28,38 @@
 </template>
 
 <script>
+import LoadAnimation from "./Shared/LoadAnimation.vue";
 export default {
+  components: { LoadAnimation },
   data() {
     return {
       plan: {},
+      isLoading: true,
     };
   },
-  created() {
-    this.$appAxios
-      .get("/Plan/GetPlans")
-      .then((response) => {
-        console.log(response.data);
-        this.plan = response.data;
-        console.log(this.plan);
-      })
-      .catch((error) => {
-        console.log("There was an error" + error.response);
-      });
+  async created() {
+    this.isLoading = true;
+    await this.getData();
+    this.isLoading = false;
+  },
+  methods: {
+    async getData() {
+      await this.$appAxios
+        .get("/Plan/GetPlans")
+        .then((response) => {
+          this.plan = response.data;
+          console.log(response.data);
+          console.log(this.plan);
+        })
+        .catch((error) => {
+          console.log("There was an error" + error.response);
+        });
+    },
+  },
+  computed: {
+    getLoadingStatus: function () {
+      return this.isLoading;
+    },
   },
 };
 </script>
-
-<style lang="sass" scoped>
-@import '@/../public/style.scss'
-.btn-primary
-  @include button-variant($colors-purple-tawk,white)
-</style>

@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex justify-content-lg-center">
-    <div class="row justify-content-center">
+    <load-animation v-if="getLoadingStatus" />
+    <div v-if="!getLoadingStatus" class="row justify-content-center">
       <div
         class="d-flex align-items-center justify-content-center col-3"
         v-for="data in deviceData"
@@ -48,8 +49,9 @@ import PhoneItem from "./PhoneItem.vue";
 import Modal from "@/components/Shared/Modal.vue";
 import HeadphoneItem from "./HeadphoneItem.vue";
 import PowerbankItem from "./PowerbankItem.vue";
+import LoadAnimation from "../Shared/LoadAnimation.vue";
 export default {
-  components: { DeviceCard, Modal },
+  components: { DeviceCard, Modal, LoadAnimation },
 
   data() {
     return {
@@ -59,20 +61,32 @@ export default {
       headphone: false,
       deviceData: [],
       imageUrl: null,
+      isLoading: true,
     };
   },
 
-  methods: {},
+  methods: {
+    async getData() {
+      await this.$appAxios
+        .get("/Device/GetDevices")
+        .then((response) => {
+          this.deviceData = response.data;
+          //this.deviceData.length = 1;
+          console.log(response.data);
+        })
+        .catch((error) => console.error(error));
+    },
+  },
 
-  mounted() {
-    this.$appAxios
-      .get("/Device/GetDevices")
-      .then((response) => {
-        this.deviceData = response.data;
-        //this.deviceData.length = 1;
-        console.log(response.data);
-      })
-      .catch((error) => console.error(error));
+  async created() {
+    this.isLoading = true;
+    await this.getData();
+    this.isLoading = false;
+  },
+  computed: {
+    getLoadingStatus: function () {
+      return this.isLoading;
+    },
   },
 };
 </script>
