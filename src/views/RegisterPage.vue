@@ -133,9 +133,9 @@
                           <button class="btn btn-primary btn" type="button" @click="createUser()">
                             Kayıt Ol
                           </button>
-                          <button class="btn btn-primary btn" type="button" @click="printUser()">
+                          <!-- <button class="btn btn-primary btn" type="button" @click="printUser()">
                             Print
-                          </button>
+                          </button> -->
                         </div>
                       </div>
                     </div>
