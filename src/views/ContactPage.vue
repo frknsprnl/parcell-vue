@@ -5,7 +5,7 @@
       <load-animation class="mt-4" v-if="getLoadingStatus" />
       <div v-if="!getLoadingStatus" class="container mt-4" :key="contact.id">
         <div class="row justify-content-center">
-          <div class="col-md-6 text-center mb-5">
+          <div class="col-md-6 text-center mb-5 mt-5">
             <h2 class="heading1">{{ contact.header }}</h2>
             <br />
             <h6>
