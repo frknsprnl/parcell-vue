@@ -1,55 +1,59 @@
 <template>
   <div class="container mt-4">
-    <div class="row justify-content-center">
-      <div class="col-md-6 text-center mb-5">
-        <h2 class="heading1">{{ customer.header }}</h2>
-        <br />
-        <h6>
-          {{ customer.headerText }}
-        </h6>
+    <load-animation v-if="getLoadingStatus" />
+    <div v-if="!getLoadingStatus" class="row">
+      <div class="row justify-content-center">
+        <div class="col-md-6 text-center mb-5">
+          <h2 class="heading1">{{ customer.header }}</h2>
+          <br />
+          <h6>
+            {{ customer.headerText }}
+          </h6>
+        </div>
+      </div>
+      <h6>
+        <li>Siz müşterilerimize sunduğumuz hizmetlerimizden bir tanesi de canlı destek! Peki;}</li>
+      </h6>
+      <div class="mt-4">
+        <vue-collapsible-panel-group accordion :baseColor="'#482c77'">
+          <vue-collapsible-panel :expanded="false">
+            <template #title> {{ customer.question }} </template>
+            <template #content>
+              {{ customer.answer }}
+            </template>
+          </vue-collapsible-panel>
+        </vue-collapsible-panel-group>
+      </div>
+      <h6 class="pt-3"><li>Canlı destek sizin için doğru tercih değilse;</li></h6>
+      <div class="mt-4">
+        <vue-collapsible-panel-group accordion :baseColor="'#482c77'">
+          <vue-collapsible-panel :expanded="false">
+            <template #title> {{ customer.question2 }} </template>
+            <template #content>
+              {{ customer.answer2 }}
+            </template>
+          </vue-collapsible-panel>
+        </vue-collapsible-panel-group>
+      </div>
+
+      <div class="d-flex justify-content-center mt-5">
+        <tr>
+          <td>
+            <strong>
+              <i class="bi-telephone-fill" style="color: #666690"></i>
+              İletişim No.
+            </strong>
+          </td>
+        </tr>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <p>
+          Müşteri hizmetlerimize Parcell hatlarınızdan 532'yi; diğer operatörlerden ve sabit hatlardan 0 (532)
+          532 00 00'ı arayarak ulaşabilirsiniz.
+        </p>
       </div>
     </div>
-    <h6>
-      <li>Siz müşterilerimize sunduğumuz hizmetlerimizden bir tanesi de canlı destek! Peki;}</li>
-    </h6>
-    <div class="mt-4">
-      <vue-collapsible-panel-group accordion :baseColor="'#482c77'">
-        <vue-collapsible-panel :expanded="false">
-          <template #title> {{ customer.question }} </template>
-          <template #content>
-            {{ customer.answer }}
-          </template>
-        </vue-collapsible-panel>
-      </vue-collapsible-panel-group>
-    </div>
-    <h6 class="pt-3"><li>Canlı destek sizin için doğru tercih değilse;</li></h6>
-    <div class="mt-4">
-      <vue-collapsible-panel-group accordion :baseColor="'#482c77'">
-        <vue-collapsible-panel :expanded="false">
-          <template #title> {{ customer.question2 }} </template>
-          <template #content>
-            {{ customer.answer2 }}
-          </template>
-        </vue-collapsible-panel>
-      </vue-collapsible-panel-group>
-    </div>
-  </div>
-  <div class="d-flex justify-content-center mt-5">
-    <tr>
-      <td>
-        <strong>
-          <i class="bi-telephone-fill" style="color: #666690"></i>
-          İletişim No.
-        </strong>
-      </td>
-    </tr>
-  </div>
-
-  <div class="d-flex justify-content-center">
-    <p>
-      Müşteri hizmetlerimize Parcell hatlarınızdan 532'yi; diğer operatörlerden ve sabit hatlardan 0 (532) 532
-      00 00'ı arayarak ulaşabilirsiniz.
-    </p>
   </div>
 </template>
 
@@ -57,10 +61,12 @@
 import VueCollapsiblePanel from "../components/VueCollapsiblePanel.vue";
 import VueCollapsiblePanelGroup from "./VueCollapsiblePanelGroup.vue";
 import axios from "axios";
+import LoadAnimation from "../components/Shared/LoadAnimation.vue";
 export default {
   components: {
     VueCollapsiblePanel,
     VueCollapsiblePanelGroup,
+    LoadAnimation,
   },
 
   mounted() {
@@ -81,19 +87,32 @@ export default {
     return {
       customer: {},
       id: "61bca8f1da08106680ea3a07",
+      isLoading: true,
     };
   },
-  created() {
-    this.$appAxios
-      .get("/CustomerService/GetCustomerService/" + this.id)
-      .then((response) => {
-        console.log(response.data);
-        this.customer = response.data;
-        console.log(this.customer);
-      })
-      .catch((error) => {
-        console.log("There was an error" + error.response);
-      });
+  async created() {
+    this.isLoading = true;
+    await this.getData();
+    this.isLoading = false;
+  },
+  methods: {
+    async getData() {
+      await this.$appAxios
+        .get("/CustomerService/GetCustomerService/" + this.id)
+        .then((response) => {
+          console.log(response.data);
+          this.customer = response.data;
+          console.log(this.customer);
+        })
+        .catch((error) => {
+          console.log("There was an error" + error.response);
+        });
+    },
+  },
+  computed: {
+    getLoadingStatus: function () {
+      return this.isLoading;
+    },
   },
 };
 </script>
