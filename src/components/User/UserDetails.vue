@@ -115,29 +115,12 @@ export default {
   },
   data() {
     return {
-      // users: [],
       user: {},
       disabled: 0,
       id: null,
     };
   },
-  /*
-  created() {
-    this.$appAxios
-      .get("/User/GetUserWithMail?mail=" + this.mail)
-      .then((response) => {
-        console.log(response.data);
-        //this.user = response.data;
-        let date = response.data.birthDate.slice(0, 10);
-        this.user = { ...response.data, birthDate: date };
-        console.log(date);
-        console.log(this.user);
-      })
-      .catch((error) => {
-        console.log("There was an error" + error.response);
-      });
-  },
-*/
+
   mounted() {
     this.user = this.$store.getters._getCurrentUser;
     let date = this.user.birthDate.slice(0, 10);
