@@ -1,67 +1,72 @@
 <template>
-  <navbar />
-  <div class="container mt-4" :key="contact.id">
-    <div class="row justify-content-center">
-      <div class="col-md-6 text-center mb-5">
-        <h2 class="heading1">{{ contact.header }}</h2>
-        <br />
-        <h6>
-          {{ contact.headerText }}
-        </h6>
-      </div>
-    </div>
-
-    <br />
-    <div class="panel-body contact-content mb-3" id="contact-panel">
-      <load-animation v-if="getLoadingStatus" />
-      <div v-if="!getLoadingStatus" class="row">
-        <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
-          <div class="card-body p-md-4">
-            <div class="row d-flex justify-content-center">
-              <div class="col-4" id="contact-address">
-                <strong>Kurumsal adresimiz</strong>
-                <p>{{ contact.address }}</p>
-              </div>
-              <div class="col-5">
-                <div class="mapouter">
-                  <div class="gmap_canvas">
-                    <iframe
-                      class="rounded-3"
-                      width="460"
-                      height="250"
-                      id="gmap_canvas"
-                      src="https://maps.google.com/maps?q=Isparta%20S%C3%BCleyman%20Demirel%20M%C3%BChendislik&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                      frameborder="0"
-                      scrolling="no"
-                      marginheight="0"
-                      marginwidth="0"
-                    ></iframe
-                    ><br />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--The div element for the map -->
+  <div class="d-flex flex-column min-vh-100 justify-content-sm-between">
+    <div class="">
+      <navbar />
+      <load-animation class="mt-4" v-if="getLoadingStatus" />
+      <div v-if="!getLoadingStatus" class="container mt-4" :key="contact.id">
+        <div class="row justify-content-center">
+          <div class="col-md-6 text-center mb-5">
+            <h2 class="heading1">{{ contact.header }}</h2>
+            <br />
+            <h6>
+              {{ contact.headerText }}
+            </h6>
           </div>
         </div>
+
+        <br />
+
+        <div class="panel-body contact-content mb-3" id="contact-panel">
+          <div class="row">
+            <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
+              <div class="card-body p-md-4">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-4" id="contact-address">
+                    <strong>Kurumsal adresimiz</strong>
+                    <p>{{ contact.address }}</p>
+                  </div>
+                  <div class="col-5">
+                    <div class="mapouter">
+                      <div class="gmap_canvas">
+                        <iframe
+                          class="rounded-3"
+                          width="460"
+                          height="250"
+                          id="gmap_canvas"
+                          src="https://maps.google.com/maps?q=Isparta%20S%C3%BCleyman%20Demirel%20M%C3%BChendislik&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                          frameborder="0"
+                          scrolling="no"
+                          marginheight="0"
+                          marginwidth="0"
+                        ></iframe
+                        ><br />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--The div element for the map -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="d-flex justify-content-center">
+          <tr>
+            <td>
+              <strong>
+                <i class="bi-telephone-fill" style="color: #666690"></i>
+                İletişim No.
+              </strong>
+            </td>
+          </tr>
+        </div>
+        <div class="d-flex justify-content-center">
+          <p>
+            Müşteri hizmetlerimize Parcell hatlarınızdan 532'yi; diğer operatörlerden ve sabit hatlardan 0
+            (532) 532 00 00'ı arayarak ulaşabilirsiniz.
+          </p>
+        </div>
       </div>
-    </div>
-    <br />
-    <div class="d-flex justify-content-center">
-      <tr>
-        <td>
-          <strong>
-            <i class="bi-telephone-fill" style="color: #666690"></i>
-            İletişim No.
-          </strong>
-        </td>
-      </tr>
-    </div>
-    <div class="d-flex justify-content-center">
-      <p>
-        Müşteri hizmetlerimize Parcell hatlarınızdan 532'yi; diğer operatörlerden ve sabit hatlardan 0 (532)
-        532 00 00'ı arayarak ulaşabilirsiniz.
-      </p>
     </div>
   </div>
   <footer-bar />
