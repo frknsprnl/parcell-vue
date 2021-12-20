@@ -4,7 +4,16 @@
       <div class="row justify-content-center">
         <div class="col-md-3 border-right">
           <div class="d-flex flex-column align-items-center mt-5 p-4">
-            <img class="img-thumbnail rounded-circle mt-5" src="../../assets/userimage.jpg" />
+            <img
+              v-if="this.user.gender === 'Erkek'"
+              class="img-thumbnail rounded-circle mt-5"
+              src="../../assets/male.png"
+            />
+            <img
+              v-else-if="this.user.gender === 'Kadın'"
+              class="img-thumbnail rounded-circle mt-5"
+              src="../../assets/female.png"
+            />
             <span class="mt-2" style="font-size: 1.2rem">{{ user.name }} {{ user.surname }}</span>
             <span class="mt-2" style="font-size: 1.2rem">{{ user.balance }}₺</span>
           </div>
