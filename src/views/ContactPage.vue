@@ -13,28 +13,31 @@
 
     <br />
     <div class="panel-body contact-content mb-3" id="contact-panel">
-      <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
-        <div class="card-body p-md-4">
-          <div class="row d-flex justify-content-center">
-            <div class="col-4" id="contact-address">
-              <strong>Kurumsal adresimiz</strong>
-              <p>{{ contact.address }}</p>
-            </div>
-            <div class="col-5">
-              <div class="mapouter">
-                <div class="gmap_canvas">
-                  <iframe
-                    class="rounded-3"
-                    width="460"
-                    height="250"
-                    id="gmap_canvas"
-                    src="https://maps.google.com/maps?q=Isparta%20S%C3%BCleyman%20Demirel%20M%C3%BChendislik&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                    frameborder="0"
-                    scrolling="no"
-                    marginheight="0"
-                    marginwidth="0"
-                  ></iframe
-                  ><br />
+      <load-animation v-if="getLoadingStatus" />
+      <div v-if="!getLoadingStatus" class="row">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
+          <div class="card-body p-md-4">
+            <div class="row d-flex justify-content-center">
+              <div class="col-4" id="contact-address">
+                <strong>Kurumsal adresimiz</strong>
+                <p>{{ contact.address }}</p>
+              </div>
+              <div class="col-5">
+                <div class="mapouter">
+                  <div class="gmap_canvas">
+                    <iframe
+                      class="rounded-3"
+                      width="460"
+                      height="250"
+                      id="gmap_canvas"
+                      src="https://maps.google.com/maps?q=Isparta%20S%C3%BCleyman%20Demirel%20M%C3%BChendislik&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                      frameborder="0"
+                      scrolling="no"
+                      marginheight="0"
+                      marginwidth="0"
+                    ></iframe
+                    ><br />
+                  </div>
                 </div>
               </div>
             </div>
@@ -67,33 +70,46 @@
 <script>
 import FooterBar from "../components/Shared/FooterBar.vue";
 import Navbar from "../components/Shared/Navbar.vue";
+import LoadAnimation from "../components/Shared/LoadAnimation.vue";
 export default {
   data() {
     return {
       center: { lat: 37.83013, lng: 30.5262 },
       contact: {},
       id: "61bcb122da08106680ea3a08",
+      isLoading: true,
     };
   },
 
   components: {
     Navbar,
     FooterBar,
+    LoadAnimation,
   },
-
+  async created() {
+    this.isLoading = true;
+    await this.getData();
+    this.isLoading = false;
+  },
   mounted() {},
-
-  created() {
-    this.$appAxios
-      .get("/Contact/GetContact/" + this.id)
-      .then((response) => {
-        console.log(response.data);
-        this.contact = response.data;
-        console.log(this.contact);
-      })
-      .catch((error) => {
-        console.log("There was an error" + error.response);
-      });
+  methods: {
+    async getData() {
+      await this.$appAxios
+        .get("/Contact/GetContact/" + this.id)
+        .then((response) => {
+          console.log(response.data);
+          this.contact = response.data;
+          console.log(this.contact);
+        })
+        .catch((error) => {
+          console.log("There was an error" + error.response);
+        });
+    },
+  },
+  computed: {
+    getLoadingStatus: function () {
+      return this.isLoading;
+    },
   },
 };
 </script>
