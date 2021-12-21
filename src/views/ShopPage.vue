@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column min-vh-100 justify-content-sm-between">
-    <div>
+    <div class="">
       <nav-bar />
       <filter-options />
       <device-card-list />

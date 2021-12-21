@@ -18,7 +18,7 @@
           </p>
         </div>
         <div class="d-flex justify-content-md-center">
-          <button class="btn btn-primary btn-lg">
+          <button @click="postData(plan.id)" class="btn btn-primary btn-lg">
             <i class="bi bi-cart-plus-fill"></i>
           </button>
         </div>
@@ -54,6 +54,17 @@ export default {
         .catch((error) => {
           console.log("There was an error" + error.response);
           alert(error.response);
+        });
+    },
+    postData(planId) {
+      const userId = this.$store.getters._currentUserId;
+      this.$appAxios
+        .get(`/Basket/AddPlanToBasket?userId=${userId}&planId=${planId}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
   },

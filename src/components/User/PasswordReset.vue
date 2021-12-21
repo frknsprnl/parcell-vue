@@ -7,13 +7,29 @@
           <label for="password" class="form-label"> <span>Eski Şifre</span></label>
           <input v-model="userData.oldPassword" type="text" class="form-control form-control" id="password" />
         </div>
+
         <div class="container col-lg-7 mt-3">
           <label for="password" class="form-label"> <span>Yeni Şifre</span></label>
-          <input v-model="userData.newPassword" type="text" class="form-control form-control" id="password" />
+          <Field
+            v-model="userData.newPassword"
+            type="text"
+            class="form-control form-control"
+            name="newPassword"
+            rules="required"
+            id="password"
+          />
         </div>
+
         <div class="container col-lg-7 mt-3">
           <label for="password" class="form-label"> <span>Yeni Şifre(Tekrar)</span></label>
-          <input type="text" class="form-control form-control" id="password" />
+          <Field
+            type="text"
+            v-model="userData.newPasswordRepeat"
+            class="form-control form-control"
+            name="newPasswordRepeat"
+            id="password"
+            rules="confirmed:@newPassword"
+          />
           <button @click="onPasswordChange()" class="btn btn-primary btn-md mt-4">Değiştir</button>
         </div>
       </div>
@@ -24,13 +40,27 @@
 
 <script>
 import CryptoJS from "crypto-js";
+import { defineRule, Field } from "vee-validate";
+import * as yup from "yup";
+
+defineRule("confirmed", (value, [target], ctx) => {
+  if (value === ctx.form[target]) {
+    return true;
+  }
+  return "Passwords must match";
+});
 
 export default {
+  components: {
+    Field,
+  },
+
   data() {
     return {
       userData: {
         oldPassword: null,
         newPassword: null,
+        newPasswordRepeat: null,
       },
     };
   },

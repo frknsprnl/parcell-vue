@@ -9,10 +9,11 @@
             <p class="text-center"><slot name="body-text" /></p>
           </div>
           <hr />
-          <h5 class="text-center"><slot name="price" /></h5>
+          <!-- <h5 class="text-center"><slot name="price" /></h5> -->
           <div class="d-flex justify-content-md-center">
             <button class="btn btn-primary btn-lg mt-2">
-              <i class="bi bi-cart-plus-fill"></i>
+              <i class="bi bi-cart-plus-fill me-2"></i>
+              <span> <slot name="price" /> </span>
             </button>
           </div>
         </div>

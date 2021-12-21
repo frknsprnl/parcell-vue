@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-lg-center">
+  <div class="d-flex justify-content-lg-center m-4">
     <load-animation v-if="getLoadingStatus" />
     <div v-if="!getLoadingStatus" class="row justify-content-center">
       <div
@@ -7,7 +7,7 @@
         v-for="data in deviceData"
         :key="data.id"
       >
-        <device-card class="m-3">
+        <device-card class="">
           <template #image>
             <div class="">
               <!-- <div class="img-cont" :style="` background-image : url('${data.imageDirectory}')`"></div> -->
@@ -18,7 +18,7 @@
             <button class="btn btn-outline-primary" @click="openModal('headphone')">{{ data.name }}</button>
           </template>
           <template #body-text> {{ data.detailText }} </template>
-          <template #price> {{ data.price }} </template>
+          <template #price> {{ data.price }}₺ </template>
         </device-card>
       </div>
     </div>
