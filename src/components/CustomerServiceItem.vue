@@ -48,10 +48,7 @@
       </div>
 
       <div class="d-flex justify-content-center">
-        <p>
-          Müşteri hizmetlerimize Parcell hatlarınızdan 532'yi; diğer operatörlerden ve sabit hatlardan 0 (532)
-          532 00 00'ı arayarak ulaşabilirsiniz.
-        </p>
+        {{ customer.bottomText }}
       </div>
     </div>
   </div>
