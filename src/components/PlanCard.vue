@@ -11,15 +11,23 @@
         <div class="card-body">
           <h6 class="text-center">{{ plan.planName }}</h6>
           <hr />
-          <p class="text-center" id="promotion-text">
-            {{ plan.planName }} paketiyle yüksek hızda interneti ve zengin içerikleri doya doya
-            yaşayabileceksiniz. Üstelik, her yöne {{ plan.minutes }} bol bol konuşma, {{ plan.sms }},
-            {{ plan.internet }} internet ile iletişimin keyfini sürün.
-          </p>
+
+          <ul class="list-unstyled" id="planlist">
+            <li class="bi bi-globe">
+              <span class="ms-2"> {{ plan.internet }}</span>
+            </li>
+            <li class="bi bi-telephone">
+              <span class="ms-2">{{ plan.minutes }}</span>
+            </li>
+            <li class="bi bi-envelope">
+              <span class="ms-2"> {{ plan.sms }} </span>
+            </li>
+          </ul>
         </div>
         <div class="d-flex justify-content-md-center">
           <button class="btn btn-primary btn-lg">
-            <i class="bi bi-cart-plus-fill"></i>
+            <i class="bi bi-cart-plus-fill me-2"></i>
+            <span>{{ plan.price }}₺ </span>
           </button>
         </div>
       </div>
@@ -64,3 +72,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+#planlist > li > span {
+  font-size: 1.15rem;
+}
+</style>
