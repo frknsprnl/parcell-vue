@@ -2,7 +2,7 @@
   <navbar />
   <section class="gradient-custom d-flex justify-content-center pt-2">
     <div class="container row col-9 py-4">
-      <div class="row justify-content-end align-items-center">
+      <div class="row justify-content-center align-items-center">
         <div class="col-xl-7">
           <div class="card shadow-2-strong card-registration" style="border-radius: 15px">
             <div class="card-body p-4 p-md-5">
@@ -14,22 +14,20 @@
               <form>
                 <div class="row">
                   <div class="col-6 mb-3">
-                    <label for="exampleInputName" class="form-label">Ad Soyad</label>
+                    <label for="exampleInputName" class="form-label">Ad</label>
                     <input type="text" class="form-control" id="exampleInputName" />
+                  </div>
+                  <div class="col-6 mb-3">
+                    <label for="exampleInputSurname" class="form-label">Soyad</label>
+                    <input type="text" class="form-control" id="exampleInputSurname" />
                   </div>
                   <div class="col-6 mb-3">
                     <label for="exampleInputEmail1" class="form-label">Email</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" />
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-6 mb-3">
                     <label for="exampleInputNumber" class="form-label">Telefon Numarası</label>
                     <input type="number" class="form-control" id="exampleInputNumber" />
-                  </div>
-                  <div class="col-6 mb-3">
-                    <label for="exampleInputTcno" class="form-label">TC Numarası</label>
-                    <input type="number" class="form-control" id="exampleInputTcno" />
                   </div>
                 </div>
 
@@ -81,52 +79,7 @@
             </div>
           </div>
         </div>
-        <div class="col-4">
-          <div class="col mb-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Mega Online Paket</h5>
-                <p class="card-text">Sınırsız İnternet, SMS, Konuşma</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">200 TL</small>
-              </div>
-            </div>
-          </div>
-          <div class="col mt-2">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Ultra Online Paket</h5>
-                <p class="card-text">50 GB İnternet, 1000 Dakika, 1000 SMS</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">150 TL</small>
-              </div>
-            </div>
-          </div>
-          <div class="col mt-2">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Super Online Paket</h5>
-                <p class="card-text">20 GB İnternet, 500 Dakika, 100 SMS</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">100 TL</small>
-              </div>
-            </div>
-          </div>
-          <div class="col mt-2">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Sınırlı Online Paket</h5>
-                <p class="card-text">5 GB İnternet, 500 Dakika, 50 SMS</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">50 TL</small>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
   </section>
