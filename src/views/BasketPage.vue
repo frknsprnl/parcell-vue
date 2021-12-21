@@ -25,35 +25,6 @@
                 <div class="col">1000 TL <span class="close"></span></div>
               </div>
             </div>
-            <div class="row">
-              <div class="row main align-items-center">
-                <div class="col-2">
-                  <img class="img-fluid" src="@/assets/samsung-telefon.png" />
-                </div>
-                <div class="col">
-                  <div class="row text-muted">Telefon</div>
-                  <div class="row">Samsung</div>
-                </div>
-                <div class="col"><a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a></div>
-                <div class="col">5000 TL<span class="close"></span></div>
-              </div>
-            </div>
-            <div class="row border-top border-bottom">
-              <div class="row main align-items-center">
-                <div class="col-2">
-                  <img class="img-fluid" src="@\assets\xiaomi-powerbank.png" />
-                </div>
-                <div class="col">
-                  <div class="row text-muted">Powerbank</div>
-                  <div class="row">Xioami Powerbank</div>
-                </div>
-                <div class="col"><a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a></div>
-                <div class="col">200 TL <span class="close"></span></div>
-              </div>
-            </div>
-            <div class="back-to-shop">
-              <a href="#">&leftarrow;</a><span class="text-muted">Alışverişe Geri Dön</span>
-            </div>
           </div>
           <div class="col-md-4 summary pt-1 mt-4">
             <h5 class="mb-2"><b>Sipariş Özeti</b></h5>
