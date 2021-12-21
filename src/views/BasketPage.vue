@@ -15,14 +15,13 @@
             <div class="row border-top border-bottom">
               <div class="row main align-items-center">
                 <div class="col-2">
-                  <img class="img-fluid" src="@/assets/apple-airpods-2.png" />
+                  <img class="img-fluid" :src="require('@/assets/' + planData.image)" />
                 </div>
                 <div class="col">
-                  <div class="row text-muted">Kulaklık</div>
-                  <div class="row">Apple Airpods 2</div>
+                  <div class="row text-muted">{{ planData.planName }}</div>
                 </div>
-                <div class="col"><a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a></div>
-                <div class="col">1000 TL <span class="close"></span></div>
+
+                <div class="col">{{ planData.price }} <span class="close"></span></div>
               </div>
             </div>
           </div>
@@ -65,6 +64,46 @@ export default {
   components: {
     Navbar,
     FooterBar,
+  },
+
+  data() {
+    return {
+      basketData: {},
+      planData: {},
+    };
+  },
+
+  async created() {
+    await this.getBasketData();
+    //await this.getPlanData();
+  },
+
+  methods: {
+    getBasketData() {
+      const userId = this.$store.getters._currentUserId;
+      this.$appAxios
+        .get(`/Basket/GetUserBasket?userId=${userId}`)
+        .then((response) => {
+          this.basketData = response.data;
+          console.log(this.basketData);
+          console.log(this.basketData.planId);
+          this.getPlanData(this.basketData.planId);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getPlanData(planId) {
+      this.$appAxios
+        .get(`/Plan/GetPlan/${planId}`)
+        .then((response) => {
+          this.planData = response.data;
+          console.log(this.planData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
