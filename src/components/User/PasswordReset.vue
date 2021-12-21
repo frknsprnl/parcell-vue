@@ -4,31 +4,32 @@
       <div class="row justify-content-center mb-5">
         <div class="container col-lg-7 mt-3">
           <h3 class="text-center mb-5">Şifre Değiştirme</h3>
-          <label for="password" class="form-label"> <span>Eski Şifre</span></label>
-          <input v-model="userData.oldPassword" type="text" class="form-control form-control" id="password" />
-        </div>
-
-        <div class="container col-lg-7 mt-3">
-          <label for="password" class="form-label"> <span>Yeni Şifre</span></label>
-          <Field
-            v-model="userData.newPassword"
+          <label for="oldPassword" class="form-label"> <span>Eski Şifre</span></label>
+          <input
+            v-model="userData.oldPassword"
             type="text"
             class="form-control form-control"
-            name="newPassword"
-            rules="required"
-            id="password"
+            id="oldPassword"
           />
         </div>
 
         <div class="container col-lg-7 mt-3">
-          <label for="password" class="form-label"> <span>Yeni Şifre(Tekrar)</span></label>
-          <Field
+          <label for="newPassword" class="form-label"> <span>Yeni Şifre</span></label>
+          <input
+            v-model="userData.newPassword"
+            type="text"
+            class="form-control form-control"
+            id="newPassword"
+          />
+        </div>
+
+        <div class="container col-lg-7 mt-3">
+          <label for="newPasswordRepeat" class="form-label"> <span>Yeni Şifre(Tekrar)</span></label>
+          <input
             type="text"
             v-model="userData.newPasswordRepeat"
             class="form-control form-control"
-            name="newPasswordRepeat"
-            id="password"
-            rules="confirmed:@newPassword"
+            id="newPasswordRepeat"
           />
           <button @click="onPasswordChange()" class="btn btn-primary btn-md mt-4">Değiştir</button>
         </div>
@@ -40,21 +41,13 @@
 
 <script>
 import CryptoJS from "crypto-js";
-import { defineRule, Field } from "vee-validate";
-import * as yup from "yup";
-
-defineRule("confirmed", (value, [target], ctx) => {
-  if (value === ctx.form[target]) {
-    return true;
-  }
-  return "Passwords must match";
-});
+import useVuelidate from "@vuelidate/core";
+import { required, minLength, sameAs } from "@vuelidate/validators";
 
 export default {
-  components: {
-    Field,
+  setup() {
+    return { v$: useVuelidate() };
   },
-
   data() {
     return {
       userData: {
@@ -65,18 +58,34 @@ export default {
     };
   },
 
+  validations() {
+    return {
+      userData: {
+        oldPassword: { required },
+        newPassword: { required, minLength: minLength(8) },
+        newPasswordRepeat: { required, sameAs: sameAs(this.userData.newPassword) },
+      },
+    };
+  },
+
   methods: {
     onPasswordChange() {
-      let newPassword = CryptoJS.SHA256(this.userData.newPassword).toString();
-      this.$appAxios
-        .get(`/User/ChangeUSerPassword?oldPassword=${this.userData.oldPassword}&newPassword=${newPassword}`)
-        .then((response) => {
-          console.log(response);
-          console.log(newPassword);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.v$.$validate();
+      if (this.v$.$error) {
+        alert("hata aq çocu");
+        console.log(this.v$.$errors);
+      } else {
+        let newPassword = CryptoJS.SHA256(this.userData.newPassword).toString();
+        this.$appAxios
+          .get(`/User/ChangeUSerPassword?oldPassword=${this.userData.oldPassword}&newPassword=${newPassword}`)
+          .then((response) => {
+            console.log(response);
+            console.log(newPassword);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
   },
 };

@@ -6,3 +6,7 @@
 .btn-outline-primary {
   @include button-outline-variant($colors-purple-deep, white);
 }
+
+* {
+  font-family: "Source Sans Pro", sans-serif;
+}
