@@ -111,14 +111,10 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  font-family: "Source Sans Pro";
-}
 h1 {
   font-size: 22px;
   color: #333;
   margin-bottom: 16px;
-  font-family: "Source Sans Pro";
 }
 
 .card {
@@ -128,7 +124,6 @@ h1 {
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 1rem;
   border: transparent;
-  font-family: "Source Sans Pro";
 }
 .card-img {
   height: 90px;
