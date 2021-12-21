@@ -25,7 +25,7 @@
           </ul>
         </div>
         <div class="d-flex justify-content-md-center">
-          <button class="btn btn-primary btn-lg">
+          <button @click="postData(plan.id)" class="btn btn-primary btn-lg">
             <i class="bi bi-cart-plus-fill me-2"></i>
             <span>{{ plan.price }}₺ </span>
           </button>

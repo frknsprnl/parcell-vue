@@ -4,51 +4,44 @@
       <navbar />
       <div class="card mt-4">
         <div class="row py-5">
-          <div class="col-md-8 cart">
-            <div class="title">
-              <div class="row">
-                <div class="col">
-                  <h4 class=""><b>Sepet</b></h4>
+          <div class="title ms-5 mb-2">
+            <h1>Sepet</h1>
+          </div>
+          <div class="col-8 summary ms-5">
+            <div class="row summary">
+              <div class="row align-items-center">
+                <div class="col-4">
+                  <img class="card-img" :src="require('@/assets/' + planData.image)" />
                 </div>
-              </div>
-            </div>
-            <div class="row border-top border-bottom">
-              <div class="row main align-items-center">
-                <div class="col-2">
-                  <img class="img-fluid" :src="require('@/assets/' + planData.image)" />
-                </div>
-                <div class="col">
+                <div class="col-4">
                   <div class="row text-muted">{{ planData.planName }}</div>
                 </div>
 
-                <div class="col">{{ planData.price }} <span class="close"></span></div>
+                <div class="col-4">{{ planData.price }} <span class="close"></span></div>
               </div>
             </div>
           </div>
-          <div class="col-md-4 summary pt-1 mt-4">
-            <h5 class="mb-2"><b>Sipariş Özeti</b></h5>
-            <div class=""></div>
-            <hr />
-            <div class="row">
-              <h6 class="col container">6200 TL</h6>
+          <div class="col-3 summary-box ms-3">
+            <div>
+              <h1 class="mb-2">Sipariş Özeti</h1>
+              <ul class="list-unstyled mt-4">
+                <li><span class="me-5">Ürün Toplamı</span> <strong>000 TL</strong></li>
+                <li><span class="me-5">Kargo Toplam</span> <strong>000 TL</strong></li>
+              </ul>
+              <hr style="width: 80%" />
+
+              <span class="ms-5"> 000TL</span>
+
+              <div class="pt-4"></div>
             </div>
-            <form>
-              <p>Kargo</p>
-              <div class="pe-2">
-                <select>
-                  <option class="text-muted">Parcell Kargo- 15 TL</option>
-                </select>
-              </div>
-            </form>
-            <div class="row" style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0">
-              <div class="col">Toplam Tutar</div>
-              <div class="col text-right">6215.00 TL</div>
-            </div>
-            <div class="pt-4">
-              <router-link :to="{ name: 'PaymentPage' }">
-                <button class="btn btn-primary">Ödeme Kısmına İlerle</button>
-              </router-link>
-            </div>
+          </div>
+          <div class="text-end mt-3">
+            <router-link :to="{ name: 'PaymentPage' }">
+              <button class="btn-lg btn-primary me-4">
+                Sepeti Onayla
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -114,149 +107,55 @@ body {
   min-height: 100vh;
   vertical-align: middle;
   display: flex;
-  font-family: sans-serif;
+  font-family: "Source Sans Pro";
   font-size: 0.8rem;
   font-weight: bold;
 }
-
-.title {
-  margin-bottom: 5vh;
+ul {
+  font-family: "Source Sans Pro";
+}
+h1 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 16px;
+  font-family: "Source Sans Pro";
 }
 
 .card {
   margin: auto;
-  max-width: 950px;
-  width: 90%;
+  max-width: 1400px;
+  width: 70%;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 1rem;
   border: transparent;
+  font-family: "Source Sans Pro";
 }
-
+.card-img {
+  height: 90px;
+  width: 140px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 .cart {
-  background-color: #fff;
-  padding: 4vh 5vh;
-  border-bottom-left-radius: 1rem;
-  border-top-left-radius: 1rem;
-}
-
-.summary .col-2 {
-  padding: 0;
-}
-
-.summary .col-10 {
-  padding: 0;
-}
-
-.row {
-  margin: 0;
-}
-
-.title b {
-  font-size: 1.5rem;
-}
-
-.main {
-  margin: 0;
-  padding: 2vh 0;
-  width: 100%;
-}
-
-.col-2,
-.col {
-  padding: 0 1vh;
-}
-
-a {
-  padding: 0 1vh;
-}
-
-.close {
-  margin-left: auto;
-  font-size: 0.7rem;
-}
-
-img {
-  width: 3.5rem;
-}
-
-.back-to-shop {
-  margin-top: 4.5rem;
-}
-
-h5 {
-  margin-top: 4vh;
+  margin-right: 40px;
 }
 
 hr {
   margin-top: 1.25rem;
 }
 
-form {
-  padding: 2vh 0;
+.btn-primary {
+  border-radius: 6px;
+  width: 300px;
+  height: 60px;
 }
-
-select {
-  border: 1px solid rgba(0, 0, 0, 0.137);
-  padding: 1.5vh 1vh;
-  margin-bottom: 4vh;
-  outline: none;
-  width: 100%;
-  background-color: rgb(247, 247, 247);
+.summary {
+  border-radius: 6px;
+  border: solid 1px #e6e6e6;
 }
-
-input {
-  border: 1px solid rgba(0, 0, 0, 0.137);
-  padding: 1vh;
-  margin-bottom: 4vh;
-  outline: none;
-  width: 100%;
-  background-color: rgb(247, 247, 247);
-}
-
-input:focus::-webkit-input-placeholder {
-  color: transparent;
-}
-
-/* .btn {
-  background-color: #000;
-  border-color: #000;
-  color: white;
-  width: 100%;
-  font-size: 0.7rem;
-  margin-top: 4vh;
-  padding: 1vh;
-  border-radius: 0;
-} */
-
-.btn:focus {
-  box-shadow: none;
-  outline: none;
-  box-shadow: none;
-  color: white;
-  -webkit-box-shadow: none;
-  user-select: none;
-  -webkit-user-select: none;
-  transition: none;
-}
-
-.btn:hover {
-  color: white;
-}
-
-a {
-  color: black;
-}
-
-a:hover {
-  color: black;
-  text-decoration: none;
-}
-
-#code {
-  background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)),
-    url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
-  background-repeat: no-repeat;
-  background-position-x: 95%;
-  background-position-y: center;
+.summary-box {
+  padding: 15px;
+  border-radius: 6px;
+  border: solid 1px #e6e6e6;
 }
 </style>
