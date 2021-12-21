@@ -2,7 +2,8 @@
   <div class="d-flex flex-column min-vh-100 justify-content-sm-between">
     <div>
       <navbar />
-      <div class="card mt-4">
+      <load-animation class="mt-4" v-if="getLoadingStatus" />
+      <div class="card mt-4" v-if="!getLoadingStatus">
         <div class="row py-5">
           <div class="title ms-5 mb-2">
             <h1>Sepet</h1>
@@ -51,22 +52,27 @@
 <script>
 import Navbar from "@/components/Shared/Navbar.vue";
 import FooterBar from "@/components/Shared/FooterBar.vue";
+import LoadAnimation from "../components/Shared/LoadAnimation.vue";
 export default {
   components: {
     Navbar,
     FooterBar,
+    LoadAnimation,
   },
 
   data() {
     return {
       basketData: {},
       planData: {},
+      isLoading: true,
     };
   },
 
   async created() {
-    await this.getBasketData();
     //await this.getPlanData();
+    this.isLoading = true;
+    await this.getBasketData();
+    this.isLoading = false;
   },
 
   methods: {
@@ -94,6 +100,11 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+  },
+  computed: {
+    getLoadingStatus: function () {
+      return this.isLoading;
     },
   },
 };
