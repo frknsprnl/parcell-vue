@@ -93,7 +93,7 @@
                 </div>
               </div>
               <div class="mt-5 d-flex justify-content-center">
-                <button class="btn btn-danger me-3" id="edit-btn" type="button" @click="disabled = 1">
+                <button class="btn btn-danger me-3" type="button" @click="disabled = 1">
                   <i class="bi bi-pen me-1"> </i>
                   <span>Profili Düzenle</span>
                 </button>
@@ -134,8 +134,4 @@ export default {
 .img-round {
   border-radius: 50%;
 }
-/* #edit-btn {
-  background-color: #7c27c5;
-  color: white;
-} */
 </style>
