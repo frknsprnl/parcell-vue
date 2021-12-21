@@ -21,8 +21,8 @@
               </div>
             </div>
           </div>
-          <div class="col-3 summary-box ms-3">
-            <div>
+          <div class="col-3">
+            <div class="summary-box ms-3">
               <h1 class="mb-2">Sipariş Özeti</h1>
               <ul class="list-unstyled mt-4">
                 <li><span class="me-5">Ürün Toplamı</span> <strong>000 TL</strong></li>
@@ -30,18 +30,16 @@
               </ul>
               <hr style="width: 80%" />
 
-              <span class="ms-5"> 000TL</span>
-
-              <div class="pt-4"></div>
+              <span> 000TL</span>
             </div>
-          </div>
-          <div class="text-end mt-3">
-            <router-link :to="{ name: 'PaymentPage' }">
-              <button class="btn-lg btn-primary me-4">
-                Sepeti Onayla
-                <i class="bi bi-chevron-right"></i>
-              </button>
-            </router-link>
+            <div class="ms-3 pt-3">
+              <router-link :to="{ name: 'PaymentPage' }">
+                <button class="btn-lg btn-primary">
+                  Sepeti Onayla
+                  <i class="bi bi-chevron-right"></i>
+                </button>
+              </router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -102,15 +100,6 @@ export default {
 </script>
 
 <style scoped>
-body {
-  background: #ddd;
-  min-height: 100vh;
-  vertical-align: middle;
-  display: flex;
-  font-family: "Source Sans Pro";
-  font-size: 0.8rem;
-  font-weight: bold;
-}
 ul {
   font-family: "Source Sans Pro";
 }
@@ -146,7 +135,7 @@ hr {
 
 .btn-primary {
   border-radius: 6px;
-  width: 300px;
+  width: 264px;
   height: 60px;
 }
 .summary {
