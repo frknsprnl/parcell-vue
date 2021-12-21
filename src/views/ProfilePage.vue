@@ -95,6 +95,6 @@ export default {
 }
 
 #sidebar {
-  background-color: #503c6c;
+  background-color: #4c3a6e;
 }
 </style>
