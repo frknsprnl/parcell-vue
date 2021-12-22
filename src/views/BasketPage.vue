@@ -18,7 +18,10 @@
                   <div class="row text-muted">{{ planData.planName }}</div>
                 </div>
 
-                <div class="col-4">{{ planData.price }} <span class="close"></span></div>
+                <div class="col-4">
+                  {{ planData.price }} <span class="close"></span>
+                  <button class="btn btn-delete d-flex float-end bi bi-trash"></button>
+                </div>
               </div>
             </div>
             <div v-if="deviceData !== null">
@@ -30,7 +33,10 @@
                   <div class="col-4">
                     <div class="row text-muted">{{ device.name }}</div>
                   </div>
-                  <div class="col-4">{{ device.price }} <span class="close"></span></div>
+                  <div class="col-4">
+                    {{ device.price }} <span class="close"></span>
+                    <button class="btn btn-delete d-flex float-end bi bi-trash"></button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -169,6 +175,16 @@ hr {
   border-radius: 6px;
   width: 264px;
   height: 60px;
+}
+.btn-delete {
+  border-radius: 6px;
+  font-size: 1.2rem;
+  color: #4c3a6e;
+  border-color: transparent;
+  box-shadow: none;
+}
+.btn-delete:hover {
+  color: #dc3545;
 }
 .summary {
   border-radius: 6px;
