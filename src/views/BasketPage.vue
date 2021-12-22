@@ -9,7 +9,7 @@
             <h1>Sepet</h1>
           </div>
           <div class="col-8 summary ms-5">
-            <div class="row summary">
+            <div name="Plan Area" v-if="planData !== null" class="row summary">
               <div class="row align-items-center">
                 <div class="col-4">
                   <img class="card-img" :src="require('@/assets/' + planData.image)" />
@@ -19,6 +19,19 @@
                 </div>
 
                 <div class="col-4">{{ planData.price }} <span class="close"></span></div>
+              </div>
+            </div>
+            <div v-if="deviceData !== null">
+              <div name="Device Area" v-for="device in deviceData" :key="device.id" class="row summary">
+                <div class="row align-items-center">
+                  <div class="col-4">
+                    <img class="card-img" :src="require('@/assets/' + device.imageDirectory)" />
+                  </div>
+                  <div class="col-4">
+                    <div class="row text-muted">{{ device.name }}</div>
+                  </div>
+                  <div class="col-4">{{ device.price }} <span class="close"></span></div>
+                </div>
               </div>
             </div>
           </div>
@@ -62,8 +75,9 @@ export default {
 
   data() {
     return {
-      basketData: {},
-      planData: {},
+      basketData: null,
+      planData: null,
+      deviceData: null,
       isLoading: true,
     };
   },
@@ -85,6 +99,7 @@ export default {
           console.log(this.basketData);
           console.log(this.basketData.planId);
           this.getPlanData(this.basketData.planId);
+          this.getDeviceData(this.basketData.basketDevices);
         })
         .catch((error) => {
           console.log(error);
@@ -96,6 +111,17 @@ export default {
         .then((response) => {
           this.planData = response.data;
           console.log(this.planData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getDeviceData(deviceIds) {
+      this.$appAxios
+        .post("/Device/GetDeviceList", [...deviceIds])
+        .then((response) => {
+          console.log(response);
+          this.deviceData = response.data;
         })
         .catch((error) => {
           console.log(error);
