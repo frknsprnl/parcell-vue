@@ -10,7 +10,13 @@
             type="text"
             class="form-control form-control"
             id="oldPassword"
+            @blur="v$.userData.oldPassword.$touch()"
           />
+          <small
+            class="text-danger"
+            v-if="v$.userData.oldPassword.required.$invalid && v$.userData.newPassword.$error && submitted"
+            >Bu alan boş olamaz <br
+          /></small>
         </div>
 
         <div class="container col-lg-7 mt-3">
@@ -20,7 +26,18 @@
             type="text"
             class="form-control form-control"
             id="newPassword"
+            @blur="v$.userData.newPassword.$touch()"
           />
+          <small
+            class="text-danger"
+            v-if="v$.userData.newPassword.required.$invalid && v$.userData.newPassword.$error && submitted"
+            >Bu alan boş olamaz <br
+          /></small>
+          <small
+            class="text-danger"
+            v-if="v$.userData.newPassword.minLength.$invalid && v$.userData.newPassword.$error && submitted"
+            >Şifreniz minimum 8 haneli olmalıdır <br
+          /></small>
         </div>
 
         <div class="container col-lg-7 mt-3">
@@ -30,7 +47,26 @@
             v-model="userData.newPasswordRepeat"
             class="form-control form-control"
             id="newPasswordRepeat"
+            @blur="v$.userData.newPasswordRepeat.$touch()"
           />
+          <small
+            class="text-danger"
+            v-if="
+              v$.userData.newPasswordRepeat.sameAs.$invalid &&
+              v$.userData.newPasswordRepeat.$error &&
+              submitted
+            "
+            >Şifreler uyuşmuyor <br
+          /></small>
+          <small
+            class="text-danger"
+            v-if="
+              v$.userData.newPasswordRepeat.required.$invalid &&
+              v$.userData.newPasswordRepeat.$error &&
+              submitted
+            "
+            >Bu alan boş olamaz <br
+          /></small>
           <button @click="onPasswordChange()" class="btn btn-primary btn-md mt-4">Değiştir</button>
         </div>
       </div>
@@ -43,10 +79,12 @@
 import CryptoJS from "crypto-js";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, sameAs } from "@vuelidate/validators";
-
+import { useToast } from "vue-toastification";
 export default {
   setup() {
-    return { v$: useVuelidate() };
+    const toast = useToast();
+
+    return { v$: useVuelidate(), toast };
   },
   data() {
     return {
@@ -55,6 +93,7 @@ export default {
         newPassword: null,
         newPasswordRepeat: null,
       },
+      submitted: true,
     };
   },
 
@@ -72,21 +111,30 @@ export default {
     onPasswordChange() {
       this.v$.$validate();
       if (this.v$.$error) {
-        alert("hata aq çocu");
+        this.submitted = true;
         console.log(this.v$.$errors);
       } else {
+        let oldPassword = CryptoJS.SHA256(this.userData.oldPassword).toString();
         let newPassword = CryptoJS.SHA256(this.userData.newPassword).toString();
         this.$appAxios
-          .get(`/User/ChangeUSerPassword?oldPassword=${this.userData.oldPassword}&newPassword=${newPassword}`)
+          .get(`/User/ChangeUSerPassword?oldPassword=${oldPassword}&newPassword=${newPassword}`)
           .then((response) => {
             console.log(response);
             console.log(newPassword);
           })
           .catch((error) => {
             console.log(error);
+            if (error.response.status === 404) {
+              this.toast.error("Eski şifreniz yanlış");
+            }
           });
+        this.submitted = false;
       }
     },
+  },
+
+  computed: {
+    passwordErrors: () => {},
   },
 };
 </script>

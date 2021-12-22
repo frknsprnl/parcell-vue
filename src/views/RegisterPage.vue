@@ -21,7 +21,17 @@
                             id="firstName"
                             v-model="userData.name"
                             class="form-control form-control"
+                            @blur="v$.userData.name.$touch()"
+                            :class="{
+                              'is-invalid': v$.userData.name.$error,
+                            }"
                           />
+                          <div v-if="v$.userData.name.required.$invalid" class="invalid-feedback">
+                            Bu alan boş olamaz.
+                          </div>
+                          <div v-if="v$.userData.name.turkishChar.$invalid" class="invalid-feedback">
+                            Lütfen sadece harf girişi yapın.
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
@@ -34,12 +44,19 @@
                             id="lastName"
                             v-model="userData.surname"
                             class="form-control form-control"
+                            @blur="v$.userData.surname.$touch()"
+                            :class="{
+                              'is-invalid': v$.userData.surname.$error,
+                            }"
                           />
+                          <div v-if="v$.userData.surname.required.$invalid" class="invalid-feedback">
+                            Bu alan boş olamaz.
+                          </div>
+                          <div v-if="v$.userData.surname.turkishChar.$invalid" class="invalid-feedback">
+                            Lütfen sadece harf girişi yapın.
+                          </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div class="row">
                       <div class="col-md-6 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="emailAddress"
@@ -51,26 +68,47 @@
                             v-model="userData.mail"
                             class="form-control form-control"
                             placeholder="parcell@gmail.com"
+                            @blur="v$.userData.mail.$touch()"
+                            :class="{
+                              'is-invalid': v$.userData.mail.$error,
+                            }"
                           />
+                          <div v-if="v$.userData.mail.required.$invalid" class="invalid-feedback">
+                            Bu alan boş olamaz.
+                          </div>
+                          <div v-if="v$.userData.mail.email.$invalid" class="invalid-feedback">
+                            Lütfen uygun bir mail giriniz.
+                          </div>
                         </div>
                       </div>
-                      <div class="col-md-6 mb-4 d-flex align-items-center">
-                        <div class="form-outline datepicker w-100">
+                      <div class="col-md-6 mb-4">
+                        <div class="form-outline">
                           <label for="password" class="form-label"
                             ><i class="bi bi-shield-lock-fill"> Şifre</i></label
                           >
                           <input
-                            type="text"
+                            type="password"
                             v-model="userData.password"
                             class="form-control form-control"
                             id="password"
+                            @blur="v$.userData.password.$touch()"
+                            :class="{
+                              'is-invalid': v$.userData.password.$error,
+                            }"
                           />
+                          <div v-if="v$.userData.password.required.$invalid" class="invalid-feedback">
+                            Bu alan boş olamaz.
+                          </div>
+                          <div v-if="v$.userData.password.minLength.$invalid" class="invalid-feedback">
+                            Şifreniz minimum 8 karakter olmalı.
+                          </div>
                         </div>
                       </div>
-                      <div class="row">
+                    </div>
+                    <div class="row">
+                      <div class="">
                         <div class="col-md-6 mb-4 pb-2">
                           <h6 class="mb-2 pb-1">Cinsiyet</h6>
-
                           <div class="form-check form-check-inline">
                             <label class="form-check-label" for="maleGender"
                               ><i class="bi bi-gender-male"> Erkek</i></label
@@ -82,6 +120,10 @@
                               id="maleGender"
                               v-model="userData.gender"
                               value="Erkek"
+                              @blur="v$.userData.gender.$touch()"
+                              :class="{
+                                'is-invalid': v$.userData.gender.$error,
+                              }"
                             />
                           </div>
                           <div class="form-check form-check-inline">
@@ -95,41 +137,60 @@
                               id="femaleGender"
                               v-model="userData.gender"
                               value="Kadın"
+                              @blur="v$.userData.gender.$touch()"
+                              :class="{
+                                'is-invalid': v$.userData.gender.$error,
+                              }"
                             />
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-6 mb-4 pb-2">
-                          <div class="form-outline">
-                            <label class="form-label" for="birthPlace"
-                              ><i class="bi bi-globe"> Doğum Yeri</i></label
-                            >
-                            <input
-                              type="birthplace"
-                              id="birthPlace"
-                              v-model="userData.birthPlace"
-                              class="form-control form-control"
-                              placeholder="Örn. Isparta"
-                            />
+                      <div class="">
+                        <div class="row">
+                          <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                              <label class="form-label" for="birthPlace"
+                                ><i class="bi bi-globe"> Doğum Yeri</i></label
+                              >
+                              <input
+                                type="birthplace"
+                                id="birthPlace"
+                                v-model="userData.birthPlace"
+                                class="form-control form-control"
+                                placeholder="Örn. Isparta"
+                                @blur="v$.userData.birthPlace.$touch()"
+                                :class="{
+                                  'is-invalid': v$.userData.birthPlace.$error,
+                                }"
+                              />
+                              <div v-if="v$.userData.birthPlace.required.$invalid" class="invalid-feedback">
+                                Bu alan boş olamaz.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                              <label class="form-label" for="birthDate"
+                                ><i class="bi bi-calendar-fill"> Doğum Tarihi</i></label
+                              >
+                              <!-- <Datepicker class="form-control form-control bg-white" v-model="userData.userBirthDate"/> -->
+                              <input
+                                type="date"
+                                id="birthDate"
+                                v-model="userData.birthDate"
+                                class="form-control form-control"
+                                @blur="v$.userData.birthDate.$touch()"
+                                :class="{
+                                  'is-invalid': v$.userData.birthDate.$error,
+                                }"
+                              />
+                              <div v-if="v$.userData.birthDate.required.$invalid" class="invalid-feedback">
+                                Bu alan boş olamaz.
+                              </div>
+                            </div>
                           </div>
                         </div>
-                        <div class="col-md-6 mb-4 pb-2">
-                          <div class="form-outline">
-                            <label class="form-label" for="birthDate"
-                              ><i class="bi bi-calendar-fill"> Doğum Tarihi</i></label
-                            >
-                            <!-- <Datepicker class="form-control form-control bg-white" v-model="userData.userBirthDate"/> -->
-                            <input
-                              type="date"
-                              id="birthDate"
-                              v-model="userData.birthDate"
-                              class="form-control form-control"
-                            />
-                          </div>
-                        </div>
-
-                        <div class="mt-4 pt-2">
+                        <div class="">
                           <button class="btn btn-primary btn" type="button" @click="createUser()">
                             Kayıt Ol
                           </button>
@@ -155,9 +216,24 @@
 import FooterBar from "@/components/Shared/FooterBar.vue";
 import Navbar from "../components/Shared/Navbar.vue";
 import CryptoJS from "crypto-js";
+import useVuelidate from "@vuelidate/core";
+import { required, minLength, email, alpha, helpers } from "@vuelidate/validators";
+import { useToast } from "vue-toastification";
+
+const turkishChar = (value) => !helpers.req(value) || /^[a-zA-ZıİçÇşŞğĞÜüÖö]*$/g.test(value);
+
 export default {
   components: {
     Navbar,
+  },
+
+  setup() {
+    const toast = useToast();
+
+    return {
+      toast,
+      v$: useVuelidate(),
+    };
   },
   data() {
     return {
@@ -167,7 +243,7 @@ export default {
         mail: null,
         password: null,
         phone: "yeni",
-        gender: null,
+        gender: "Erkek",
         birthPlace: null,
         birthDate: null,
         address: "null",
@@ -175,16 +251,34 @@ export default {
       },
     };
   },
+  validations() {
+    return {
+      userData: {
+        name: { required, turkishChar },
+        surname: { required, turkishChar },
+        mail: { required, email },
+        password: { required, minLength: minLength(8) },
+        gender: { required },
+        birthPlace: { required },
+        birthDate: { required },
+      },
+    };
+  },
   methods: {
     createUser() {
-      const password = CryptoJS.SHA256(this.userData.password).toString();
-
-      this.$appAxios.post("/User/CreateUser", { ...this.userData, password }).then((response) => {
-        console.log(response);
-        if (response.status === 201) {
-          this.$router.push({ name: "LoginPage" });
-        }
-      });
+      this.v$.$validate();
+      if (this.v$.$error) {
+        console.log(this.v$);
+      } else {
+        const password = CryptoJS.SHA256(this.userData.password).toString();
+        this.$appAxios.post("/User/CreateUser", { ...this.userData, password }).then((response) => {
+          console.log(response);
+          if (response.status === 201) {
+            this.$router.push({ name: "LoginPage" });
+            this.toast.success("Kayıt Başarılı");
+          }
+        });
+      }
     },
     printUser() {
       const password = CryptoJS.SHA256(this.userData.password).toString();
