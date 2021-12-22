@@ -14,6 +14,9 @@
               <img class="img-cont" :src="require(`@/assets/${data.imageDirectory}`)" alt="" />
             </div>
           </template>
+          <template #deviceId>
+            {{ data.id }}
+          </template>
           <template #title>
             <button class="btn btn-outline-primary" @click="openModal('headphone')">{{ data.name }}</button>
           </template>

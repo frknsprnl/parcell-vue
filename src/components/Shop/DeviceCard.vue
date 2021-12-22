@@ -4,6 +4,7 @@
       <slot name="image" />
       <div class="card-body">
         <div class="row align-items-center">
+          <div v-show="false" ref="deviceId"><slot name="deviceId" /></div>
           <slot name="title" />
           <div class="mt-2 overflow-auto hover-div" style="height: 3rem">
             <p class="text-center"><slot name="body-text" /></p>
@@ -11,19 +12,70 @@
           <hr />
           <!-- <h5 class="text-center"><slot name="price" /></h5> -->
           <div class="d-flex justify-content-md-center">
-            <button class="btn btn-primary btn-lg mt-2">
+            <button @click="postData()" class="btn btn-primary btn-lg mt-2">
               <i class="bi bi-cart-plus-fill me-2"></i>
               <span> <slot name="price" /> </span>
             </button>
           </div>
         </div>
       </div>
+      <ConfirmDialog></ConfirmDialog>
+      <ConfirmDialog group="positionDialog"></ConfirmDialog>
+
+      <div class="card">
+        <h5>Basic</h5>
+        <Button @click="confirm1()" icon="pi pi-check" label="Confirm" class="p-mr-2"></Button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import ConfirmDialog from "primevue/confirmdialog";
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    postData() {
+      const userId = this.$store.getters._currentUserId;
+      this.$appAxios
+        .get(`/Basket/AddDeviceToBasket?userId=${userId}&deviceId=${this.$refs.deviceId.innerHTML}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.response.status === 400) {
+            this.$toast.error(error.response.data);
+          }
+        });
+    },
+    confirm1() {
+      this.$confirm.require({
+        message: "Are you sure you want to proceed?",
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+        accept: () => {
+          this.$toast.add({
+            severity: "info",
+            summary: "Confirmed",
+            detail: "You have accepted",
+            life: 3000,
+          });
+        },
+        reject: () => {
+          this.$toast.add({
+            severity: "error",
+            summary: "Rejected",
+            detail: "You have rejected",
+            life: 3000,
+          });
+        },
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>

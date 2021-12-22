@@ -29,6 +29,7 @@
             <i class="bi bi-cart-plus-fill me-2"></i>
             <span>{{ plan.price }}₺ </span>
           </button>
+          <button @click="checkBasketPlan()" class="btn btn-primary btn-lg">check</button>
         </div>
       </div>
     </div>
@@ -68,6 +69,17 @@ export default {
       const userId = this.$store.getters._currentUserId;
       this.$appAxios
         .get(`/Basket/AddPlanToBasket?userId=${userId}&planId=${planId}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    checkBasketPlan() {
+      const userId = this.$store.getters._currentUserId;
+      this.$appAxios
+        .get(`/Basket/CheckPlan?userId=${userId}`)
         .then((response) => {
           console.log(response);
         })
