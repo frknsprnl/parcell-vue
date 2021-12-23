@@ -97,7 +97,11 @@
                   <i class="bi bi-pen me-1"> </i>
                   <span>Profili Düzenle</span>
                 </button>
-                <button class="btn btn-primary profile-button" type="button" @click="disabled = 0">
+                <button
+                  class="btn btn-primary profile-button"
+                  type="button"
+                  @click="UpdateUserInfo(user.id, user.mail, user.address)"
+                >
                   <i class="bi bi-save me-1"> </i> <span>Profili Kaydet</span>
                 </button>
               </div>
@@ -120,7 +124,19 @@ export default {
       id: null,
     };
   },
-
+  methods: {
+    UpdateUserInfo(userId, mail, address) {
+      this.$appAxios
+        .put(`/User/UpdateUserInfo?userId=${userId}&mail=${mail}&address=${address}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      this.disabled = 0;
+    },
+  },
   mounted() {
     this.user = this.$store.getters._getCurrentUser;
     let date = this.user.birthDate.slice(0, 10);
