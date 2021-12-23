@@ -20,7 +20,10 @@
 
                 <div class="col-4">
                   {{ planData.price }} <span class="close"></span>
-                  <button class="btn btn-delete d-flex float-end bi bi-trash"></button>
+                  <button
+                    @click="deletePlan(planData.id)"
+                    class="btn btn-delete d-flex float-end bi bi-trash"
+                  ></button>
                 </div>
               </div>
             </div>
@@ -35,7 +38,10 @@
                   </div>
                   <div class="col-4">
                     {{ device.price }} <span class="close"></span>
-                    <button class="btn btn-delete d-flex float-end bi bi-trash"></button>
+                    <button
+                      @click="deleteDevice(device.id)"
+                      class="btn btn-delete d-flex float-end bi bi-trash"
+                    ></button>
                   </div>
                 </div>
               </div>
@@ -85,6 +91,7 @@ export default {
       planData: null,
       deviceData: null,
       isLoading: true,
+      userId: this.$store.getters._currentUserId,
     };
   },
 
@@ -97,9 +104,8 @@ export default {
 
   methods: {
     getBasketData() {
-      const userId = this.$store.getters._currentUserId;
       this.$appAxios
-        .get(`/Basket/GetUserBasket?userId=${userId}`)
+        .get(`/Basket/GetUserBasket?userId=${this.userId}`)
         .then((response) => {
           this.basketData = response.data;
           console.log(this.basketData);
@@ -120,6 +126,9 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          if (error.response.status === 404) {
+            this.planData = null;
+          }
         });
     },
     getDeviceData(deviceIds) {
@@ -128,6 +137,28 @@ export default {
         .then((response) => {
           console.log(response);
           this.deviceData = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deleteDevice(deviceId) {
+      this.$appAxios
+        .delete(`/Basket/DeleteBasketDevice?userId=${this.userId}&deviceId=${deviceId}`)
+        .then((response) => {
+          console.log(response);
+          this.getBasketData();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deletePlan(planId) {
+      this.$appAxios
+        .delete(`/Basket/DeleteBasketPlan?userId=${this.userId}&deviceId=${planId}`)
+        .then((response) => {
+          console.log(response);
+          this.getBasketData();
         })
         .catch((error) => {
           console.log(error);
