@@ -25,11 +25,10 @@
           </ul>
         </div>
         <div class="d-flex justify-content-md-center">
-          <button @click="postData(plan.id)" class="btn btn-primary btn-lg">
+          <button @click="checkBasketPlan(plan.id)" class="btn btn-primary btn-lg">
             <i class="bi bi-cart-plus-fill me-2"></i>
             <span>{{ plan.price }}₺ </span>
           </button>
-          <button @click="checkBasketPlan()" class="btn btn-primary btn-lg">check</button>
         </div>
       </div>
     </div>
@@ -76,15 +75,31 @@ export default {
           console.log(error);
         });
     },
-    checkBasketPlan() {
+    checkBasketPlan(planId) {
       const userId = this.$store.getters._currentUserId;
       this.$appAxios
         .get(`/Basket/CheckPlan?userId=${userId}`)
         .then((response) => {
           console.log(response);
+          this.postData(planId);
+          this.$toast.success("Paket Başarıyla Sepete Eklendi.");
         })
         .catch((error) => {
           console.log(error);
+          this.$swal
+            .fire({
+              text: error.response.data,
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonText: "Evet",
+              cancelButtonText: "İptal",
+            })
+            .then((result) => {
+              if (result.isConfirmed) {
+                this.postData(planId);
+                this.$toast.success("Sepetinize Eklendi.");
+              }
+            });
         });
     },
   },

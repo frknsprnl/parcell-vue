@@ -2,7 +2,7 @@
   <div class="d-flex flex-column min-vh-100 justify-content-sm-between">
     <div class="">
       <nav-bar />
-      <filter-options />
+      <!-- <filter-options /> -->
       <device-card-list />
     </div>
     <footer-bar />
@@ -16,7 +16,7 @@ import FilterOptions from "../components/Shop/FilterOptions.vue";
 import DeviceCardList from "../components/Shop/DeviceCardList.vue";
 
 export default {
-  components: { NavBar, FooterBar, FilterOptions, DeviceCardList },
+  components: { NavBar, FooterBar, DeviceCardList },
 };
 </script>
 

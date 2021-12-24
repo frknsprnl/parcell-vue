@@ -19,23 +19,16 @@
           </div>
         </div>
       </div>
-      <ConfirmDialog></ConfirmDialog>
-      <ConfirmDialog group="positionDialog"></ConfirmDialog>
-
-      <div class="card">
-        <h5>Basic</h5>
-        <Button @click="confirm1()" icon="pi pi-check" label="Confirm" class="p-mr-2"></Button>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import ConfirmDialog from "primevue/confirmdialog";
 export default {
   data() {
     return {};
   },
+
   methods: {
     postData() {
       const userId = this.$store.getters._currentUserId;
@@ -43,6 +36,7 @@ export default {
         .get(`/Basket/AddDeviceToBasket?userId=${userId}&deviceId=${this.$refs.deviceId.innerHTML}`)
         .then((response) => {
           console.log(response);
+          this.$toast.success("Sepetinize Eklendi.");
         })
         .catch((error) => {
           console.log(error);
@@ -50,29 +44,6 @@ export default {
             this.$toast.error(error.response.data);
           }
         });
-    },
-    confirm1() {
-      this.$confirm.require({
-        message: "Are you sure you want to proceed?",
-        header: "Confirmation",
-        icon: "pi pi-exclamation-triangle",
-        accept: () => {
-          this.$toast.add({
-            severity: "info",
-            summary: "Confirmed",
-            detail: "You have accepted",
-            life: 3000,
-          });
-        },
-        reject: () => {
-          this.$toast.add({
-            severity: "error",
-            summary: "Rejected",
-            detail: "You have rejected",
-            life: 3000,
-          });
-        },
-      });
     },
   },
 };
