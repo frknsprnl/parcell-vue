@@ -35,6 +35,7 @@ const store = createStore({
     },
     _currentUserId: state => state?.user?.id,
     _getProfileActiveTab: state => state.profileActiveTab,
+    _getUserAddress: state => state?.user?.address,
   },
   plugins: [
     createPersistedState({

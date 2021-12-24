@@ -265,7 +265,7 @@ export default {
     };
   },
   methods: {
-    createUser() {
+    async createUser() {
       this.v$.$validate();
       if (this.v$.$error) {
         console.log(this.v$);
@@ -279,6 +279,16 @@ export default {
           }
         });
       }
+    },
+    async checkUser() {
+      await this.$appAxios
+        .get(`/User/GetUserWithMail=${this.userData.mail}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     printUser() {
       const password = CryptoJS.SHA256(this.userData.password).toString();

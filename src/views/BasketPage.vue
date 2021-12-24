@@ -51,12 +51,18 @@
             <div class="summary-box ms-3">
               <h1 class="mb-2">Sipariş Özeti</h1>
               <ul class="list-unstyled mt-4">
-                <li><span class="me-5">Ürün Toplamı</span> <strong>000 TL</strong></li>
-                <li><span class="me-5">Kargo Toplam</span> <strong>000 TL</strong></li>
+                <li>
+                  <span class="me-5">Ürün Toplamı</span>
+                  <strong v-if="totalPrice !== 0">{{ totalPrice }} TL</strong>
+                </li>
+                <li>
+                  <span class="me-5">Kargo Toplam</span>
+                  <strong v-if="totalPrice !== 0"> {{ shippingPrice }} TL</strong>
+                </li>
               </ul>
               <hr style="width: 80%" />
 
-              <span> 000TL</span>
+              <span v-if="totalPrice !== 0"> {{ totalPrice + shippingPrice }} TL</span>
             </div>
             <div class="ms-3 pt-3">
               <router-link :to="{ name: 'PaymentPage' }">
@@ -92,6 +98,8 @@ export default {
       deviceData: null,
       isLoading: true,
       userId: this.$store.getters._currentUserId,
+      totalPrice: 0,
+      shippingPrice: 14.99,
     };
   },
 
@@ -101,10 +109,11 @@ export default {
     await this.getBasketData();
     this.isLoading = false;
   },
+  mounted() {},
 
   methods: {
-    getBasketData() {
-      this.$appAxios
+    async getBasketData() {
+      await this.$appAxios
         .get(`/Basket/GetUserBasket?userId=${this.userId}`)
         .then((response) => {
           this.basketData = response.data;
@@ -123,6 +132,7 @@ export default {
         .then((response) => {
           this.planData = response.data;
           console.log(this.planData);
+          this.totalPrice += this.planData.price;
         })
         .catch((error) => {
           console.log(error);
@@ -137,6 +147,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.deviceData = response.data;
+          this.getBasketTotalPrice();
         })
         .catch((error) => {
           console.log(error);
@@ -148,6 +159,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.getBasketData();
+          this.totalPrice = 0;
         })
         .catch((error) => {
           console.log(error);
@@ -159,10 +171,19 @@ export default {
         .then((response) => {
           console.log(response);
           this.getBasketData();
+          this.totalPrice = 0;
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    getBasketTotalPrice() {
+      console.log("Başlangıc ", this.totalPrice);
+      this.deviceData.forEach((e) => {
+        this.totalPrice += e.price;
+        console.log(this.totalPrice);
+      });
+      //this.totalPrice += this.planData.price;
     },
   },
   computed: {

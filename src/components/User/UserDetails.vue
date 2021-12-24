@@ -63,7 +63,17 @@
                     placeholder="user@gmail.com"
                     v-model="user.mail"
                     :disabled="disabled == 0"
+                    @blur="this.v$.user.mail.$touch()"
+                    :class="{
+                      'is-invalid': v$.user.mail.$error,
+                    }"
                   />
+                  <div v-if="v$.user.mail.required.$invalid" class="invalid-feedback">
+                    Bu alan boş olamaz.
+                  </div>
+                  <div v-if="v$.user.mail.email.$invalid" class="invalid-feedback">
+                    Lütfen uygun bir mail giriniz.
+                  </div>
                 </div>
                 <div class="col-md-12">
                   <label class="labels"><i class="bi bi-geo-alt-fill"> Adres</i></label
@@ -73,7 +83,14 @@
                     placeholder="adres"
                     v-model="user.address"
                     :disabled="disabled == 0"
+                    @blur="this.v$.user.address.$touch()"
+                    :class="{
+                      'is-invalid': v$.user.address.$error,
+                    }"
                   />
+                  <div v-if="v$.user.address.required.$invalid" class="invalid-feedback">
+                    Bu alan boş olamaz.
+                  </div>
                 </div>
               </div>
               <div class="row mt-3">
@@ -113,9 +130,18 @@
   </div>
 </template>
 <script>
+import useVuelidate from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
+
 export default {
   components: {
     //
+  },
+  setup() {
+    const v$ = useVuelidate();
+    return {
+      v$,
+    };
   },
   data() {
     return {
@@ -124,17 +150,47 @@ export default {
       id: null,
     };
   },
+  validations() {
+    return {
+      user: {
+        mail: {
+          email,
+          required,
+        },
+        address: { required },
+      },
+    };
+  },
   methods: {
     UpdateUserInfo(userId, mail, address) {
+      this.v$.$validate();
+      if (this.v$.$error) {
+        console.log(this.v$.$errors);
+      } else {
+        this.$appAxios
+          .put(`/User/UpdateUserInfo?userId=${userId}&mail=${mail}&address=${address}`)
+          .then((response) => {
+            console.log(response);
+            if (response.status === 204) {
+              this.getUser();
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        this.disabled = 0;
+      }
+    },
+    getUser() {
       this.$appAxios
-        .put(`/User/UpdateUserInfo?userId=${userId}&mail=${mail}&address=${address}`)
+        .get(`/User/GetUser/${this.$store.getters._currentUserId}`)
         .then((response) => {
           console.log(response);
+          this.$store.commit("setUser", response?.data);
         })
         .catch((error) => {
           console.log(error);
         });
-      this.disabled = 0;
     },
   },
   mounted() {
