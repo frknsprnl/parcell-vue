@@ -31,7 +31,7 @@
               <div name="Device Area" v-for="device in deviceData" :key="device.id" class="row summary">
                 <div class="row align-items-center">
                   <div class="col-4">
-                    <img class="card-img" :src="require('@/assets/' + device.imageDirectory)" />
+                    <img class="card-img ms-4" :src="require('@/assets/' + device.imageDirectory)" />
                   </div>
                   <div class="col-4">
                     <div class="row text-muted">{{ device.name }}</div>
@@ -73,6 +73,32 @@
               </router-link>
             </div>
           </div>
+          <span class="ms-5 mt-3" id="address-text">Teslimat Adresi</span>
+          <div class="mt-2 ms-5 col-6">
+            <div class="row mt-3 mb-3">
+              <div class="address-card" style="width: 16rem">
+                <div class="card-body">
+                  <h5 class="card-title">Mevcut adres</h5>
+                  <div v-if="this.newAddress === null">
+                    <p class="card-subtitle text-muted">{{ user.address }}</p>
+                  </div>
+                  <div v-else>
+                    <p class="card-subtitle text-muted">{{ this.newAddress }}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="address-card col-4" style="width: 16rem">
+                <div class="card-body">
+                  <h5 class="card-title">Yeni teslimat adresi</h5>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-add" @click="addNewAddress()">
+                      <i class="bi bi-plus"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -84,6 +110,7 @@
 import Navbar from "@/components/Shared/Navbar.vue";
 import FooterBar from "@/components/Shared/FooterBar.vue";
 import LoadAnimation from "../components/Shared/LoadAnimation.vue";
+import Swal from "sweetalert2";
 export default {
   components: {
     Navbar,
@@ -99,6 +126,8 @@ export default {
       userId: this.$store.getters._currentUserId,
       totalPrice: 0,
       shippingPrice: 14.99,
+      user: {},
+      newAddress: null,
     };
   },
 
@@ -108,7 +137,9 @@ export default {
     await this.getBasketData();
     this.isLoading = false;
   },
-  mounted() {},
+  mounted() {
+    this.user = this.$store.getters._getCurrentUser;
+  },
 
   methods: {
     async getBasketData() {
@@ -182,6 +213,21 @@ export default {
       });
       //this.totalPrice += this.planData.price;
     },
+    async addNewAddress() {
+      const { value: text } = await Swal.fire({
+        input: "textarea",
+        inputLabel: "Yeni teslimat adresi",
+        inputPlaceholder: "Yeni teslimat adresini giriniz...",
+        inputAttributes: {
+          "aria-label": "Type your message here",
+        },
+        showCancelButton: true,
+      });
+      if (text !== undefined) {
+        this.newAddress = text;
+        console.log(text);
+      }
+    },
   },
   computed: {
     getLoadingStatus: function () {
@@ -206,11 +252,21 @@ h1 {
   border-radius: 1rem;
   border: transparent;
 }
+.address-card {
+  margin: auto;
+  height: 10rem;
+  max-height: 10rem;
+  width: 70%;
+  max-width: 16rem;
+  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 1rem;
+}
+
 .card-img {
-  height: 90px;
-  width: 140px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  height: 70px;
+  width: 70px;
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
 .cart {
   margin-right: 40px;
@@ -235,6 +291,16 @@ hr {
 .btn-delete:hover {
   color: #dc3545;
 }
+.btn-add {
+  border-radius: 6px;
+  font-size: 4rem;
+  color: #4c3a6e;
+  border-color: transparent;
+  box-shadow: none;
+}
+.btn-add:hover {
+  color: #dc3545;
+}
 .summary {
   border-radius: 6px;
   border: solid 1px #e6e6e6;
@@ -243,5 +309,9 @@ hr {
   padding: 15px;
   border-radius: 6px;
   border: solid 1px #e6e6e6;
+}
+
+#address-text {
+  font-size: 18px;
 }
 </style>
