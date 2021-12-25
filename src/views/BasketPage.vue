@@ -9,7 +9,7 @@
             <h1>Sepet</h1>
           </div>
           <div class="col-8 summary ms-5">
-            <div name="Plan Area" v-if="planData !== null" class="row summary">
+            <!-- <div name="Plan Area" v-if="planData !== null" class="row summary">
               <div class="row align-items-center">
                 <div class="col-4">
                   <img class="card-img" :src="require('@/assets/' + planData.image)" />
@@ -26,7 +26,7 @@
                   ></button>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div v-if="deviceData !== null">
               <div name="Device Area" v-for="device in deviceData" :key="device.id" class="row summary">
                 <div class="row align-items-center">
@@ -94,7 +94,6 @@ export default {
   data() {
     return {
       basketData: null,
-      planData: null,
       deviceData: null,
       isLoading: true,
       userId: this.$store.getters._currentUserId,
@@ -118,29 +117,27 @@ export default {
         .then((response) => {
           this.basketData = response.data;
           console.log(this.basketData);
-          console.log(this.basketData.planId);
-          this.getPlanData(this.basketData.planId);
           this.getDeviceData(this.basketData.basketDevices);
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    getPlanData(planId) {
-      this.$appAxios
-        .get(`/Plan/GetPlan/${planId}`)
-        .then((response) => {
-          this.planData = response.data;
-          console.log(this.planData);
-          this.totalPrice += this.planData.price;
-        })
-        .catch((error) => {
-          console.log(error);
-          if (error.response.status === 404) {
-            this.planData = null;
-          }
-        });
-    },
+    // getPlanData(planId) {
+    //   this.$appAxios
+    //     .get(`/Plan/GetPlan/${planId}`)
+    //     .then((response) => {
+    //       this.planData = response.data;
+    //       console.log(this.planData);
+    //       this.totalPrice += this.planData.price;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       if (error.response.status === 404) {
+    //         this.planData = null;
+    //       }
+    //     });
+    // },
     getDeviceData(deviceIds) {
       this.$appAxios
         .post("/Device/GetDeviceList", [...deviceIds])
@@ -165,18 +162,18 @@ export default {
           console.log(error);
         });
     },
-    deletePlan(planId) {
-      this.$appAxios
-        .delete(`/Basket/DeleteBasketPlan?userId=${this.userId}&deviceId=${planId}`)
-        .then((response) => {
-          console.log(response);
-          this.getBasketData();
-          this.totalPrice = 0;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
+    // deletePlan(planId) {
+    //   this.$appAxios
+    //     .delete(`/Basket/DeleteBasketPlan?userId=${this.userId}&deviceId=${planId}`)
+    //     .then((response) => {
+    //       console.log(response);
+    //       this.getBasketData();
+    //       this.totalPrice = 0;
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // },
     getBasketTotalPrice() {
       console.log("Başlangıc ", this.totalPrice);
       this.deviceData.forEach((e) => {
