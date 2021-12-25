@@ -81,9 +81,9 @@ export default {
     async copyText(text) {
       try {
         await navigator.clipboard.writeText(text);
-        alert("Şifre panoya kopyalandı.");
+        this.$toast.success("Şifre panoya kopyalandı.");
       } catch ($e) {
-        alert("Kopyalanamadı.");
+        this.$toast.error("Şifre panoya kopyalanamadı.");
       }
     },
     async getData() {
