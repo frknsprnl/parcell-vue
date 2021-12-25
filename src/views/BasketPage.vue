@@ -60,9 +60,11 @@
                   <strong v-if="totalPrice !== 0"> {{ shippingPrice }} TL</strong>
                 </li>
               </ul>
-              <hr style="width: 80%" />
+              <hr style="width: 88%" />
 
-              <span v-if="totalPrice !== 0"> {{ totalPrice + shippingPrice }} TL</span>
+              <span class="d-flex justify-content-center" v-if="totalPrice !== 0">
+                <strong>{{ totalPrice + shippingPrice }} TL</strong>
+              </span>
             </div>
             <div class="ms-3 pt-3">
               <router-link :to="{ name: 'PaymentPage' }">
@@ -258,7 +260,7 @@ h1 {
   max-height: 10rem;
   width: 70%;
   max-width: 16rem;
-  box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.19);
+  border: solid 1px #e6e6e6;
   border-radius: 1rem;
 }
 
