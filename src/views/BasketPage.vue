@@ -9,24 +9,6 @@
             <h1>Sepet</h1>
           </div>
           <div class="col-8 summary ms-5">
-            <!-- <div name="Plan Area" v-if="planData !== null" class="row summary">
-              <div class="row align-items-center">
-                <div class="col-4">
-                  <img class="card-img" :src="require('@/assets/' + planData.image)" />
-                </div>
-                <div class="col-4">
-                  <div class="row text-muted">{{ planData.planName }}</div>
-                </div>
-
-                <div class="col-4">
-                  {{ planData.price }} <span class="close"></span>
-                  <button
-                    @click="deletePlan(planData.id)"
-                    class="btn btn-delete d-flex float-end bi bi-trash"
-                  ></button>
-                </div>
-              </div>
-            </div> -->
             <div v-if="deviceData !== null">
               <div name="Device Area" v-for="device in deviceData" :key="device.id" class="row summary">
                 <div class="row align-items-center">
@@ -83,7 +65,7 @@
                     <p class="card-subtitle text-muted">{{ user.address }}</p>
                   </div>
                   <div v-else>
-                    <p class="card-subtitle text-muted">{{ this.newAddress }}</p>
+                    <p class="card-subtitle text-muted">{{ newAddress }}</p>
                   </div>
                 </div>
               </div>
@@ -132,7 +114,6 @@ export default {
   },
 
   async created() {
-    //await this.getPlanData();
     this.isLoading = true;
     await this.getBasketData();
     this.isLoading = false;
@@ -154,21 +135,6 @@ export default {
           console.log(error);
         });
     },
-    // getPlanData(planId) {
-    //   this.$appAxios
-    //     .get(`/Plan/GetPlan/${planId}`)
-    //     .then((response) => {
-    //       this.planData = response.data;
-    //       console.log(this.planData);
-    //       this.totalPrice += this.planData.price;
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //       if (error.response.status === 404) {
-    //         this.planData = null;
-    //       }
-    //     });
-    // },
     getDeviceData(deviceIds) {
       this.$appAxios
         .post("/Device/GetDeviceList", [...deviceIds])
@@ -193,18 +159,6 @@ export default {
           console.log(error);
         });
     },
-    // deletePlan(planId) {
-    //   this.$appAxios
-    //     .delete(`/Basket/DeleteBasketPlan?userId=${this.userId}&deviceId=${planId}`)
-    //     .then((response) => {
-    //       console.log(response);
-    //       this.getBasketData();
-    //       this.totalPrice = 0;
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // },
     getBasketTotalPrice() {
       console.log("Başlangıc ", this.totalPrice);
       this.deviceData.forEach((e) => {

@@ -9,7 +9,7 @@
               <h2 class="mb-3">Kart Bilgileri</h2>
             </div>
             <label for="firstName" class="form-label">Kart Numarası</label>
-            <input type="text" class="form-control" id="firstName" maxlength="16" required />
+            <input type="tel" class="form-control" id="firstName" v-cardformat:formatCardNumber />
           </div>
         </form>
         <form class="row g-3 justify-content-center">
@@ -99,3 +99,4 @@ export default {
   },
 };
 </script>
+
