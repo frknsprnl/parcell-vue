@@ -2,7 +2,7 @@
   <navbar />
   <div class="container py-5">
     <div class="card-list">
-      <VuePaycard :value-fields="valueFields" :inputFields="inputFields"> </VuePaycard>
+      <VuePaycard :value-fields="valueFields" :inputFields="inputFields" :labels="labels"> </VuePaycard>
       <div class="card-form__inner">
         <div class="card-input">
           <label for="cardName" class="card-input__label">Kart Sahibi</label>
