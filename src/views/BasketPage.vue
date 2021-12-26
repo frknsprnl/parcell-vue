@@ -58,28 +58,20 @@
             </div>
           </div>
           <span class="ms-5 mt-3" id="address-text">Teslimat Adresi</span>
-          <div class="mt-2 ms-5 col-6">
-            <div class="row mt-3 mb-3">
+          <div class="mt-2 ms-5 col-3">
+            <div class="row mt-3">
               <div class="address-card" style="width: 16rem">
                 <div class="card-body">
                   <h5 class="card-title">Mevcut adres</h5>
-                  <div v-if="this.newAddress === null">
-                    <p class="card-subtitle text-muted">{{ user.address }}</p>
-                  </div>
-                  <div v-else>
-                    <p class="card-subtitle text-muted">{{ newAddress }}</p>
-                  </div>
+
+                  <p v-if="this.newAddress === null" class="card-subtitle text-muted">{{ user.address }}</p>
+                  <p v-else-if="this.newAddress !== null" class="card-subtitle text-muted">
+                    {{ newAddress }}
+                  </p>
                 </div>
               </div>
-              <div class="address-card col-4" style="width: 16rem">
-                <div class="card-body">
-                  <h5 class="card-title">Yeni teslimat adresi</h5>
-                  <div class="d-flex justify-content-center align-items-center">
-                    <button class="btn btn-add" @click="addNewAddress()">
-                      <i class="bi bi-plus"></i>
-                    </button>
-                  </div>
-                </div>
+              <div class="d-flex justify-content-center mt-2">
+                <button class="btn btn-danger" @click="addNewAddress()">Teslimat Adresini Değiştir</button>
               </div>
             </div>
           </div>
@@ -87,6 +79,7 @@
       </div>
     </div>
   </div>
+
   <footer-bar />
 </template>
 
@@ -199,7 +192,6 @@ h1 {
   color: #333;
   margin-bottom: 16px;
 }
-
 .card {
   margin: auto;
   max-width: 1400px;
@@ -257,6 +249,7 @@ hr {
 .btn-add:hover {
   color: #dc3545;
 }
+
 .summary {
   border-radius: 6px;
   border: solid 1px #e6e6e6;
