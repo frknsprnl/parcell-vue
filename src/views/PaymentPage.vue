@@ -98,6 +98,7 @@
             </div>
           </div>
         </div>
+        <button class="btn btn-primary">Ödeme yap</button>
       </div>
     </div>
   </div>
