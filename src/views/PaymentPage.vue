@@ -2,7 +2,13 @@
   <navbar />
   <div class="container py-5">
     <div class="card-list">
-      <VuePaycard :value-fields="valueFields" :inputFields="inputFields" :labels="labels"> </VuePaycard>
+      <VuePaycard
+        :value-fields="valueFields"
+        :inputFields="inputFields"
+        :labels="labels"
+        :is-card-number-masked="false"
+      >
+      </VuePaycard>
       <div class="card-form__inner">
         <div class="card-input">
           <label for="cardName" class="card-input__label">Kart Sahibi</label>
@@ -14,6 +20,10 @@
             autocomplete="off"
             class="card-input__input"
             v-model="valueFields.cardName"
+            @blur="v$.valueFields.cardName.$touch()"
+            :class="{
+              'is-invalid': v$.valueFields.cardName.$error,
+            }"
           />
         </div>
 
@@ -28,6 +38,11 @@
             autocomplete="off"
             maxlength="19"
             class="card-input__input"
+            v-cardformat:formatCardNumber
+            @blur="v$.valueFields.cardNumber.$touch()"
+            :class="{
+              'is-invalid': v$.valueFields.cardNumber.$error,
+            }"
           />
         </div>
         <div class="card-form__row">
@@ -43,6 +58,10 @@
                 data-card-field=""
                 class="card-input__input -select me-3"
                 v-model="valueFields.cardMonth"
+                @blur="v$.valueFields.cardMonth.$touch()"
+                :class="{
+                  'is-invalid': v$.valueFields.cardMonth.$error,
+                }"
               >
                 <option value="" disabled="disabled" selected="selected">Ay</option>
                 <option value="01">01</option>
@@ -65,7 +84,14 @@
                 data-card-field=""
                 class="card-input__input -select"
                 v-model="valueFields.cardYear"
+                @blur="v$.valueFields.cardYear.$touch()"
+                :class="{
+                  'is-invalid': v$.valueFields.cardYear.$error,
+                }"
               >
+                <div v-if="v$.valueFields.cardYear.required.$invalid" class="invalid-feedback">
+                  Bu alan boş olamaz.
+                </div>
                 <option value="" disabled="disabled" selected="selected">Yıl</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
@@ -94,12 +120,16 @@
                 autocomplete="off"
                 class="card-input__input"
                 v-model="valueFields.cardCvv"
+                @blur="v$.valueFields.cardCvv.$touch()"
+                :class="{
+                  'is-invalid': v$.valueFields.cardCvv.$error,
+                }"
               />
             </div>
           </div>
         </div>
         <div class="card-form__row">
-          <button class="btn btn-primary">Ödeme yap</button>
+          <button class="btn btn-primary" @click="pay()">Ödeme yap</button>
           <span class="mt-2 bi bi-wallet2 sum"><strong> Ödeme tutarı: 000 TL</strong> </span>
         </div>
       </div>
@@ -112,8 +142,20 @@
 <script>
 import FooterBar from "../components/Shared/FooterBar.vue";
 import Navbar from "../components/Shared/Navbar.vue";
+import useVuelidate from "@vuelidate/core";
+import { required, minLength, email, helpers } from "@vuelidate/validators";
+
+const turkishChar = (value) => !helpers.req(value) || /^[a-zA-ZıİçÇşŞğĞÜüÖö]*$/g.test(value);
+
 export default {
   components: { Navbar, FooterBar },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
+
   data: () => ({
     valueFields: {
       cardName: "",
@@ -138,9 +180,23 @@ export default {
       cardCvv: "CVV",
     },
   }),
+  validations() {
+    return {
+      valueFields: {
+        cardName: { required },
+        cardNumber: { required },
+        cardMonth: { required },
+        cardYear: { required },
+        cardCvv: { required },
+      },
+    };
+  },
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    pay() {
+      this.v$.$validate();
     },
   },
 };
@@ -170,7 +226,6 @@ export default {
   font-size: 14px;
   margin-bottom: 5px;
   font-weight: 500;
-  color: #1a3b5d;
   width: 100%;
   display: block;
   -webkit-user-select: none;
@@ -188,7 +243,6 @@ export default {
   font-size: 18px;
   padding: 5px 15px;
   background: none;
-  color: #1a3b5d;
   font-family: "Source Sans Pro", sans-serif;
 }
 .card-form__row {

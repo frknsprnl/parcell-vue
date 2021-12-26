@@ -25,7 +25,7 @@
           </ul>
         </div>
         <div class="d-flex justify-content-md-center">
-          <button @click="checkBasketPlan(plan.id)" class="btn btn-primary btn-lg">
+          <button @click="openPaymentModal(plan.price, plan.id)" class="btn btn-primary btn-lg">
             <i class="bi bi-cart-plus-fill me-2"></i>
             <span>{{ plan.price }}₺ </span>
           </button>
@@ -64,42 +64,58 @@ export default {
           alert(error.response);
         });
     },
-    postData(planId) {
-      const userId = this.$store.getters._currentUserId;
-      this.$appAxios
-        .get(`/Basket/AddPlanToBasket?userId=${userId}&planId=${planId}`)
-        .then((response) => {
-          console.log(response);
+
+    openPaymentModal(price, planId) {
+      this.$swal
+        .fire({
+          title: "Lütfen Ödeme Yöntemi Seçin",
+          showCloseButton: true,
+          showConfirmButton: true,
+          showDenyButton: true,
+          confirmButtonText: "Bakiye",
+          denyButtonText: "Kredi Kartı",
         })
-        .catch((error) => {
-          console.log(error);
+        .then((response) => {
+          if (response.isConfirmed) {
+            this.CheckBalance(price, planId);
+          } else {
+            this.$swal.close();
+            setTimeout(() => {}, 1000);
+            this.$router.push({ name: "PaymentPage" });
+          }
         });
     },
-    checkBasketPlan(planId) {
+
+    async CheckBalance(price, planId) {
       const userId = this.$store.getters._currentUserId;
-      this.$appAxios
-        .get(`/Basket/CheckPlan?userId=${userId}`)
+      await this.$appAxios
+        .put(`/User/PayWithBalance?userId=${userId}&price=${price}`)
         .then((response) => {
           console.log(response);
-          this.postData(planId);
-          this.$toast.success("Paket Başarıyla Sepete Eklendi.");
+          this.setUserPlan(planId);
         })
         .catch((error) => {
           console.log(error);
-          this.$swal
-            .fire({
-              text: error.response.data,
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonText: "Evet",
-              cancelButtonText: "İptal",
-            })
-            .then((result) => {
-              if (result.isConfirmed) {
-                this.postData(planId);
-                this.$toast.success("Sepetinize Eklendi.");
-              }
+          if (error.response.status === 400) {
+            this.$swal.fire({
+              icon: "error",
+              title: error.response.data,
+              showCloseButton: true,
+              showConfirmButton: true,
+              confirmButtonText: "Tamam",
             });
+          }
+        });
+    },
+    async setUserPlan(planId) {
+      const userId = this.$store.getters._currentUserId;
+      await this.$appAxios
+        .get(`/User/SetUserPlan?userId=${userId}&planId=${planId}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
         });
     },
   },
