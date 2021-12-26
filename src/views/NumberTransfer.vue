@@ -248,7 +248,6 @@ import FooterBar from "@/components/Shared/FooterBar.vue";
 import CryptoJS from "crypto-js";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, email, helpers } from "@vuelidate/validators";
-import { useToast } from "vue-toastification";
 
 const turkishChar = (value) => !helpers.req(value) || /^[a-zA-ZıİçÇşŞğĞÜüÖö]*$/g.test(value);
 const acceptLicense = (value) => (!helpers.req(value) || !value ? false : true);

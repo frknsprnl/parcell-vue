@@ -17,7 +17,7 @@ import "@/../public/global.scss";
 
 const options = {
     confirmButtonColor: '#4c3a6e',
-    cancelButtonColor: '#d33',
+    denyButtonColor : '#d33',
 };
 
 

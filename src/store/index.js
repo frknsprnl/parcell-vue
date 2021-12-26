@@ -8,6 +8,7 @@ const store = createStore({
   state: {
     profileActiveTab: "UserDetails",
     user: null,
+    paymentObject: null,
   },
   mutations: {
     setProfileActiveTab(state, payload) {
@@ -21,6 +22,9 @@ const store = createStore({
       state.user = null;
       state.profileActiveTab = "UserDetails";
     },
+    setPaymentObject(state, item) {
+      state.paymentObject = item;
+    }
   },
   actions: {
   },
