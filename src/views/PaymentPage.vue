@@ -98,7 +98,10 @@
             </div>
           </div>
         </div>
-        <button class="btn btn-primary">Ödeme yap</button>
+        <div class="card-form__row">
+          <button class="btn btn-primary">Ödeme yap</button>
+          <span class="mt-2 bi bi-wallet2 sum"><strong> Ödeme tutarı: 000 TL</strong> </span>
+        </div>
       </div>
     </div>
   </div>
@@ -222,5 +225,8 @@ export default {
   width: 100%;
   justify-content: space-between;
   align-items: center;
+}
+.sum {
+  margin-left: 130px;
 }
 </style>
