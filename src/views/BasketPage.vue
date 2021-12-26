@@ -160,7 +160,6 @@ export default {
         this.totalPrice += e.price;
         console.log(this.totalPrice);
       });
-      //this.totalPrice += this.planData.price;
     },
     async addNewAddress() {
       const { value: text } = await Swal.fire({
@@ -171,6 +170,8 @@ export default {
           "aria-label": "Type your message here",
         },
         showCancelButton: true,
+        confirmButtonText: "Tamam",
+        cancelButtonText: "İptal",
       });
       if (text !== undefined) {
         this.newAddress = text;

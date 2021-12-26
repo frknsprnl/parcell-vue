@@ -19,8 +19,8 @@
                           <input
                             type="text"
                             id="firstName"
-                            v-model="userData.name"
                             class="form-control form-control"
+                            v-model="userData.name"
                             @blur="v$.userData.name.$touch()"
                             :class="{
                               'is-invalid': v$.userData.name.$error,
@@ -42,8 +42,8 @@
                           <input
                             type="text"
                             id="lastName"
-                            v-model="userData.surname"
                             class="form-control form-control"
+                            v-model="userData.surname"
                             @blur="v$.userData.surname.$touch()"
                             :class="{
                               'is-invalid': v$.userData.surname.$error,
@@ -65,9 +65,9 @@
                           <input
                             type="email"
                             id="emailAddress"
-                            v-model="userData.mail"
                             class="form-control form-control"
                             placeholder="parcell@gmail.com"
+                            v-model="userData.mail"
                             @blur="v$.userData.mail.$touch()"
                             :class="{
                               'is-invalid': v$.userData.mail.$error,
@@ -88,9 +88,9 @@
                           >
                           <input
                             type="password"
-                            v-model="userData.password"
                             class="form-control form-control"
                             id="password"
+                            v-model="userData.password"
                             @blur="v$.userData.password.$touch()"
                             :class="{
                               'is-invalid': v$.userData.password.$error,
@@ -118,8 +118,8 @@
                               type="radio"
                               name="inlineRadioOptions"
                               id="maleGender"
-                              v-model="userData.gender"
                               value="Erkek"
+                              v-model="userData.gender"
                               @blur="v$.userData.gender.$touch()"
                               :class="{
                                 'is-invalid': v$.userData.gender.$error,
@@ -135,8 +135,8 @@
                               type="radio"
                               name="inlineRadioOptions"
                               id="femaleGender"
-                              v-model="userData.gender"
                               value="Kadın"
+                              v-model="userData.gender"
                               @blur="v$.userData.gender.$touch()"
                               :class="{
                                 'is-invalid': v$.userData.gender.$error,
@@ -155,9 +155,9 @@
                               <input
                                 type="birthplace"
                                 id="birthPlace"
-                                v-model="userData.birthPlace"
                                 class="form-control form-control"
                                 placeholder="Örn. Isparta"
+                                v-model="userData.birthPlace"
                                 @blur="v$.userData.birthPlace.$touch()"
                                 :class="{
                                   'is-invalid': v$.userData.birthPlace.$error,
@@ -173,12 +173,11 @@
                               <label class="form-label" for="birthDate"
                                 ><i class="bi bi-calendar-fill"> Doğum Tarihi</i></label
                               >
-                              <!-- <Datepicker class="form-control form-control bg-white" v-model="userData.userBirthDate"/> -->
                               <input
                                 type="date"
                                 id="birthDate"
-                                v-model="userData.birthDate"
                                 class="form-control form-control"
+                                v-model="userData.birthDate"
                                 @blur="v$.userData.birthDate.$touch()"
                                 :class="{
                                   'is-invalid': v$.userData.birthDate.$error,
@@ -228,10 +227,7 @@ export default {
   },
 
   setup() {
-    const toast = useToast();
-
     return {
-      toast,
       v$: useVuelidate(),
     };
   },
@@ -246,7 +242,7 @@ export default {
         gender: "Erkek",
         birthPlace: null,
         birthDate: null,
-        address: "null",
+        address: "",
         balance: 0,
       },
     };
@@ -275,7 +271,7 @@ export default {
           console.log(response);
           if (response.status === 201) {
             this.$router.push({ name: "LoginPage" });
-            this.toast.success("Kayıt Başarılı");
+            this.$toast.success("Kayıt Başarılı");
           }
         });
       }
