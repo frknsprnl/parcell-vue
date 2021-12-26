@@ -61,17 +61,23 @@
           <div class="mt-2 ms-5 col-3">
             <div class="row mt-3">
               <div class="address-card" style="width: 16rem">
+                <div class="d-flex justify-content-end mt-2">
+                  <button
+                    class="btn btn-address bi bi-pencil-square position-absolute"
+                    @click="addNewAddress()"
+                  ></button>
+                </div>
+
                 <div class="card-body">
                   <h5 class="card-title">Mevcut adres</h5>
 
-                  <p v-if="this.newAddress === null" class="card-subtitle text-muted">{{ user.address }}</p>
-                  <p v-else-if="this.newAddress !== null" class="card-subtitle text-muted">
+                  <p v-if="this.newAddress === null" class="card-subtitle text-muted mt-2">
+                    {{ user.address }}
+                  </p>
+                  <p v-else-if="this.newAddress !== null" class="card-subtitle text-muted mt-2">
                     {{ newAddress }}
                   </p>
                 </div>
-              </div>
-              <div class="d-flex justify-content-center mt-2">
-                <button class="btn btn-danger" @click="addNewAddress()">Teslimat Adresini Değiştir</button>
               </div>
             </div>
           </div>
@@ -193,6 +199,14 @@ h1 {
   color: #333;
   margin-bottom: 16px;
 }
+.btn-address {
+  display: block;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  color: #4c3a6e;
+}
+
 .card {
   margin: auto;
   max-width: 1400px;
