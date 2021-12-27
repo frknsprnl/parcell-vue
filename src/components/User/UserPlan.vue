@@ -2,8 +2,9 @@
   <div class="container rounded bg-white mt-5 mb-5 d-flex justify-content-center">
     <div class="row">
       <div class="col-4">
-        <div v-if="message !== null" class="card p-2" style="width: 18rem">
-          <img class="card-img-top" alt="..." />
+        <load-animation v-if="getLoadingStatus" />
+        <div v-if="!getLoadingStatus && message === null" class="card p-2" style="width: 18rem">
+          <img :src="require(`@/assets/${planData.image}`)" class="card-img-top" />
           <div class="card-body">
             <h6 class="text-center">{{ planData.planName }}</h6>
             <hr />
@@ -20,8 +21,8 @@
             </ul>
           </div>
         </div>
-        <div v-else class="card p-2" style="width: 18rem">
-          <h4 class="text-center">{{ message }} adsda</h4>
+        <div v-else-if="!getLoadingStatus && message !== null" class="card p-2" style="width: 18rem">
+          <h4 class="text-center text-danger">{{ message }}</h4>
         </div>
       </div>
     </div>
@@ -29,11 +30,16 @@
 </template>
 
 <script>
+import LoadAnimation from "../Shared/LoadAnimation.vue";
 export default {
+  components: { LoadAnimation },
   data() {
     return {
       planId: null,
       planData: {},
+      image: null,
+      isLoading: true,
+      message: null,
     };
   },
   methods: {
@@ -43,6 +49,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.planId = response.data;
+          this.getPlanData(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -61,15 +68,16 @@ export default {
         });
     },
   },
+  computed: {
+    getLoadingStatus: function () {
+      return this.isLoading;
+    },
+  },
   async created() {
+    this.isLoading = true;
     await this.getUserPlan();
-    console.log("created", this.planId);
-    if (this.planId === null || this.planId === "") {
-      console.log("boş");
-    } else {
-      await this.getPlanData();
-    }
-    console.log("created", this.planData);
+    this.isLoading = false;
   },
 };
 </script>
+
