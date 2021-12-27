@@ -15,7 +15,6 @@ const store = createStore({
       state.profileActiveTab = payload
     },
     setUser(state, user) {
-      console.log("state user :>> ", user);
       state.user = user;
     },
     logoutUser(state) {
@@ -40,6 +39,8 @@ const store = createStore({
     _currentUserId: state => state?.user?.id,
     _getProfileActiveTab: state => state.profileActiveTab,
     _getUserAddress: state => state?.user?.address,
+    _getPaymentObject: state => state.paymentObject,
+    _getUserBalance: state => state?.user?.balance,
   },
   plugins: [
     createPersistedState({

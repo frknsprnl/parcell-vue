@@ -15,7 +15,7 @@
               src="../../assets/female.png"
             />
             <span class="mt-2" style="font-size: 1.2rem">{{ user.name }} {{ user.surname }}</span>
-            <span class="mt-2" style="font-size: 1.2rem">{{ user.balance }}₺</span>
+            <span class="mt-2" style="font-size: 1.2rem"> {{ user.balance }} ₺</span>
           </div>
         </div>
         <div class="col-md-5 border-right">
@@ -132,6 +132,7 @@
 <script>
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
+import { ref } from "vue";
 
 export default {
   components: {
@@ -139,8 +140,10 @@ export default {
   },
   setup() {
     const v$ = useVuelidate();
+    const balance = ref(null);
     return {
       v$,
+      balance,
     };
   },
   data() {
@@ -171,9 +174,6 @@ export default {
           .put(`/User/UpdateUserInfo?userId=${userId}&mail=${mail}&address=${address}`)
           .then((response) => {
             console.log(response);
-            if (response.status === 204) {
-              this.getUser();
-            }
           })
           .catch((error) => {
             console.log(error);
@@ -187,17 +187,21 @@ export default {
         .then((response) => {
           console.log(response);
           this.$store.commit("setUser", response?.data);
+          this.setUser();
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    setUser() {
+      this.user = this.$store.getters._getCurrentUser;
+      let date = this.user.birthDate.slice(0, 10);
+      this.user.birthDate = date;
+    },
   },
-  mounted() {
-    this.user = this.$store.getters._getCurrentUser;
-    let date = this.user.birthDate.slice(0, 10);
-    this.user.birthDate = date;
-    console.log(this.user);
+  computed: {},
+  created() {
+    this.getUser();
   },
 };
 </script>

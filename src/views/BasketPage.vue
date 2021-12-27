@@ -9,7 +9,10 @@
             <h1>Sepet</h1>
           </div>
           <div class="col-8 summary ms-5">
-            <div v-if="deviceData !== null">
+            <div v-if="basketStatus === 'empty'">
+              <h4 class="text-center text-danger">Sepetiniz Boş!</h4>
+            </div>
+            <div v-if="basketStatus === 'filled'">
               <div name="Device Area" v-for="device in deviceData" :key="device.id" class="row summary">
                 <div class="row align-items-center">
                   <div class="col-4">
@@ -49,12 +52,10 @@
               </span>
             </div>
             <div class="ms-3 pt-3">
-              <router-link :to="{ name: 'PaymentPage' }">
-                <button class="btn-lg btn-primary">
-                  Sepeti Onayla
-                  <i class="bi bi-chevron-right"></i>
-                </button>
-              </router-link>
+              <button @click="goToPayment()" class="btn-lg btn-primary">
+                Sepeti Onayla
+                <i class="bi bi-chevron-right"></i>
+              </button>
             </div>
           </div>
           <span class="ms-5 mt-3" id="address-text">Teslimat Adresi</span>
@@ -72,7 +73,7 @@
                   <h5 class="card-title">Mevcut adres</h5>
 
                   <p v-if="this.newAddress === null" class="card-subtitle text-muted mt-2">
-                    {{ user.address }}
+                    {{ userAddress }}
                   </p>
                   <p v-else-if="this.newAddress !== null" class="card-subtitle text-muted mt-2">
                     {{ newAddress }}
@@ -93,12 +94,19 @@
 import Navbar from "@/components/Shared/Navbar.vue";
 import FooterBar from "@/components/Shared/FooterBar.vue";
 import LoadAnimation from "../components/Shared/LoadAnimation.vue";
-import Swal from "sweetalert2";
+import { ref } from "vue";
 export default {
   components: {
     Navbar,
     FooterBar,
     LoadAnimation,
+  },
+
+  setup() {
+    const basketStatus = ref("filled");
+    return {
+      basketStatus,
+    };
   },
 
   data() {
@@ -109,7 +117,7 @@ export default {
       userId: this.$store.getters._currentUserId,
       totalPrice: 0,
       shippingPrice: 14.99,
-      user: {},
+      userAddress: null,
       newAddress: null,
     };
   },
@@ -120,7 +128,7 @@ export default {
     this.isLoading = false;
   },
   mounted() {
-    this.user = this.$store.getters._getCurrentUser;
+    this.userAddress = this.$store.getters._getUserAddress;
   },
 
   methods: {
@@ -130,7 +138,12 @@ export default {
         .then((response) => {
           this.basketData = response.data;
           console.log(this.basketData);
-          this.getDeviceData(this.basketData.basketDevices);
+          if (this.basketData.basketDevices !== undefined && this.basketData.basketDevices.length !== 0) {
+            this.getDeviceData(this.basketData.basketDevices);
+            this.basketStatus = "filled";
+          } else {
+            this.basketStatus = "empty";
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -149,26 +162,34 @@ export default {
         });
     },
     deleteDevice(deviceId) {
+      this.$swal.fire({
+        title: "Lütfen Bekleyin...",
+        html: "<br/>",
+        didOpen: () => {
+          this.$swal.showLoading();
+        },
+      });
       this.$appAxios
         .delete(`/Basket/DeleteBasketDevice?userId=${this.userId}&deviceId=${deviceId}`)
         .then((response) => {
           console.log(response);
           this.getBasketData();
           this.totalPrice = 0;
+          this.$swal.close();
         })
         .catch((error) => {
           console.log(error);
+          this.$swal.close();
         });
     },
     getBasketTotalPrice() {
-      console.log("Başlangıc ", this.totalPrice);
       this.deviceData.forEach((e) => {
         this.totalPrice += e.price;
         console.log(this.totalPrice);
       });
     },
     async addNewAddress() {
-      const { value: text } = await Swal.fire({
+      const { value: text } = await this.$swal.fire({
         input: "textarea",
         inputLabel: "Yeni teslimat adresi",
         inputPlaceholder: "Yeni teslimat adresini giriniz...",
@@ -184,10 +205,45 @@ export default {
         console.log(text);
       }
     },
+    goToPayment() {
+      let address = this.newAddress == null ? this.userAddress : this.newAddress;
+      if (this.basketStatus === "empty") {
+        this.$swal.fire({
+          title: "Sepetinizde Ürün Bulunmuyor!",
+          icon: "error",
+          showConfirmButton: true,
+          showCloseButton: true,
+          confirmButtonText: "Tamam",
+        });
+      } else {
+        this.$store.commit("setPaymentObject", {
+          type: "basket",
+          price: this.totalPrice,
+          orderItem: {
+            deviceIds: [...this.basketData.basketDevices],
+            orderAddress: address,
+            totalPrice: this.totalPrice + this.shippingPrice,
+          },
+        });
+        this.$swal.fire({
+          title: "Lütfen Bekleyin...",
+          timer: 1000,
+          didOpen: () => {
+            this.$swal.showLoading();
+          },
+          didClose: () => {
+            this.$router.push({ name: "PaymentPage" });
+          },
+        });
+      }
+    },
   },
   computed: {
     getLoadingStatus: function () {
       return this.isLoading;
+    },
+    getBasketStatus: () => {
+      return this.basketStatus;
     },
   },
 };

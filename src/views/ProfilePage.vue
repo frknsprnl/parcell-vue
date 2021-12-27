@@ -75,9 +75,6 @@ export default {
   methods: {
     setActiveTab(input) {
       this.$store.commit("setProfileActiveTab", input);
-      //console.log("setActiveTab : ", this.$store.getters._getProfileActiveTab);
-      console.log("computed profileActiveTab :>> ", this.profileActiveTab);
-      console.log("data activeTab :>> ", this.activeTab);
     },
   },
   computed: {
@@ -90,8 +87,12 @@ export default {
 
 <style scoped>
 .btn-lg {
-  background-color: #503c6c;
   color: white;
+  border: none;
+  box-shadow: none;
+}
+.btn-lg:focus {
+  border: 1px solid white;
 }
 
 #sidebar {

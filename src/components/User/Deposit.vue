@@ -14,12 +14,12 @@
           <div class="mt-4 mb-4">
             <div class="card mt-2" style="width: 5rem">
               <div class="card-body d-flex justify-content-center">
-                <button class="btn btn-lg" @click="setDepositAmount('30')">30</button>
+                <button class="btn btn-lg" @click="setDepositAmount(50.0)">50</button>
               </div>
             </div>
             <div class="card mt-2" style="width: 5rem">
               <div class="card-body d-flex justify-content-center">
-                <button class="btn btn-lg" @click="setDepositAmount('70')">70</button>
+                <button class="btn btn-lg" @click="setDepositAmount(90.0)">90</button>
               </div>
             </div>
           </div>
@@ -28,12 +28,12 @@
           <div class="mt-4 mb-4">
             <div class="card mt-2" style="width: 5rem">
               <div class="card-body d-flex justify-content-center">
-                <button class="btn btn-lg" @click="setDepositAmount('50')">50</button>
+                <button class="btn btn-lg" @click="setDepositAmount(140.0)">140</button>
               </div>
             </div>
             <div class="card mt-2" style="width: 5rem">
               <div class="card-body d-flex justify-content-center">
-                <button class="btn btn-lg" @click="setDepositAmount('90')">90</button>
+                <button class="btn btn-lg" @click="setDepositAmount(200.0)">200</button>
               </div>
             </div>
           </div>
@@ -69,7 +69,20 @@ export default {
     return {
       depositAmount: null,
       warningMessage: null,
+      userBalance: null,
     };
+  },
+
+  created() {
+    this.$appAxios
+      .get(`/User/GetUserBalance?userId=${this.$store.getters._currentUserId}`)
+      .then((response) => {
+        console.log(response);
+        this.userBalance = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   methods: {
@@ -77,10 +90,32 @@ export default {
       this.depositAmount = e;
     },
     goToPayment() {
-      if (this.depositAmount != null) {
-        this.$router.push({ name: "PaymentPage" });
-      } else {
+      if (this.depositAmount === null) {
         this.warningMessage = "TL Paketi Seçmediniz!";
+        return;
+      } else if (this.userBalance + this.depositAmount > 9999.99) {
+        this.$swal.fire({
+          title: "Bakiye 9999.99 dan fazla olamaz",
+          html: "<br />",
+          icon: "error",
+          showConfirmButton: true,
+          confirmButtonText: "Tamam",
+        });
+      } else if (this.depositAmount !== null) {
+        this.$store.commit("setPaymentObject", {
+          type: "deposit",
+          price: this.depositAmount,
+        });
+        this.$swal.fire({
+          title: "Lütfen Bekleyin...",
+          timer: 1000,
+          didOpen: () => {
+            this.$swal.showLoading();
+          },
+          didClose: () => {
+            this.$router.push({ name: "PaymentPage" });
+          },
+        });
       }
     },
   },

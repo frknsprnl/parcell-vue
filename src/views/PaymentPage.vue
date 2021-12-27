@@ -130,7 +130,9 @@
         </div>
         <div class="card-form__row">
           <button class="btn btn-primary" @click="pay()">Ödeme yap</button>
-          <span class="mt-2 bi bi-wallet2 sum"><strong> Ödeme tutarı: 000 TL</strong> </span>
+          <span class="mt-2 bi bi-wallet2 sum"
+            ><strong> Ödeme tutarı: <span v-text="totalPayment"></span> TL</strong>
+          </span>
         </div>
       </div>
     </div>
@@ -179,11 +181,14 @@ export default {
       cardExpires: "Son Kull. Tarih",
       cardCvv: "CVV",
     },
+    paymentObject: null,
+    userId: null,
+    totalPayment: null,
   }),
   validations() {
     return {
       valueFields: {
-        cardName: { required },
+        cardName: { required, turkishChar },
         cardNumber: { required },
         cardMonth: { required },
         cardYear: { required },
@@ -191,12 +196,128 @@ export default {
       },
     };
   },
+
+  created() {
+    this.userId = this.$store.getters._currentUserId;
+    this.paymentObject = this.$store.getters._getPaymentObject;
+  },
+  mounted() {
+    this.totalPayment = this.paymentObject.price;
+    if (this.paymentObject === null) this.$router.push({ name: "HomePage" });
+  },
   methods: {
-    goBack() {
-      this.$router.go(-1);
-    },
     pay() {
       this.v$.$validate();
+      if (this.v$.$error) {
+        this.$toast.error("Lütfen Tüm Alanları Doğru Şekilde Doldurun");
+      } else {
+        if (this.paymentObject.type === "plan") {
+          this.payPlan();
+        } else if (this.paymentObject.type === "basket") {
+          this.payBasket();
+        } else if (this.paymentObject.type === "deposit") {
+          this.payDeposit();
+        }
+      }
+    },
+    payDeposit() {
+      this.$appAxios
+        .put(`/User/DepositUserBalance?userId=${this.userId}&balance=${this.paymentObject.price}`)
+        .then((response) => {
+          console.log(response);
+          this.$swal
+            .fire({
+              title: "TL Yükleme Başarılı.",
+              icon: "success",
+              html: "<br/>",
+              showConfirmButton: true,
+              showDenyButton: true,
+              confirmButtonText: "Ana Sayfa",
+              denyButtonText: "Bakiye Görüntüle",
+            })
+            .then((response) => {
+              if (response.isDenied) {
+                this.$store.commit("setProfileActiveTab", "UserDetails");
+                this.$router.push({ name: "ProfilePage" });
+              } else {
+                this.$router.push({ name: "HomePage" });
+              }
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    payPlan() {
+      this.$appAxios
+        .get(`/User/SetUserPlan?=${this.userId}&=${this.paymentObject.planId}`)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("setPaymentObject", null);
+          this.$swal
+            .fire({
+              title: "İşlem Tamamlandı.",
+              icon: "success",
+              html: "<br/>",
+              showConfirmButton: true,
+              showDenyButton: true,
+              confirmButtonText: "Ana Sayfa",
+              denyButtonText: "Paket Görüntüle",
+            })
+            .then((response) => {
+              if (response.isDenied) {
+                this.$store.commit("setProfileActiveTab", "UserPlan");
+                this.$router.push({ name: "ProfilePage" });
+              } else {
+                this.$router.push({ name: "HomePage" });
+              }
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    payBasket() {
+      this.$appAxios
+        .post(`/Order/AddOrder?userId=${this.userId}`, { ...this.paymentObject.orderItem })
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            this.clearBasket();
+            this.$store.commit("setPaymentObject", null);
+            this.$swal
+              .fire({
+                title: "Siparişinizi Verdiniz",
+                icon: "success",
+                html: "<br/>",
+                showConfirmButton: true,
+                showDenyButton: true,
+                confirmButtonText: "Ana Sayfa",
+                denyButtonText: "Siparişlerim",
+              })
+              .then((response) => {
+                if (response.isDenied) {
+                  this.$store.commit("setProfileActiveTab", "OrderDetails");
+                  this.$router.push({ name: "ProfilePage" });
+                } else {
+                  this.$router.push({ name: "HomePage" });
+                }
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    clearBasket() {
+      this.$appAxios
+        .delete(`/Basket/ClearBasket?userId=${this.userId}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

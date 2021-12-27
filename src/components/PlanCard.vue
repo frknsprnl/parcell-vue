@@ -80,8 +80,17 @@ export default {
             this.CheckBalance(price, planId);
           } else {
             this.$swal.close();
-            setTimeout(() => {}, 1000);
-            this.$router.push({ name: "PaymentPage" });
+            this.$store.commit("setPaymentObject", { type: "plan", planId: planId, price: price });
+            this.$swal.fire({
+              title: "Lütfen Bekleyin...",
+              timer: 1000,
+              didOpen: () => {
+                this.$swal.showLoading();
+              },
+              didClose: () => {
+                this.$router.push({ name: "PaymentPage" });
+              },
+            });
           }
         });
     },
