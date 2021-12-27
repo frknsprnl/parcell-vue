@@ -78,7 +78,7 @@ export default {
         .then((response) => {
           if (response.isConfirmed) {
             this.CheckBalance(price, planId);
-          } else {
+          } else if (response.isDenied) {
             this.$swal.close();
             this.$store.commit("setPaymentObject", { type: "plan", planId: planId, price: price });
             this.$swal.fire({

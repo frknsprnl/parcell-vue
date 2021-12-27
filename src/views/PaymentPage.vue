@@ -250,7 +250,7 @@ export default {
     },
     payPlan() {
       this.$appAxios
-        .get(`/User/SetUserPlan?=${this.userId}&=${this.paymentObject.planId}`)
+        .get(`/User/SetUserPlan?userId=${this.userId}&planId=${this.paymentObject.planId}`)
         .then((response) => {
           console.log(response);
           this.$store.commit("setPaymentObject", null);
