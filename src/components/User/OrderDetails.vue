@@ -12,15 +12,16 @@
             <div class="col-4 text-muted"><strong>Alıcı</strong></div>
 
             <div class="col-4 text-muted"><strong>Tutar</strong></div>
-
-            <div class="position-absolute">
-              <button class="btn btn-primary btn-order-detail">Sipariş Detayı</button>
-            </div>
           </div>
           <div class="row align-items-center row-2">
             <div class="col-4">01.01.01</div>
+
             <div class="col-4">Mohamedo Avdol</div>
+
             <div class="col-4">666 TL</div>
+            <div class="position-absolute">
+              <button class="btn btn-primary btn-order-detail">Sipariş Detayı</button>
+            </div>
           </div>
         </div>
       </div>
