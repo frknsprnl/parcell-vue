@@ -3,18 +3,70 @@
     <div class="row">
       <div class="col-4">
         <div class="card p-2" style="width: 18rem">
-          <img src="@/assets/plan1.png" class="card-img-top" alt="..." />
+          <img :src="require('@/assets/' + plan.image)" class="card-img-top" alt="..." />
           <div class="card-body">
-            <h6 class="text-center">Süper Fırsat 10GB +</h6>
+            <h6 class="text-center">{{ plan.planName }}</h6>
             <hr />
-            <p class="text-center" id="promotion-text">
-              Süper Fırsat 10GB paketiyle yüksek hızda interneti ve zengin içerikleri doya doya
-              yaşayabileceksiniz. Üstelik, her yöne 1000DK bol bol konuşma, 1000SMS, 10GB internet ile
-              iletişimin keyfini sürün.
-            </p>
+            <ul class="list-unstyled" id="planlist">
+              <li class="bi bi-globe">
+                <span class="ms-2"> {{ plan.internet }}</span>
+              </li>
+              <li class="bi bi-telephone">
+                <span class="ms-2">{{ plan.minutes }}</span>
+              </li>
+              <li class="bi bi-envelope">
+                <span class="ms-2"> {{ plan.sms }} </span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      plan: {},
+      user: {},
+    };
+  },
+  methods: {
+    async getUser() {
+      await this.$appAxios
+        .get(`/User/GetUser/${this.$store.getters._currentUserId}`)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("setUser", response?.data);
+          this.setUser();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    setUser() {
+      this.user = this.$store.getters._getCurrentUser;
+    },
+    async getPlanData() {
+      await this.$appAxios
+        .get(`/Plan/GetPlan/${this.user.planId}`)
+        .then((response) => {
+          this.plan = response.data;
+          console.log(response.data);
+          console.log(this.plan);
+        })
+        .catch((error) => {
+          console.log("There was an error" + error.response);
+          alert(error.response);
+        });
+    },
+  },
+  computed: {},
+  async created() {
+    await this.getUser();
+    await this.getPlanData();
+  },
+};
+</script>
