@@ -1,231 +1,81 @@
 <template>
-  <div class="card">
+  <div class="card mt-4">
     <div class="row">
-      <div class="col-8 cart">
-        <div class="title">
-          <div class="row">
-            <div class="col">
-              <h4><b>Sipariş Detay</b></h4>
-            </div>
-          </div>
-        </div>
-        <table class="table">
-          <thead id="table-items">
-            <tr>
-              <th scope="col" class="border-0 bg-light">
-                <div class="p-2 px-lg-3 text-uppercase">Ürün</div>
-              </th>
-              <th scope="col" class="border-0 bg-light">
-                <div class="py-2 text-uppercase">Miktar</div>
-              </th>
-              <th scope="col" class="border-0 bg-light">
-                <div class="py-2 text-uppercase">Fiyat</div>
-              </th>
-            </tr>
-          </thead>
-        </table>
-        <div class="row border-top border-bottom">
-          <div class="row main align-items-center">
-            <div class="col-2">
-              <img class="img-fluid" src="@/assets/apple-airpods-2.png" />
-            </div>
-            <div class="col">
-              <div class="row text-muted">Kulaklık</div>
-              <div class="row">Apple Airpods 2</div>
-            </div>
-            <div class="col"><a href="#" class="border">1</a></div>
-            <div class="col">1000 TL</div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="row main align-items-center">
-            <div class="col-2">
-              <img class="img-fluid" src="@/assets/samsung-telefon.png" />
-            </div>
-
-            <div class="col">
-              <div class="row text-muted">Telefon</div>
-              <div class="row">Samsung</div>
-            </div>
-            <div class="col"><a href="#" class="border">1</a></div>
-            <div class="col">5000 TL</div>
-          </div>
-        </div>
-        <div class="row border-top border-bottom">
-          <div class="row main align-items-center">
-            <div class="col-2">
-              <img class="img-fluid" src="@/assets/xiaomi-powerbank.png" />
-            </div>
-            <div class="col">
-              <div class="row text-muted">Powerbank</div>
-              <div class="row">Xioami Powerbank</div>
-            </div>
-            <div class="col"><a href="#" class="border">1</a></div>
-            <div class="col">200 TL</div>
-          </div>
-        </div>
+      <div class="title ms-5 mb-2">
+        <h1>Siparişlerim</h1>
       </div>
-      <div class="col-md-4 summary">
-        <div>
-          <h5><b>Sipariş Özeti</b></h5>
-        </div>
-        <hr />
-        <div class="row">
-          <div class="col">Sipariş tarihi: <small>10 Kasım 2021 19:55</small></div>
-        </div>
-        <br />
-        <div class="row">
-          <div class="col">Kargo takip no. <small>192092139021</small></div>
-        </div>
-        <br /><br />
-        <div class="row" style="border-top: 1px solid rgba(0, 0, 0, 0.1); padding: 2vh 0" />
-        <div class="col">
-          <h6>Toplam tutar:</h6>
-          6215.00 TL
+      <div class="col-8 summary ms-5">
+        <div class="row summary-box">
+          <div class="row align-items-center row-1">
+            <div class="col-4 text-muted"><strong>Sipariş Tarihi</strong></div>
+
+            <div class="col-4 text-muted"><strong>Alıcı</strong></div>
+
+            <div class="col-4 text-muted"><strong>Tutar</strong></div>
+
+            <div class="position-absolute">
+              <button class="btn btn-primary btn-order-detail">Sipariş Detayı</button>
+            </div>
+          </div>
+          <div class="row align-items-center row-2">
+            <div class="col-4">01.01.01</div>
+            <div class="col-4">Mohamedo Avdol</div>
+            <div class="col-4">666 TL</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
+<script>
+export default {};
+</script>
+
 <style scoped>
-.title {
-  margin-bottom: 5vh;
+h1 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 16px;
 }
 
 .card {
   margin: auto;
-  max-width: 950px;
-  width: 90%;
+  max-width: 1200px;
+  width: 65%;
+  height: 400px;
   border-radius: 1rem;
   border: transparent;
 }
 
-.cart {
-  background-color: #fff;
-  padding: 4vh 5vh;
-  border-bottom-left-radius: 1rem;
-  border-top-left-radius: 1rem;
+.card-img {
+  height: 70px;
+  width: 70px;
+  margin-top: 7px;
+  margin-bottom: 7px;
 }
 
-.summary .col-2 {
-  padding: 0;
+.summary {
+  border-radius: 6px;
+  border: solid 1px #e6e6e6;
+  width: 1000px;
+  height: 500px;
 }
-
-.summary .col-10 {
-  padding: 0;
+.summary-box {
+  border-radius: 6px;
+  border: solid 1px #e6e6e6;
+  width: 997px;
+  height: 130px;
 }
-
-.row {
-  margin: 0;
+.btn-order-detail {
+  margin-left: 840px;
 }
-
-.title b {
-  font-size: 1.5rem;
+.row-1 {
+  background-color: #e6e6e6;
+  border-radius: 6px;
+  margin-left: 0.1px;
 }
-
-.main {
-  margin: 0;
-  padding: 2vh 0;
-  width: 100%;
-}
-
-.col-2,
-.col {
-  padding: 0 1vh;
-}
-
-a {
-  padding: 0 1vh;
-}
-
-.close {
-  margin-left: auto;
-  font-size: 0.7rem;
-}
-
-img {
-  width: 3.5rem;
-}
-
-.back-to-shop {
-  margin-top: 4.5rem;
-}
-
-h5 {
-  margin-top: 4vh;
-}
-
-hr {
-  margin-top: 1.25rem;
-}
-
-form {
-  padding: 2vh 0;
-}
-
-select {
-  border: 1px solid rgba(0, 0, 0, 0.137);
-  padding: 1.5vh 1vh;
-  margin-bottom: 4vh;
-  outline: none;
-  width: 100%;
-  background-color: rgb(247, 247, 247);
-}
-
-input {
-  border: 1px solid rgba(0, 0, 0, 0.137);
-  padding: 1vh;
-  margin-bottom: 4vh;
-  outline: none;
-  width: 100%;
-  background-color: rgb(247, 247, 247);
-}
-
-input:focus::-webkit-input-placeholder {
-  color: transparent;
-}
-
-.btn {
-  background-color: #000;
-  border-color: #000;
-  color: white;
-  width: 100%;
-  font-size: 0.7rem;
-  margin-top: 4vh;
-  padding: 1vh;
-  border-radius: 0;
-}
-
-.btn:focus {
-  box-shadow: none;
-  outline: none;
-  box-shadow: none;
-  color: white;
-  -webkit-box-shadow: none;
-  user-select: none;
-  -webkit-user-select: none;
-  transition: none;
-}
-
-.btn:hover {
-  color: white;
-}
-
-a {
-  color: black;
-}
-
-a:hover {
-  color: black;
-  text-decoration: none;
-}
-
-#code {
-  background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)),
-    url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
-  background-repeat: no-repeat;
-  background-position-x: 95%;
-  background-position-y: center;
+.row-2 {
+  margin-left: 5px;
 }
 </style>
