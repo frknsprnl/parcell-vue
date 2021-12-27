@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-4">
         <div v-if="message !== null" class="card p-2" style="width: 18rem">
-          <img :src="require('@/assets/' + planData.image)" class="card-img-top" alt="..." />
+          <img class="card-img-top" alt="..." />
           <div class="card-body">
             <h6 class="text-center">{{ planData.planName }}</h6>
             <hr />
@@ -29,20 +29,11 @@
 </template>
 
 <script>
-import { ref } from "vue";
 export default {
-  setup() {
-    const planData = ref({});
-
-    return {
-      planData,
-    };
-  },
-
   data() {
     return {
       planId: null,
-      message: null,
+      planData: {},
     };
   },
   methods: {
