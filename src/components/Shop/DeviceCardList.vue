@@ -1,13 +1,13 @@
 <template>
-  <div class="d-flex justify-content-lg-center m-4">
+  <div class="d-flex justify-content-lg-center m-4 mt-5">
     <load-animation v-if="getLoadingStatus" />
-    <div v-if="!getLoadingStatus" class="row justify-content-center">
+    <div v-if="!getLoadingStatus" class="row device-container col-9">
       <div
-        class="d-flex align-items-center justify-content-center col-3"
+        class="d-flex align-items-center justify-content-center col-4 py-5"
         v-for="data in deviceData"
         :key="data.id"
       >
-        <device-card class="">
+        <device-card class="d-flex justify-content-center">
           <template #image>
             <div class="">
               <!-- <div class="img-cont" :style="` background-image : url('${data.imageDirectory}')`"></div> -->
@@ -95,6 +95,14 @@ export default {
 </script>
 
 <style scoped>
+.device-container {
+  margin: auto;
+  max-width: 1400px;
+  width: 70%;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 1rem;
+  border: transparent;
+}
 .img-cont {
   background-size: 12rem 12rem;
   width: 12rem;
