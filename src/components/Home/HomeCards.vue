@@ -9,7 +9,7 @@
           <a class="btn btn-outline-primary btn-lg" href=""> Paketler </a>
         </router-link>
       </template>
-      <template #text-center>Parcell Tüm Müşterilerine İhtiyaçlarına Uygun Paketler Sunar </template>
+      <template #text-center>{{ homeData.card1 }} </template>
     </card-item>
     <card-item>
       <template #image>
@@ -44,6 +44,27 @@
 import CardItem from "../Shared/CardItem.vue";
 export default {
   components: { CardItem },
+  data() {
+    return {
+      homeData: {},
+      homeId: "61cb4b95a1a62dc4b20deb43",
+    };
+  },
+  methods: {
+    async getHomeData() {
+      await this.$appAxios
+        .get("/HomePage/GetHomePage/" + this.homeId)
+        .then((response) => {
+          console.log(response.data);
+          this.homeData = response.data;
+          console.log(this.homeData);
+        })
+        .catch((error) => console.error(error));
+    },
+  },
+  async created() {
+    await this.getHomeData();
+  },
 };
 </script>
 
