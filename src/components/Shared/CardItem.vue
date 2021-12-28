@@ -52,7 +52,7 @@ span.lower-text {
   -ms-transform: translateY(-20px);
   transform: translateY(-20px);
   box-shadow: 0 22px 43px rgba(0, 0, 0, 0.32);
-  cursor: pointer;
+  cursor: auto;
   border-radius: 5px;
 }
 </style>

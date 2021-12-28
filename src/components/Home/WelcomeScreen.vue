@@ -1,28 +1,30 @@
 <template>
-  <div class="d-flex justify-content-between-sm gradient-border">
-    <div class="row-2 mt-4 ms-4">
-      <h2 class="col-8 ms-4 mb-5 text-white">
+  <div class="gradient-border">
+    <load-animation v-if="getLoadingStatus" />
+    <div v-if="!getLoadingStatus" class="row-2 mt-4 ms-4">
+      <img :src="require('@/assets/' + homeData.logo)" alt="" height="240" class="parcell-logo" />
+      <h2 class="col-4 ms-4 mb-5 text-white">
         {{ homeData.headerText }}
       </h2>
       <router-link class="text-decoration-none" :to="{ name: 'NumberTransfer' }">
-        <a class="btn btn-danger btn-lg col-2 mt-5 ms-4"> Parcell'e Geç</a>
+        <a class="btn btn-danger btn-lg col-2 mt-5 ms-4 mb-5"> Parcell'e Geç</a>
       </router-link>
     </div>
-    <logo />
   </div>
 </template>
 
 <script>
-import Logo from "../Shared/Logo.vue";
+import LoadAnimation from "../Shared/LoadAnimation.vue";
 
 export default {
   components: {
-    Logo,
+    LoadAnimation,
   },
   data() {
     return {
       homeData: {},
       homeId: "61cb4b95a1a62dc4b20deb43",
+      isLoading: true,
     };
   },
   methods: {
@@ -38,18 +40,26 @@ export default {
     },
   },
   async created() {
+    this.isLoading = true;
     await this.getHomeData();
+    this.isLoading = false;
+  },
+  computed: {
+    getLoadingStatus: function () {
+      return this.isLoading;
+    },
   },
 };
 </script>
 
 <style>
-.font-google {
-  font-family: "Itim", cursive;
-}
-
 .gradient-border {
   background: linear-gradient(0deg, #7367f0, #4c3a6e);
+  padding-top: 15px;
+}
+.parcell-logo {
+  margin-left: 1100px;
+  position: absolute;
 }
 </style>
 
