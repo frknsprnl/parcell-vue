@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex justify-content-lg-center m-4 mt-5">
     <load-animation v-if="getLoadingStatus" />
-    <div v-if="!getLoadingStatus" class="row device-container col-9">
+    <div v-if="!getLoadingStatus" class="row device-container col-10 mt-4">
       <div
-        class="d-flex align-items-center justify-content-center col-4 py-5"
+        class="d-flex align-items-center justify-content-center col-4 mt-5"
         v-for="data in deviceData"
         :key="data.id"
       >
@@ -24,6 +24,7 @@
           <template #price> {{ data.price }}₺ </template>
         </device-card>
       </div>
+      <div class="mt-5"></div>
     </div>
   </div>
 
