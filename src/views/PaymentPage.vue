@@ -128,9 +128,9 @@
             </div>
           </div>
         </div>
-        <div class="card-form__row">
+        <div class="d-flex justify-content-lg-between">
           <button class="btn btn-primary" @click="pay()">Ödeme yap</button>
-          <span class="mt-2 bi bi-wallet2 sum"
+          <span class="mt-2 bi bi-wallet2"
             ><strong> Ödeme tutarı: <span v-text="totalPayment"></span> TL</strong>
           </span>
         </div>

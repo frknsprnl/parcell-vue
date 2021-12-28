@@ -41,6 +41,7 @@ const store = createStore({
     _getUserAddress: state => state?.user?.address,
     _getPaymentObject: state => state.paymentObject,
     _getUserBalance: state => state?.user?.balance,
+    _getUserName: state => state?.user?.name + " " + state?.user?.surname,
   },
   plugins: [
     createPersistedState({

@@ -108,7 +108,7 @@ export default {
         });
         this.$swal.fire({
           title: "Lütfen Bekleyin...",
-          timer: 1000,
+          timer: 500,
           didOpen: () => {
             this.$swal.showLoading();
           },

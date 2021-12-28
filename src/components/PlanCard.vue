@@ -83,7 +83,7 @@ export default {
             this.$store.commit("setPaymentObject", { type: "plan", planId: planId, price: price });
             this.$swal.fire({
               title: "Lütfen Bekleyin...",
-              timer: 1000,
+              timer: 500,
               didOpen: () => {
                 this.$swal.showLoading();
               },
@@ -96,12 +96,37 @@ export default {
     },
 
     async CheckBalance(price, planId) {
+      this.$swal.fire({
+        title: "Lütfen Bekleyin...",
+        didOpen: () => {
+          this.$swal.showLoading();
+        },
+      });
       const userId = this.$store.getters._currentUserId;
       await this.$appAxios
         .put(`/User/PayWithBalance?userId=${userId}&price=${price}`)
         .then((response) => {
           console.log(response);
           this.setUserPlan(planId);
+          this.$swal.close();
+          this.$swal
+            .fire({
+              title: "İşlem Tamamlandı.",
+              icon: "success",
+              html: "<br/>",
+              showConfirmButton: true,
+              showDenyButton: true,
+              confirmButtonText: "Ana Sayfa",
+              denyButtonText: "Paket Görüntüle",
+            })
+            .then((response) => {
+              if (response.isDenied) {
+                this.$store.commit("setProfileActiveTab", "UserPlan");
+                this.$router.push({ name: "ProfilePage" });
+              } else if (response.isConfirmed) {
+                this.$router.push({ name: "HomePage" });
+              }
+            });
         })
         .catch((error) => {
           console.log(error);

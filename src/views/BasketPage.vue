@@ -46,7 +46,6 @@
                 </li>
               </ul>
               <hr style="width: 88%" />
-
               <span class="d-flex justify-content-center" v-if="totalPrice !== 0">
                 <strong>{{ totalPrice + shippingPrice }} TL</strong>
               </span>

@@ -15,12 +15,18 @@
           </div>
         </div>
         <div class="scrollable">
-          <div class="row align-items-center row-2 mb-2" v-for="item in 10" :key="item.id">
-            <div class="col-3"><span class="ms-2">01.01.01</span></div>
+          <div class="row align-items-center row-2 mb-2" v-for="order in orderData" :key="order.id">
+            <div class="col-3">
+              <span class="ms-2">{{ order.orderDate }}</span>
+            </div>
 
-            <div class="col-3"><span class="ms-5">Mohamedo Avdol</span></div>
+            <div class="col-3">
+              <span class="ms-5">{{ orderUser }}</span>
+            </div>
 
-            <div class="col-4"><span class="ms-5 text-sum">666 TL</span></div>
+            <div class="col-4">
+              <span class="ms-5 text-sum">{{ order.totalPrice }} TL</span>
+            </div>
             <div class="col-2">
               <button class="btn btn-primary me-3">Sipariş Detayı</button>
             </div>
@@ -32,7 +38,41 @@
 </template>
 
 <script>
-export default {};
+import moment from "moment";
+export default {
+  data() {
+    return {
+      orderData: null,
+      orderUser: null,
+    };
+  },
+  methods: {
+    async getData() {
+      await this.$appAxios
+        .get(`/Order/GetUserOrders?userId=${this.$store.getters._currentUserId}`)
+        .then((response) => {
+          console.log(response);
+          this.orderData = response.data;
+          this.getDate();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getDate() {
+      this.orderData.forEach((el) => {
+        el.orderDate = moment(el.orderDate).subtract(3, "hours").format("LLLL");
+      });
+      console.log(this.orderData);
+    },
+  },
+  async created() {
+    moment.locale("tr");
+    await this.getData();
+    this.orderUser = this.$store.getters._getUserName;
+  },
+  mounted() {},
+};
 </script>
 
 <style scoped>

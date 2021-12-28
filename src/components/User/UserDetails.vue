@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <load-animation v-if="getLoadingStatus" />
+    <load-animation class="mt-5" v-if="getLoadingStatus" />
     <div v-if="!getLoadingStatus" class="container rounded bg-white">
       <div class="row justify-content-center">
         <div class="col-md-3 border-right">
@@ -167,6 +167,11 @@ export default {
       },
     };
   },
+  async created() {
+    this.isLoading = true;
+    await this.getUser();
+    this.isLoading = false;
+  },
   methods: {
     UpdateUserInfo(userId, mail, address) {
       this.v$.$validate();
@@ -184,8 +189,8 @@ export default {
         this.disabled = 0;
       }
     },
-    getUser() {
-      this.$appAxios
+    async getUser() {
+      await this.$appAxios
         .get(`/User/GetUser/${this.$store.getters._currentUserId}`)
         .then((response) => {
           console.log(response);
@@ -206,11 +211,6 @@ export default {
     getLoadingStatus: function () {
       return this.isLoading;
     },
-  },
-  async created() {
-    this.isLoading = true;
-    await this.getUser();
-    this.isLoading = false;
   },
 };
 </script>
