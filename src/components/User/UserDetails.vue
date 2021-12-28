@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="container rounded bg-white">
+    <load-animation v-if="getLoadingStatus" />
+    <div v-if="!getLoadingStatus" class="container rounded bg-white">
       <div class="row justify-content-center">
         <div class="col-md-3 border-right">
           <div class="d-flex flex-column align-items-center mt-5 p-4">
@@ -133,10 +134,11 @@
 import useVuelidate from "@vuelidate/core";
 import { required, email } from "@vuelidate/validators";
 import { ref } from "vue";
+import LoadAnimation from "../Shared/LoadAnimation.vue";
 
 export default {
   components: {
-    //
+    LoadAnimation,
   },
   setup() {
     const v$ = useVuelidate();
@@ -151,6 +153,7 @@ export default {
       user: {},
       disabled: 0,
       id: null,
+      isLoading: true,
     };
   },
   validations() {
@@ -199,9 +202,15 @@ export default {
       this.user.birthDate = date;
     },
   },
-  computed: {},
-  created() {
-    this.getUser();
+  computed: {
+    getLoadingStatus: function () {
+      return this.isLoading;
+    },
+  },
+  async created() {
+    this.isLoading = true;
+    await this.getUser();
+    this.isLoading = false;
   },
 };
 </script>
