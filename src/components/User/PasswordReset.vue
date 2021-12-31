@@ -79,12 +79,9 @@
 import CryptoJS from "crypto-js";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, sameAs } from "@vuelidate/validators";
-import { useToast } from "vue-toastification";
 export default {
   setup() {
-    const toast = useToast();
-
-    return { v$: useVuelidate(), toast };
+    return { v$: useVuelidate() };
   },
   data() {
     return {
@@ -121,11 +118,12 @@ export default {
           .then((response) => {
             console.log(response);
             console.log(newPassword);
+            this.$toast.success("Şifre Değiştirildi");
           })
           .catch((error) => {
             console.log(error);
             if (error.response.status === 404) {
-              this.toast.error("Eski şifreniz yanlış");
+              this.$toast.error("Eski şifreniz yanlış");
             }
           });
         this.submitted = false;

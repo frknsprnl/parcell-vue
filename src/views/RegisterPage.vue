@@ -217,7 +217,6 @@ import Navbar from "../components/Shared/Navbar.vue";
 import CryptoJS from "crypto-js";
 import useVuelidate from "@vuelidate/core";
 import { required, minLength, email, alpha, helpers } from "@vuelidate/validators";
-import { useToast } from "vue-toastification";
 
 const turkishChar = (value) => !helpers.req(value) || /^[a-zA-ZıİçÇşŞğĞÜüÖö]*$/g.test(value);
 
