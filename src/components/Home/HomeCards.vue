@@ -1,7 +1,7 @@
 <template>
   <load-animation v-if="getLoadingStatus" />
   <div v-if="!getLoadingStatus" class="container d-flex justify-content-center mt-5">
-    <card-item>
+    <card-item class="d-flex justify-content-center">
       <template #image>
         <img
           class="me-2"
@@ -17,7 +17,7 @@
       </template>
       <template #text-center>{{ homeData.card1.cardText }} </template>
     </card-item>
-    <card-item>
+    <card-item class="d-flex justify-content-center">
       <template #image>
         <img
           class=""
@@ -33,7 +33,7 @@
       </template>
       <template #text-center>{{ homeData.card2.cardText }} </template>
     </card-item>
-    <card-item>
+    <card-item class="d-flex justify-content-center">
       <template #image>
         <img
           class="me-5"
