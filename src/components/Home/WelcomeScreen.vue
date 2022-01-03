@@ -1,7 +1,7 @@
 <template>
   <div class="gradient-border">
     <load-animation v-if="getLoadingStatus" />
-    <div v-if="!getLoadingStatus" class="row-2 mt-4 ms-4">
+    <div v-if="!getLoadingStatus" class="row-2 mt-3 ms-4">
       <img :src="require('@/assets/' + homeData.logo)" alt="" height="240" class="parcell-logo" />
       <h2 class="col-4 ms-4 mb-5 text-white">
         {{ homeData.headerText }}
@@ -56,6 +56,7 @@ export default {
 .gradient-border {
   background: linear-gradient(0deg, #7367f0, #4c3a6e);
   padding-top: 15px;
+  height: 300px;
 }
 .parcell-logo {
   margin-left: 1100px;
