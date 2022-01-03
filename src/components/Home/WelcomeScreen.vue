@@ -7,7 +7,7 @@
         {{ homeData.headerText }}
       </h2>
       <router-link class="text-decoration-none" :to="{ name: 'NumberTransfer' }">
-        <a class="btn btn-danger btn-lg col-2 mt-5 ms-4 mb-5"> Parcell'e Geç</a>
+        <a class="btn btn-danger btn-lg col-1 mt-5 ms-4 mb-5"> Parcell'e Geç</a>
       </router-link>
     </div>
   </div>
