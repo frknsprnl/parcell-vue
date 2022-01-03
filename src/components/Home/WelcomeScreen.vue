@@ -7,7 +7,7 @@
         {{ homeData.headerText }}
       </h2>
       <router-link class="text-decoration-none" :to="{ name: 'NumberTransfer' }">
-        <a class="btn btn-danger btn-lg col-1 mt-5 ms-4 mb-5"> Parcell'e Geç</a>
+        <a class="btn btn-danger btn-lg col-2 mt-5 ms-4 mb-5 border border-danger"> Parcell'e Geç</a>
       </router-link>
     </div>
   </div>
@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .gradient-border {
   background: linear-gradient(0deg, #7367f0, #4c3a6e);
   padding-top: 15px;
@@ -60,6 +60,9 @@ export default {
 .parcell-logo {
   margin-left: 1100px;
   position: absolute;
+}
+.btn-lg {
+  width: 140px;
 }
 </style>
 
