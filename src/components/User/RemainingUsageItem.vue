@@ -33,7 +33,7 @@
 
   <div class="row g-1 m-5">
     <load-animation class="m-3" v-if="getLoadingStatus" />
-    <div v-if="!getLoadingStatus" class="d-flex">
+    <div v-if="!getLoadingStatus && message === null" class="d-flex">
       <div class="m-2">
         <div class="card p-2">
           <h4 class="text-center">İnternet</h4>
@@ -76,7 +76,10 @@
         </div>
       </div>
     </div>
-    <div>
+    <div v-else-if="!getLoadingStatus && message !== null" class="card p-2" style="width: 18rem">
+      <h4 class="text-center text-danger">{{ message }}</h4>
+    </div>
+    <div v-if="message === null">
       <div class="btn-group">
         <button @click="decreaseInternet" class="btn btn-primary me-1">İnternet</button>
         <button @click="decreaseMinutes" class="btn btn-primary me-1">Dakika</button>
@@ -100,6 +103,7 @@ export default {
       userData: null,
       planData: null,
       isLoading: false,
+      message: null,
     };
   },
   async created() {
@@ -119,6 +123,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          this.message = error.response.data;
         });
     },
     async convertData(data) {
@@ -126,8 +131,6 @@ export default {
       this.remaingData.minutes = parseInt((this.userData.minutes / data.minutes) * 100);
       this.remaingData.sms = parseInt((this.userData.sms / data.sms) * 100);
       this.remaingData.internet = this.remaingData.internet.toFixed(2);
-      console.log("'^^^^^^^^'", this.remaingData);
-      console.log("'^^^^^^213123^^'", data);
     },
     async getEmit() {
       await this.$emitter.on("planData", (data) => {
