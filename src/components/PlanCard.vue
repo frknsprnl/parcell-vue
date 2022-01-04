@@ -14,13 +14,13 @@
 
           <ul class="list-unstyled" id="planlist">
             <li class="bi bi-globe">
-              <span class="ms-2"> {{ plan.internet }}</span>
+              <span class="ms-2"> {{ plan.internet }} GB</span>
             </li>
             <li class="bi bi-telephone">
-              <span class="ms-2">{{ plan.minutes }}</span>
+              <span class="ms-2">{{ plan.minutes }} DK</span>
             </li>
             <li class="bi bi-envelope">
-              <span class="ms-2"> {{ plan.sms }} </span>
+              <span class="ms-2"> {{ plan.sms }} SMS</span>
             </li>
           </ul>
         </div>

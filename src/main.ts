@@ -8,7 +8,7 @@ import Toast from "vue-toastification";
 import VueSweetalert2 from 'vue-sweetalert2';
 import VueCreditCardValidation from 'vue-credit-card-validation';
 import VuePaycard from "vue-paycard";
-
+import veProgress from "vue-ellipse-progress";
 
 
 
@@ -35,6 +35,7 @@ app.use(Toast);
 app.use(VueSweetalert2,options);
 app.use(VueCreditCardValidation);
 app.use(VuePaycard);
+app.use(veProgress);
 
 
 
