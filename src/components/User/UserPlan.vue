@@ -62,6 +62,7 @@ export default {
         .then((response) => {
           this.planData = response.data;
           console.log(response);
+          this.$emitter.emit("planData", this.planData);
         })
         .catch((error) => {
           console.log("There was an error" + error.response);

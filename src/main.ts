@@ -9,7 +9,8 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import VueCreditCardValidation from 'vue-credit-card-validation';
 import VuePaycard from "vue-paycard";
 import veProgress from "vue-ellipse-progress";
-
+import mitt from 'mitt';
+const emitter = mitt();
 
 
 import 'sweetalert2/dist/sweetalert2.min.css';
@@ -38,8 +39,8 @@ app.use(VuePaycard);
 app.use(veProgress);
 
 
-
 app.config.globalProperties.$appAxios = appAxios;
 app.config.globalProperties.$toast = toast;
+app.config.globalProperties.$emitter = emitter;
 
 app.mount('#app');

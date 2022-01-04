@@ -101,7 +101,7 @@ const router = createRouter({
 
 router.beforeEach((to, _, next) => {
 
-  const authRequiredRoutes = ["ProfilePage", "BasketPage", "PaymentPage", "PromotionsPage"];
+  const authRequiredRoutes = ["ProfilePage", "BasketPage", "PaymentPage", "PromotionsPage", "FaturaliOl"];
   const authNotRequiredRoutes = ["LoginPage", "RegisterPage"];
   const _isAuthenticated = store.getters._isAuthenticated;
 
