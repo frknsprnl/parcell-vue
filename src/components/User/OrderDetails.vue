@@ -27,9 +27,28 @@
             <div class="col-4">
               <span class="ms-5 text-sum">{{ order.totalPrice }} TL</span>
             </div>
+
             <div class="col-2">
-              <button class="btn btn-primary me-3">Sipariş Detayı</button>
+              <button @click="openModal()" class="btn btn-primary me-3">Sipariş Detayı</button>
             </div>
+            <!-- <modal
+              :visible="isVisible"
+              @hide="isVisible = false"
+              :bgOverlay="'transparent'"
+              :bgPanel="'white'"
+              :defaultWidth="'50%'"
+              :closeScroll="true"
+            >
+              <template #header>
+                <h4>Naber</h4>
+              </template>
+              <template #body>
+                <div style="width = 13rem;"><h1>AAAAAAA</h1></div>
+              </template>
+            </modal> -->
+            <modal-2 :modalActive="showModal" @close="openModal">
+              <phone-item />
+            </modal-2>
           </div>
         </div>
       </div>
@@ -39,11 +58,17 @@
 
 <script>
 import moment from "moment";
+import Modal from "@/components/Shared/Modal.vue";
+import Modal2 from "@/components/Shared/Modal2.vue";
+import { VueFinalModal, ModalsContainer } from "vue-final-modal";
+import PhoneItem from "@/components/Shop/PhoneItem.vue";
 export default {
+  components: { Modal2, PhoneItem },
   data() {
     return {
       orderData: null,
       orderUser: null,
+      showModal: false,
     };
   },
   methods: {
@@ -64,6 +89,10 @@ export default {
         el.orderDate = moment(el.orderDate).subtract(3, "hours").format("LLLL");
       });
       console.log(this.orderData);
+    },
+    openModal() {
+      this.showModal = !this.showModal;
+      //
     },
   },
   async created() {
@@ -137,3 +166,4 @@ h1 {
   overflow: scroll;
 }
 </style>
+

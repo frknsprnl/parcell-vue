@@ -18,7 +18,7 @@
             {{ data.id }}
           </template>
           <template #title>
-            <button class="btn btn-outline-primary" @click="openModal('headphone')">{{ data.name }}</button>
+            <button class="btn btn-outline-primary" @click="openModal(data)">{{ data.name }}</button>
           </template>
           <template #body-text> {{ data.detailText }} </template>
           <template #price> {{ data.price }}₺ </template>
@@ -29,20 +29,23 @@
   </div>
 
   <modal
-    :visible="headphone"
+    :visible="modalVisible"
     @hide="headphone = false"
     :bgOverlay="'transparent'"
     :bgPanel="'white'"
     :defaultWidth="'50%'"
     :closeScroll="true"
+    @hideModal="closeModal()"
   >
     <template #header>
-      <div class="d-grid">
-        <button @click="closeModal('headphone')" type="button" class="btn btn-outline-primary">X</button>
-      </div>
+      <!-- <div class="d-grid">
+        <button @click="closeModal()" type="button" class="btn btn-outline-primary">X</button>
+      </div> -->
     </template>
     <template #body>
-      <headphone-item />
+      <phone-item :deviceData="modalDevice" v-if="modalItemVisible === 'Phone'" />
+      <headphone-item :deviceData="modalDevice" v-if="modalItemVisible === 'Headphone'" />
+      <powerbank-item :deviceData="modalDevice" v-if="modalItemVisible === 'Powerbank'" />
     </template>
   </modal>
 </template>
@@ -55,16 +58,14 @@ import HeadphoneItem from "./HeadphoneItem.vue";
 import PowerbankItem from "./PowerbankItem.vue";
 import LoadAnimation from "../Shared/LoadAnimation.vue";
 export default {
-  components: { DeviceCard, Modal, LoadAnimation },
+  components: { DeviceCard, Modal, LoadAnimation, PhoneItem, HeadphoneItem, PowerbankItem },
 
   data() {
     return {
-      modal: null,
-      phone: false,
-      powerbank: false,
-      headphone: false,
+      modalVisible: false,
+      modalItemVisible: false,
       deviceData: [],
-      imageUrl: null,
+      modalDevice: null,
       isLoading: true,
     };
   },
@@ -79,6 +80,31 @@ export default {
           console.log(response.data);
         })
         .catch((error) => console.error(error));
+    },
+    openModal(data) {
+      if (data.type === "Phone") this.phoneModal(data);
+      else if (data.type === "Headphone") this.headphoneModal(data);
+      else this.powerbankModal(data);
+    },
+    closeModal() {
+      this.modalVisible = false;
+      this.modalItemVisible = null;
+    },
+    phoneModal(data) {
+      this.modalVisible = true;
+      this.modalItemVisible = data.type;
+      this.modalDevice = data;
+      console.log(this.modalDevice);
+    },
+    headphoneModal(data) {
+      this.modalVisible = true;
+      this.modalItemVisible = data.type;
+      this.modalDevice = data;
+    },
+    powerbankModal(data) {
+      this.modalVisible = true;
+      this.modalItemVisible = data.type;
+      this.modalDevice = data;
     },
   },
 

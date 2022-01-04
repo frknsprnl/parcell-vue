@@ -9,6 +9,9 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import VueCreditCardValidation from 'vue-credit-card-validation';
 import VuePaycard from "vue-paycard";
 
+
+
+
 import 'sweetalert2/dist/sweetalert2.min.css';
 import "vue-toastification/dist/index.css";
 import "bootstrap/dist/css/bootstrap.min.css"; 
@@ -32,6 +35,8 @@ app.use(Toast);
 app.use(VueSweetalert2,options);
 app.use(VueCreditCardValidation);
 app.use(VuePaycard);
+
+
 
 app.config.globalProperties.$appAxios = appAxios;
 app.config.globalProperties.$toast = toast;
