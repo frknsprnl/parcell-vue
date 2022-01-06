@@ -9,6 +9,7 @@ const store = createStore({
     profileActiveTab: "UserDetails",
     user: null,
     paymentObject: null,
+    invoice: null,
   },
   mutations: {
     setProfileActiveTab(state, payload) {
@@ -19,10 +20,15 @@ const store = createStore({
     },
     logoutUser(state) {
       state.user = null;
+      state.paymentObject = null,
+        state.invoice = null
       state.profileActiveTab = "UserDetails";
     },
     setPaymentObject(state, item) {
       state.paymentObject = item;
+    },
+    setInvoice(state, payload) {
+      state.invoice = payload;
     }
   },
   actions: {
@@ -42,6 +48,15 @@ const store = createStore({
     _getPaymentObject: state => state.paymentObject,
     _getUserBalance: state => state?.user?.balance,
     _getUserName: state => state?.user?.name + " " + state?.user?.surname,
+    _getUserInvoice: state => state.invoice,
+    _getLoginCheck: state => {
+      if (state.user === null) {
+        return null
+      }
+      else {
+        return "" + state.user.id
+      }
+    }
   },
   plugins: [
     createPersistedState({

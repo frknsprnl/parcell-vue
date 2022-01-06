@@ -217,6 +217,8 @@ export default {
           this.payBasket();
         } else if (this.paymentObject.type === "deposit") {
           this.payDeposit();
+        } else if (this.paymentObject.type === "invoice") {
+          this.payInvoice();
         }
       }
     },
@@ -249,6 +251,9 @@ export default {
         });
     },
     payPlan() {
+      if (this.paymentObject.invoice) {
+        this.setInvoicePlan();
+      }
       this.$appAxios
         .get(`/User/SetUserPlan?userId=${this.userId}&planId=${this.paymentObject.planId}`)
         .then((response) => {
@@ -309,11 +314,63 @@ export default {
           console.log(error);
         });
     },
+    payInvoice() {
+      this.$appAxios
+        .get(`/Invoice/PayBill?userId=${this.userId}`)
+        .then((response) => {
+          this.getInvoice();
+          console.log(response);
+          this.$swal
+            .fire({
+              title: "Fatura Ödemesi Başarılı",
+              icon: "success",
+              html: "<br/>",
+              showConfirmButton: true,
+              showDenyButton: true,
+              confirmButtonText: "Ana Sayfa",
+              denyButtonText: "Faturalarım",
+            })
+            .then((response) => {
+              if (response.isDenied) {
+                this.$store.commit("setProfileActiveTab", "FaturaDetay");
+                this.$router.push({ name: "ProfilePage" });
+              } else {
+                this.$router.push({ name: "HomePage" });
+              }
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     clearBasket() {
       this.$appAxios
         .delete(`/Basket/ClearBasket?userId=${this.userId}`)
         .then((response) => {
           console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async getInvoice() {
+      await this.$appAxios
+        .get(`Invoice/GetInvoice?userId=${this.userId}`)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("setInvoice", response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    setInvoicePlan() {
+      const userId = this.$store.getters._currentUserId;
+      this.$appAxios
+        .put(`/Invoice/SetInvoicePlan?userId=${userId}&planId=${this.paymentObject.planId}`)
+        .then((response) => {
+          console.log(response);
+          this.getInvoice();
         })
         .catch((error) => {
           console.log(error);

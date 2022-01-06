@@ -170,16 +170,27 @@ export default {
                   )
                   .then((response) => {
                     console.log(response);
+                    this.getInvoice();
+                    this.setUserPlan();
                     this.$swal.close();
-                    this.$swal.fire({
-                      title: "İşlem Tamamlandı.",
-                      icon: "success",
-                      html: "<br/>",
-                      showConfirmButton: true,
-                      showDenyButton: true,
-                      confirmButtonText: "Ana Sayfa",
-                      denyButtonText: "Paket Görüntüle",
-                    });
+                    this.$swal
+                      .fire({
+                        title: "İşlem Tamamlandı.",
+                        icon: "success",
+                        html: "<br/>",
+                        showConfirmButton: true,
+                        showDenyButton: true,
+                        confirmButtonText: "Ana Sayfa",
+                        denyButtonText: "Faturalarım",
+                      })
+                      .then((response) => {
+                        if (response.isDenied) {
+                          this.$store.commit("setProfileActiveTab", "FaturaDetay");
+                          this.$router.push({ name: "ProfilePage" });
+                        } else {
+                          this.$router.push({ name: "HomePage" });
+                        }
+                      });
                   })
                   .catch((error) => {
                     console.log(error);
@@ -203,6 +214,28 @@ export default {
           });
         }
       }
+    },
+    async getInvoice() {
+      const userId = this.$store.getters._currentUserId;
+      await this.$appAxios
+        .get(`Invoice/GetInvoice?userId=${userId}`)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("setInvoice", response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    setUserPlan() {
+      this.$appAxios
+        .get(`/User/SetUserPlan?userId=${this.user.id}&planId=${this.selectedPlan.id}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     openPlanSwal(data) {
       this.$swal

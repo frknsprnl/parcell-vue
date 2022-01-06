@@ -25,7 +25,7 @@
           </ul>
         </div>
         <div class="d-flex justify-content-md-center">
-          <button @click="openPaymentModal(plan.price, plan.id)" class="btn btn-primary btn-lg">
+          <button @click="openPaymentModal(plan.price, plan)" class="btn btn-primary btn-lg">
             <i class="bi bi-cart-plus-fill me-2"></i>
             <span>{{ plan.price }}₺ </span>
           </button>
@@ -43,10 +43,15 @@ export default {
     return {
       plan: {},
       isLoading: true,
+      isInvoice: null,
+      invoiceId: null,
+      loginCheck: null,
     };
   },
   async created() {
     this.isLoading = true;
+    this.loginCheck = this.$store.getters._getLoginCheck;
+    this.isInvoice = this.$store.getters._getUserInvoice;
     await this.getData();
     this.isLoading = false;
   },
@@ -65,7 +70,50 @@ export default {
         });
     },
 
-    openPaymentModal(price, planId) {
+    openPaymentModal(price, plan) {
+      if (this.loginCheck === null) {
+        console.log(this.loginCheck);
+        this.$swal
+          .fire({
+            title: "Hata",
+            icon: "error",
+            text: "Paket Almak İçin Giriş Yapın!",
+            showConfirmButton: true,
+            showDenyButton: true,
+            confirmButtonText: "Giriş Yap",
+            denyButtonText: "İptal",
+          })
+          .then((response) => {
+            if (response.isConfirmed) {
+              this.$router.push({ name: "LoginPage" });
+            }
+          });
+        return;
+      }
+      if (this.isInvoice === null) {
+        if (/Fatura/.test(plan.planName)) {
+          this.$swal.fire({
+            title: "Hata",
+            icon: "error",
+            text: "Faturalı Olmayan Müşteriler Faturalı Paketleri Alamaz",
+            showConfirmButton: true,
+            confirmButtonText: "Tamam",
+          });
+          return;
+        }
+      } else {
+        if (!/Fatura/.test(plan.planName)) {
+          this.$swal.fire({
+            title: "Hata",
+            icon: "error",
+            text: "Faturalı Müşteriler Faturasız Paketleri Alamaz",
+            showConfirmButton: true,
+            confirmButtonText: "Tamam",
+          });
+          return;
+        }
+      }
+      this.$swal.close();
       this.$swal
         .fire({
           title: "Lütfen Ödeme Yöntemi Seçin",
@@ -77,10 +125,15 @@ export default {
         })
         .then((response) => {
           if (response.isConfirmed) {
-            this.CheckBalance(price, planId);
+            this.CheckBalance(price, plan);
           } else if (response.isDenied) {
             this.$swal.close();
-            this.$store.commit("setPaymentObject", { type: "plan", planId: planId, price: price });
+            this.$store.commit("setPaymentObject", {
+              type: "plan",
+              planId: plan.id,
+              price: price,
+              invoice: /Fatura/.test(plan.planName),
+            });
             this.$swal.fire({
               title: "Lütfen Bekleyin...",
               timer: 500,
@@ -95,7 +148,7 @@ export default {
         });
     },
 
-    async CheckBalance(price, planId) {
+    async CheckBalance(price, plan) {
       this.$swal.fire({
         title: "Lütfen Bekleyin...",
         didOpen: () => {
@@ -107,7 +160,8 @@ export default {
         .put(`/User/PayWithBalance?userId=${userId}&price=${price}`)
         .then((response) => {
           console.log(response);
-          this.setUserPlan(planId);
+          this.setUserPlan(plan);
+          if (/Fatura/.test(plan.planName)) this.setInvoicePlan(plan);
           this.$swal.close();
           this.$swal
             .fire({
@@ -141,12 +195,36 @@ export default {
           }
         });
     },
-    async setUserPlan(planId) {
+    async setUserPlan(plan) {
       const userId = this.$store.getters._currentUserId;
       await this.$appAxios
-        .get(`/User/SetUserPlan?userId=${userId}&planId=${planId}`)
+        .get(`/User/SetUserPlan?userId=${userId}&planId=${plan.id}`)
         .then((response) => {
           console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    setInvoicePlan(plan) {
+      const userId = this.$store.getters._currentUserId;
+      this.$appAxios
+        .put(`/Invoice/SetInvoicePlan?userId=${userId}&planId=${plan.id}`)
+        .then((response) => {
+          console.log(response);
+          this.getInvoice();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    async getInvoice() {
+      const userId = this.$store.getters._currentUserId;
+      await this.$appAxios
+        .get(`Invoice/GetInvoice?userId=${userId}`)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("setInvoice", response.data);
         })
         .catch((error) => {
           console.log(error);

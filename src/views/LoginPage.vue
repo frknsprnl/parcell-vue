@@ -17,11 +17,21 @@
                             ><i class="bi bi-envelope-fill"> Email</i></label
                           >
                           <input
-                            v-model="userData.mail"
                             type="mail"
                             id="mail"
                             class="form-control form-control-md"
+                            v-model="userData.mail"
+                            @blur="v$.userData.mail.$touch()"
+                            :class="{
+                              'is-invalid': v$.userData.mail.$error,
+                            }"
                           />
+                          <div v-if="v$.userData.mail.required.$invalid" class="invalid-feedback">
+                            Bu alan boş olamaz.
+                          </div>
+                          <div v-if="v$.userData.mail.email.$invalid" class="invalid-feedback">
+                            Lütfen uygun bir mail giriniz.
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-6 mb-4">
@@ -30,12 +40,19 @@
                             ><i class="bi bi-shield-lock-fill"> Şifre</i></label
                           >
                           <input
-                            v-model="userData.password"
                             type="password"
                             id="password"
                             @keydown.enter="onLogin()"
                             class="form-control form-control-md"
+                            v-model="userData.password"
+                            @blur="v$.userData.password.$touch()"
+                            :class="{
+                              'is-invalid': v$.userData.password.$error,
+                            }"
                           />
+                          <div v-if="v$.userData.password.required.$invalid" class="invalid-feedback">
+                            Bu alan boş olamaz.
+                          </div>
                         </div>
                       </div>
                       <h6 v-if="loginError" class="text-danger text-center">Mail veya Şifreniz Hatalı !!!</h6>
@@ -67,8 +84,16 @@
 import Navbar from "../components/Shared/Navbar.vue";
 import FooterBar from "../components/Shared/FooterBar.vue";
 import CryptoJS from "crypto-js";
+import useVuelidate from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
 export default {
   components: { Navbar, FooterBar },
+
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
 
   data() {
     return {
@@ -77,19 +102,37 @@ export default {
         password: null,
       },
       loginError: false,
-      DbUser: {},
+    };
+  },
+
+  validations() {
+    return {
+      userData: {
+        mail: { required, email },
+        password: { required },
+      },
     };
   },
 
   methods: {
-    onLogin() {
-      const password = CryptoJS.SHA256(this.userData.password).toString();
-
-      if (this.userData.mail !== null && this.userData.password !== null) {
-        this.$appAxios
+    async onLogin() {
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        this.$swal.fire({
+          title: "Lütfen Bekleyin...",
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          didOpen: () => {
+            this.$swal.showLoading();
+          },
+        });
+        const password = CryptoJS.SHA256(this.userData.password).toString();
+        await this.$appAxios
           .get(`/User/LoginWithMail?mail=${this.userData.mail}&password=${password}`)
           .then((response) => {
+            this.$swal.close();
             this.$store.commit("setUser", response?.data);
+            this.getInvoice();
             console.log(response.data.id);
             this.$router.push({ name: "ProfilePage" });
             this.loginError = false;
@@ -99,9 +142,19 @@ export default {
               this.loginError = true;
             }
           });
-      } else {
-        console.log("mail şifre null");
       }
+    },
+    async getInvoice() {
+      const userId = this.$store.getters._currentUserId;
+      await this.$appAxios
+        .get(`Invoice/GetInvoice?userId=${userId}`)
+        .then((response) => {
+          console.log(response);
+          this.$store.commit("setInvoice", response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };
