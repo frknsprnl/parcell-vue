@@ -42,9 +42,6 @@
                 <div style="width = 13rem;"><h1>AAAAAAA</h1></div>
               </template>
             </modal> -->
-            <modal-2 :modalActive="showModal" @close="openModal">
-              <phone-item />
-            </modal-2>
           </div>
         </div>
       </div>
@@ -55,11 +52,8 @@
 <script>
 import moment from "moment";
 import Modal from "@/components/Shared/Modal.vue";
-import Modal2 from "@/components/Shared/Modal2.vue";
-import { VueFinalModal, ModalsContainer } from "vue-final-modal";
-import PhoneItem from "@/components/Shop/PhoneItem.vue";
 export default {
-  components: { Modal2, PhoneItem },
+  components: {},
   data() {
     return {
       orderData: null,
