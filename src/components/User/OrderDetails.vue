@@ -7,29 +7,25 @@
       <div class="col-8 summary ms-5">
         <div class="row summary-box">
           <div class="row align-items-center row-1">
-            <div class="col-3 text-muted"><strong>Sipariş Tarihi</strong></div>
+            <div class="col-4 text-muted"><strong>Sipariş Tarihi</strong></div>
 
-            <div class="col-3 text-muted"><strong class="ms-5">Alıcı</strong></div>
+            <div class="col-4 text-muted"><strong class="ms-5">Alıcı</strong></div>
 
             <div class="col-4 text-muted"><strong class="ms-5">Tutar</strong></div>
           </div>
         </div>
         <div class="scrollable">
           <div class="row align-items-center row-2 mb-2" v-for="order in orderData" :key="order.id">
-            <div class="col-3">
+            <div class="col-4">
               <span class="ms-2">{{ order.orderDate }}</span>
             </div>
 
-            <div class="col-3">
+            <div class="col-4">
               <span class="ms-5">{{ orderUser }}</span>
             </div>
 
             <div class="col-4">
               <span class="ms-5 text-sum">{{ order.totalPrice }} TL</span>
-            </div>
-
-            <div class="col-2">
-              <button @click="openModal()" class="btn btn-primary me-3">Sipariş Detayı</button>
             </div>
             <!-- <modal
               :visible="isVisible"
@@ -127,12 +123,6 @@ h1 {
   border: transparent;
 }
 
-.card-img {
-  height: 70px;
-  width: 70px;
-  margin-top: 7px;
-  margin-bottom: 7px;
-}
 
 .summary {
   border-radius: 6px;
@@ -143,13 +133,11 @@ h1 {
 .summary-box {
   border-radius: 6px;
   border: solid 1px #e6e6e6;
-  width: 997px;
+  width: 945px;
   height: 50px;
   margin-bottom: 15px;
 }
-.btn-order-detail {
-  margin-left: 100px;
-}
+
 .row-1 {
   background-color: #e6e6e6;
   border-radius: 6px;
@@ -159,11 +147,9 @@ h1 {
   border: solid 1px #e6e6e6;
   border-radius: 6px;
   height: 70px;
-  width: 970px;
+  width: 918px;
   margin-left: 1px;
 }
-#list-example {
-  overflow: scroll;
-}
+
 </style>
 
