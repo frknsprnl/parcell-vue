@@ -44,7 +44,7 @@ export default {
   methods: {
     async getData() {
       await this.$appAxios
-        .get("/Faq/GetFAQList")
+        .get("/Faq/GetFaqs")
         .then((response) => {
           console.log(response.data);
           this.faq = response.data;
