@@ -44,7 +44,7 @@ export default {
   methods: {
     async getData() {
       await this.$appAxios
-        .get("https://parcell-backend.azure-api.net/v1/api/Faq/GetFAQList")
+        .get("/Faq/GetFAQList")
         .then((response) => {
           console.log(response.data);
           this.faq = response.data;
