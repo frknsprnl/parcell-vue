@@ -301,7 +301,6 @@ export default {
 
     async postUser() {
       this.v$.$validate();
-
       if (this.v$.$error) {
         console.log(this.v$);
       } else {

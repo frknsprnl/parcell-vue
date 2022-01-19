@@ -7,7 +7,7 @@
           <label for="oldPassword" class="form-label"> <span>Eski Şifre</span></label>
           <input
             v-model="userData.oldPassword"
-            type="text"
+            type="password"
             class="form-control form-control"
             id="oldPassword"
             @blur="v$.userData.oldPassword.$touch()"
@@ -23,7 +23,7 @@
           <label for="newPassword" class="form-label"> <span>Yeni Şifre</span></label>
           <input
             v-model="userData.newPassword"
-            type="text"
+            type="password"
             class="form-control form-control"
             id="newPassword"
             @blur="v$.userData.newPassword.$touch()"
@@ -43,7 +43,7 @@
         <div class="container col-lg-7 mt-3">
           <label for="newPasswordRepeat" class="form-label"> <span>Yeni Şifre(Tekrar)</span></label>
           <input
-            type="text"
+            type="password"
             v-model="userData.newPasswordRepeat"
             class="form-control form-control"
             id="newPasswordRepeat"
@@ -114,7 +114,7 @@ export default {
         let oldPassword = CryptoJS.SHA256(this.userData.oldPassword).toString();
         let newPassword = CryptoJS.SHA256(this.userData.newPassword).toString();
         this.$appAxios
-          .get(`/User/ChangeUSerPassword?oldPassword=${oldPassword}&newPassword=${newPassword}`)
+          .get(`/User/ChangeUserPassword?oldPassword=${oldPassword}&newPassword=${newPassword}`)
           .then((response) => {
             console.log(response);
             console.log(newPassword);
